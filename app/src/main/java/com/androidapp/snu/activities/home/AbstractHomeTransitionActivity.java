@@ -21,59 +21,53 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.transition.Transition;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.squareup.picasso.Picasso;
 
-/**
- * Our secondary Activity which is launched from {@link HomeActivity}. Has a simple detail UI
- * which has a large banner image, title and body text.
- */
 public abstract class AbstractHomeTransitionActivity extends Activity {
 
 	// Extra name for the ID parameter
 	public static final String EXTRA_PARAM_ID = "detail:_id";
 
-	// View name of the header image. Used for activity scene transitions
+	// Used for activity scene transitions
 	public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
-
-	// View name of the header title. Used for activity scene transitions
 	public static final String VIEW_NAME_HEADER_TITLE = "detail:header:title";
 
-	private ImageView mHeaderImageView;
-	private TextView mHeaderTitle;
-
-	private HomeItem mItem;
+	private ImageView headerImageView;
+	private TextView headerTitle;
+	private HomeItem currentItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details);
 
-		// Retrieve the correct HomeItem instance, using the ID provided in the Intent
-		mItem = HomeItem.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
+		currentItem = getCurrentItem();
+		headerImageView = findViewById(R.id.imageview_header);
+		headerTitle = findViewById(R.id.textview_title);
+		LinearLayout contentView = findViewById(R.id.view_content);
 
-		mHeaderImageView = (ImageView) findViewById(R.id.imageview_header);
-		mHeaderTitle = (TextView) findViewById(R.id.textview_title);
+		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
+		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
 
-		// BEGIN_INCLUDE(detail_set_view_name)
-		/**
-		 * Set the name of the view's which will be transition to, using the static values above.
-		 * This could be done in the layout XML, but exposing it via static variables allows easy
-		 * querying from other Activities
-		 */
-		ViewCompat.setTransitionName(mHeaderImageView, VIEW_NAME_HEADER_IMAGE);
-		ViewCompat.setTransitionName(mHeaderTitle, VIEW_NAME_HEADER_TITLE);
-		// END_INCLUDE(detail_set_view_name)
+		loadHeaderImage();
 
-		loadItem();
+		contentView.addView(getContent());
 	}
 
-	private void loadItem() {
-		// Set the title TextView to the item's name and author
-		mHeaderTitle.setText(mItem.getName());
+	protected abstract View getContent();
+
+	private HomeItem getCurrentItem() {
+		return HomeItem.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
+	}
+
+	private void loadHeaderImage() {
+		headerTitle.setText(currentItem.getName());
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && addTransitionListener()) {
 			// If we're running on Lollipop and we have added a listener to the shared element
@@ -86,25 +80,19 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Load the item's thumbnail image into our {@link ImageView}.
-	 */
 	private void loadThumbnail() {
-		Picasso.with(mHeaderImageView.getContext())
-				.load(mItem.getImageViewId())
+		Picasso.with(headerImageView.getContext())
+				.load(currentItem.getImageViewId())
 				.noFade()
-				.into(mHeaderImageView);
+				.into(headerImageView);
 	}
 
-	/**
-	 * Load the item's full-size image into our {@link ImageView}.
-	 */
 	private void loadFullSizeImage() {
-		Picasso.with(mHeaderImageView.getContext())
-				.load(mItem.getActiveImageViewId())
+		Picasso.with(headerImageView.getContext())
+				.load(currentItem.getActiveImageViewId())
 				.noFade()
 				.noPlaceholder()
-				.into(mHeaderImageView);
+				.into(headerImageView);
 	}
 
 	/**
@@ -122,10 +110,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 			transition.addListener(new Transition.TransitionListener() {
 				@Override
 				public void onTransitionEnd(Transition transition) {
-					// As the transition has ended, we can now load the full-size image
 					loadFullSizeImage();
-
-					// Make sure we remove ourselves as a listener
 					transition.removeListener(this);
 				}
 
@@ -152,9 +137,6 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 			});
 			return true;
 		}
-
-		// If we reach here then we have not added a listener
 		return false;
 	}
-
 }

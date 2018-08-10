@@ -16,9 +16,6 @@
 
 package com.androidapp.snu.activities.home;
 
-import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.CreateWishActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +25,9 @@ import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.androidapp.snu.R;
+import com.androidapp.snu.activities.wishes.CreateWishActivity;
 
 public class HomeActivity extends Activity implements AdapterView.OnItemClickListener {
 

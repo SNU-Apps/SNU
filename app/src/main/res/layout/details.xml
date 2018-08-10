@@ -31,11 +31,11 @@
               android:maxLines="2"
               android:padding="16dp" />
 
-        <TextView
+        <LinearLayout
+              android:id="@+id/view_content"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:padding="16dp"
-              android:text="@string/bacon_ipsum"
+              android:orientation="vertical"
               android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
     </LinearLayout>

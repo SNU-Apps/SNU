@@ -17,6 +17,9 @@
 package com.androidapp.snu.activities.wishes;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 
@@ -25,5 +28,14 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected View getContent() {
+		LinearLayout layout = new LinearLayout(this);
+		TextView text = new TextView(this);
+		text.setText("This is my first content :)");
+		layout.addView(text);
+		return layout;
 	}
 }
