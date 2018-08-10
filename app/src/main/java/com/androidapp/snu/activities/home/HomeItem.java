@@ -17,6 +17,7 @@
 package com.androidapp.snu.activities.home;
 
 import android.app.Activity;
+import android.graphics.Color;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.CreateWishActivity;
@@ -27,11 +28,16 @@ import com.androidapp.snu.activities.wishes.CreateWishActivity;
  */
 public class HomeItem {
 	public static HomeItem[] ITEMS = new HomeItem[]{
-			new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur, CreateWishActivity.class),
-			new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur, CreateWishActivity.class),
-			new HomeItem("Meine Wunschliste", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur, CreateWishActivity.class),
-		new HomeItem("Wünsche von Freunden", R.drawable.friends_wishlist_blur_with_icon, R.drawable.friends_wishlist_blur, CreateWishActivity.class),
-		new HomeItem("Geschenkideensammlung", R.drawable.ideas_blur_with_icon, R.drawable.ideas_blur, CreateWishActivity.class)
+		new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur,
+			CreateWishActivity.class, Color.argb(255, 78, 135, 75)),
+		new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur,
+			CreateWishActivity.class, Color.argb(255, 73, 114, 159)),
+		new HomeItem("Meine Wunschliste", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur,
+			CreateWishActivity.class, Color.argb(255, 144, 137, 48)),
+		new HomeItem("Wünsche von Freunden", R.drawable.friends_wishlist_blur_with_icon, R.drawable.friends_wishlist_blur,
+			CreateWishActivity.class, Color.argb(255, 139, 46, 124)),
+		new HomeItem("Geschenkideensammlung", R.drawable.ideas_blur_with_icon, R.drawable.ideas_blur,
+			CreateWishActivity.class, Color.argb(255, 190, 85, 38))
 	};
 
 	public static HomeItem getItem(int id) {
@@ -47,12 +53,19 @@ public class HomeItem {
 	private final int imageViewId;
 	private final int activeImageViewId;
 	private final Class<? extends Activity> targetActivity;
+	private final int sceneMainColor;
 
-	private HomeItem(String name, int imageViewId, int activeImageViewId, Class<? extends Activity> activity) {
+	private HomeItem(
+		String name,
+		int imageViewId,
+		int activeImageViewId,
+		Class<? extends Activity> activity,
+		int sceneMainColor) {
 		this.name = name;
 		this.imageViewId = imageViewId;
 		this.activeImageViewId = activeImageViewId;
 		this.targetActivity = activity;
+		this.sceneMainColor = sceneMainColor;
 	}
 
 	public int getId() {
@@ -73,5 +86,9 @@ public class HomeItem {
 
 	public int getActiveImageViewId() {
 		return activeImageViewId;
+	}
+
+	public int getSceneMainColor() {
+		return sceneMainColor;
 	}
 }

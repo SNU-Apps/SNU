@@ -16,12 +16,16 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
+import com.androidapp.snu.activities.home.HomeItem;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
@@ -31,11 +35,30 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected View getContent() {
+	protected View getContent(HomeItem currentItem) {
 		LinearLayout layout = new LinearLayout(this);
 		TextView text = new TextView(this);
 		text.setText("This is my first content :)");
 		layout.addView(text);
 		return layout;
+	}
+
+	@Override
+	protected View getFooter(HomeItem currentItem) {
+		TextView text = new TextView(this);
+		text.setText("Weiter zur Vorschau");
+		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
+		text.setTextColor(currentItem.getSceneMainColor());
+		LinearLayout footer = new LinearLayout(this);
+		footer.addView(text);
+
+		text.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
+
+		return footer;
 	}
 }

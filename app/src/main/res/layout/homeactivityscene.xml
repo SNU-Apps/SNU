@@ -1,43 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-    <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-
-        <com.androidapp.snu.SquareFrameLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-
-            <ImageView
-                  android:id="@+id/imageview_header"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:scaleType="centerCrop" />
-
-        </com.androidapp.snu.SquareFrameLayout>
-
-        <TextView
-              android:id="@+id/textview_title"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="?android:attr/colorPrimary"
-              android:theme="@android:style/Theme.Material"
-              android:textAppearance="@android:style/TextAppearance.Material.Title"
-              android:maxLines="2"
-              android:padding="16dp" />
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
         <LinearLayout
-              android:id="@+id/view_content"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    </LinearLayout>
+            <com.androidapp.snu.SquareFrameLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
-</ScrollView>
+                <ImageView
+                      android:id="@+id/imageview_header"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:scaleType="centerCrop" />
+
+            </com.androidapp.snu.SquareFrameLayout>
+
+            <TextView
+                  android:id="@+id/textview_title"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="?android:attr/colorPrimary"
+                  android:theme="@android:style/Theme.Material"
+                  android:textAppearance="@android:style/TextAppearance.Material.Title"
+                  android:maxLines="2"
+                  android:padding="16dp" />
+
+            <LinearLayout
+                android:id="@+id/view_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/textview_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@android:style/Theme.Material"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:orientation="horizontal"
+        android:maxLines="1"
+        android:padding="16dp"
+    android:layout_alignParentBottom="true">
+</LinearLayout>
+
+</RelativeLayout>

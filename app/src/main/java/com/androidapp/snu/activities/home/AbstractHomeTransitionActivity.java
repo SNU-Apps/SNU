@@ -18,10 +18,12 @@ package com.androidapp.snu.activities.home;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.transition.Transition;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,16 +55,20 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 		headerImageView = findViewById(R.id.imageview_header);
 		headerTitle = findViewById(R.id.textview_title);
 		LinearLayout contentView = findViewById(R.id.view_content);
+		LinearLayout footer = findViewById(R.id.textview_footer);
+		footer.setGravity(Gravity.CENTER_HORIZONTAL);
 
 		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
 		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
 
 		loadHeaderImage();
 
-		contentView.addView(getContent());
+		contentView.addView(getContent(currentItem));
+		footer.addView(getFooter(currentItem));
 	}
 
-	protected abstract View getContent();
+	protected abstract View getContent(HomeItem currentItem);
+	protected abstract View getFooter(HomeItem currentItem);
 
 	private HomeItem getCurrentItem() {
 		return HomeItem.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
