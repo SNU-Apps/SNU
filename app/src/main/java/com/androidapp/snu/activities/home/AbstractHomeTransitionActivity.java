@@ -52,6 +52,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 		setContentView(R.layout.homeactivityscene);
 
 		currentItem = getCurrentItem();
+
 		headerImageView = findViewById(R.id.imageview_header);
 		headerTitle = findViewById(R.id.textview_title);
 		LinearLayout contentView = findViewById(R.id.view_content);
@@ -68,6 +69,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 	}
 
 	protected abstract View getContent(HomeItem currentItem);
+
 	protected abstract View getFooter(HomeItem currentItem);
 
 	private HomeItem getCurrentItem() {
@@ -90,17 +92,17 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 
 	private void loadThumbnail() {
 		Picasso.with(headerImageView.getContext())
-				.load(currentItem.getActiveImageViewId())
-				.noFade()
-				.into(headerImageView);
+			.load(currentItem.getActiveImageViewId())
+			.noFade()
+			.into(headerImageView);
 	}
 
 	private void loadFullSizeImage() {
 		Picasso.with(headerImageView.getContext())
-				.load(currentItem.getActiveImageViewId())
-				.noFade()
-				.noPlaceholder()
-				.into(headerImageView);
+			.load(currentItem.getActiveImageViewId())
+			.noFade()
+			.noPlaceholder()
+			.into(headerImageView);
 	}
 
 	/**

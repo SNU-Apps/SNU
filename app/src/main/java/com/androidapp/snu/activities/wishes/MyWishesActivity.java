@@ -25,7 +25,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
 
-public class CreateWishActivity extends AbstractHomeTransitionActivity {
+public class MyWishesActivity extends AbstractHomeTransitionActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	protected View getContent(HomeItem currentItem) {
 		LinearLayout layout = new LinearLayout(this);
 		TextView text = new TextView(this);
-		text.setText("This is my first content :)");
+		text.setText("This is my second content :)");
 		layout.addView(text);
 		return layout;
 	}
