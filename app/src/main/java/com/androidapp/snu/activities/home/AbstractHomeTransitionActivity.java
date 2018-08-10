@@ -92,7 +92,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 
 	private void loadThumbnail() {
 		Picasso.with(headerImageView.getContext())
-			.load(currentItem.getActiveImageViewId())
+			.load(currentItem.getImageViewId())
 			.noFade()
 			.into(headerImageView);
 	}
@@ -126,7 +126,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 
 				@Override
 				public void onTransitionStart(Transition transition) {
-					// No-op
+					//no-op
 				}
 
 				@Override
