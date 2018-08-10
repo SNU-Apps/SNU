@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package com.androidapp.snu;
+package com.androidapp.snu.activities.wishes;
 
+import com.androidapp.snu.R;
+import com.androidapp.snu.activities.home.HomeItem;
+import com.androidapp.snu.activities.home.HomeActivity;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
@@ -27,10 +30,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Our secondary Activity which is launched from {@link MainActivity}. Has a simple detail UI
+ * Our secondary Activity which is launched from {@link HomeActivity}. Has a simple detail UI
  * which has a large banner image, title and body text.
  */
-public class DetailActivity extends Activity {
+public class CreateWishActivity extends Activity {
 
 	// Extra name for the ID parameter
 	public static final String EXTRA_PARAM_ID = "detail:_id";
@@ -44,15 +47,15 @@ public class DetailActivity extends Activity {
 	private ImageView mHeaderImageView;
 	private TextView mHeaderTitle;
 
-	private Item mItem;
+	private HomeItem mItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details);
 
-		// Retrieve the correct Item instance, using the ID provided in the Intent
-		mItem = Item.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
+		// Retrieve the correct HomeItem instance, using the ID provided in the Intent
+		mItem = HomeItem.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
 
 		mHeaderImageView = (ImageView) findViewById(R.id.imageview_header);
 		mHeaderTitle = (TextView) findViewById(R.id.textview_title);
@@ -90,7 +93,7 @@ public class DetailActivity extends Activity {
 	 */
 	private void loadThumbnail() {
 		Picasso.with(mHeaderImageView.getContext())
-			.load(R.drawable.camera_blur_with_icon)
+			.load(mItem.getImageViewId())
 			.noFade()
 			.into(mHeaderImageView);
 	}
@@ -100,7 +103,7 @@ public class DetailActivity extends Activity {
 	 */
 	private void loadFullSizeImage() {
 		Picasso.with(mHeaderImageView.getContext())
-			.load(R.drawable.camera_blur)
+			.load(mItem.getActiveImageViewId())
 			.noFade()
 			.noPlaceholder()
 			.into(mHeaderImageView);
