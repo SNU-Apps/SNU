@@ -27,10 +27,10 @@ import com.androidapp.snu.activities.wishes.CreateWishActivity;
  */
 public class HomeItem {
 	public static HomeItem[] ITEMS = new HomeItem[]{
-			new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class),
-			new HomeItem("Neuen Wunsch beschreiben...", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class),
-			new HomeItem("Meine Wunschliste :)", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class),
-			new HomeItem("Wünsche von Freunden", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class)
+			new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur, CreateWishActivity.class),
+			new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur, CreateWishActivity.class),
+			new HomeItem("Meine Wunschliste :)", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur, CreateWishActivity.class),
+			new HomeItem("Wünsche von Freunden", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur, CreateWishActivity.class)
 	};
 
 	public static HomeItem getItem(int id) {
