@@ -47,6 +47,5 @@ public class SquareFrameLayout extends FrameLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int size = MeasureSpec.getSize(widthMeasureSpec);
         setMeasuredDimension(size, size / 4);
-		//foo
     }
 }
