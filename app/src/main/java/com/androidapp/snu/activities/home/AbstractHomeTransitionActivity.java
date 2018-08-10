@@ -45,7 +45,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.details);
+		setContentView(R.layout.homeactivityscene);
 
 		currentItem = getCurrentItem();
 		headerImageView = findViewById(R.id.imageview_header);
