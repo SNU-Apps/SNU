@@ -29,7 +29,7 @@ public class HomeItem {
 	public static HomeItem[] ITEMS = new HomeItem[]{
 			new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur, CreateWishActivity.class),
 			new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur, CreateWishActivity.class),
-			new HomeItem("Meine Wunschliste :)", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur, CreateWishActivity.class),
+			new HomeItem("Meine Wunschliste", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur, CreateWishActivity.class),
 			new HomeItem("Wünsche von Freunden", R.drawable.friends_wishlist_blur_with_icon, R.drawable.friends_wishlist_blur, CreateWishActivity.class)
 	};
 
