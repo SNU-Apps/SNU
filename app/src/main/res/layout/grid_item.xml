@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary"
         android:maxLines="1"
-        android:padding="10dp"
+        android:padding="12dp"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         android:theme="@android:style/Theme.Material" />
 
