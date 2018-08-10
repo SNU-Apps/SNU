@@ -27,10 +27,10 @@ import com.androidapp.snu.activities.wishes.CreateWishActivity;
  */
 public class HomeItem {
 	public static HomeItem[] ITEMS = new HomeItem[]{
-			new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_blur_with_icon, CreateWishActivity.class),
-			new HomeItem("Neuen Wunsch beschreiben...", R.drawable.camera_blur_with_icon, CreateWishActivity.class),
-			new HomeItem("Meine Wunschliste :)", R.drawable.camera_blur_with_icon, CreateWishActivity.class),
-			new HomeItem("Wünsche von Freunden", R.drawable.camera_blur_with_icon, CreateWishActivity.class)
+			new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class),
+			new HomeItem("Neuen Wunsch beschreiben...", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class),
+			new HomeItem("Meine Wunschliste :)", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class),
+			new HomeItem("Wünsche von Freunden", R.drawable.camera_blur_with_icon, R.drawable.camera_blur, CreateWishActivity.class)
 	};
 
 	public static HomeItem getItem(int id) {
@@ -44,11 +44,13 @@ public class HomeItem {
 
 	private final String name;
 	private final int imageViewId;
+	private final int activeImageViewId;
 	private final Class<? extends Activity> targetActivity;
 
-	private HomeItem(String name, int imageViewId, Class<? extends Activity> activity) {
+	private HomeItem(String name, int imageViewId, int activeImageViewId, Class<? extends Activity> activity) {
 		this.name = name;
 		this.imageViewId = imageViewId;
+		this.activeImageViewId = activeImageViewId;
 		this.targetActivity = activity;
 	}
 
@@ -69,6 +71,6 @@ public class HomeItem {
 	}
 
 	public int getActiveImageViewId() {
-		return imageViewId;
+		return activeImageViewId;
 	}
 }
