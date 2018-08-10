@@ -28,7 +28,7 @@ public class Item {
     public static Item[] ITEMS = new Item[] {
             new Item("Neuen Wunsch fotografieren...", "Romain Guy", "blur1.png"),
             new Item("Neuen Wunsch beschreiben...", "Romain Guy", "caterpillar.jpg"),
-            new Item("Meine Wunschliste :))", "Romain Guy", "look_me_in_the_eye.jpg"),
+            new Item("Meine Wunschliste :)", "Romain Guy", "look_me_in_the_eye.jpg"),
             new Item("Wünsche von Freunden", "Romain Guy", "flamingo.jpg")
     };
 
