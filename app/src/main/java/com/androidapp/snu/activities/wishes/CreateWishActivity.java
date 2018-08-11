@@ -16,6 +16,7 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,10 +36,32 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	@Override
 	protected View getContent(HomeItem currentItem) {
 		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		layout.setPadding(170, 200 ,170, 200);
 		TextView text = new TextView(this);
-		text.setText("This is my first content :)");
+		text.setText("Ich wünsche mir...");
+		text.setTextColor(currentItem.getSceneMainColor());
+		text.setTextSize(28);
+		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
+		text.setTypeface(typeface);
+
+		TextView text2 = new TextView(this);
+		text2.setText(
+			"\n\nein kleines, witziges Schnugg." +
+			"\n\n\nWICHIG:  Es muss seeehr klein sein!");
+		text2.setTextColor(currentItem.getSceneMainColor());
+		text2.setTextSize(22);
+		text2.setTypeface(typeface);
+
 		layout.addView(text);
+		layout.addView(text2);
+		layout.setBackgroundResource(R.drawable.empty_sheet_with_empty_polaroid);
 		return layout;
+	}
+
+	@Override
+	protected View getPreFooter(HomeItem currentItem) {
+		return null;
 	}
 
 	@Override

@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.wishes.PhotoWishActivity" />
         <activity android:name=".activities.wishes.CreateWishActivity" />
         <activity android:name=".activities.wishes.MyWishesActivity" />
     </application>

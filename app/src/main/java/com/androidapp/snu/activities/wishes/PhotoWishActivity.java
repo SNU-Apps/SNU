@@ -16,6 +16,7 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,7 +26,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
 
-public class MyWishesActivity extends AbstractHomeTransitionActivity {
+public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +36,30 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	@Override
 	protected View getContent(HomeItem currentItem) {
 		LinearLayout layout = new LinearLayout(this);
-		TextView text = new TextView(this);
-		text.setText("This is my second content :)");
-		layout.addView(text);
+		layout.setBackgroundResource(R.drawable.polaroid_big);
 		return layout;
 	}
 
 	@Override
 	protected View getPreFooter(HomeItem currentItem) {
-		return null;
+		TextView takePhoto = new TextView(this);
+		takePhoto.setText("Foto aufnehmen");
+		takePhoto.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
+		takePhoto.setTextColor(currentItem.getSceneMainColor());
+
+		LinearLayout footer = new LinearLayout(this);
+		footer.addView(takePhoto);
+
+		return footer;
 	}
 
 	@Override
 	protected View getFooter(HomeItem currentItem) {
 		TextView text = new TextView(this);
-		text.setText("Weiter zur Vorschau");
+		text.setText("Infos hinzufügen");
 		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
 		text.setTextColor(currentItem.getSceneMainColor());
+
 		LinearLayout footer = new LinearLayout(this);
 		footer.addView(text);
 

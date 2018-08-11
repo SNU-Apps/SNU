@@ -22,6 +22,7 @@ import android.graphics.Color;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
+import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 
 /**
  * Represents an HomeItem in our application. Each item has a name, id, full size image url and
@@ -30,7 +31,7 @@ import com.androidapp.snu.activities.wishes.MyWishesActivity;
 public class HomeItem {
 	public static HomeItem[] ITEMS = new HomeItem[]{
 		new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur,
-			CreateWishActivity.class, Color.argb(255, 78, 135, 75)),
+			PhotoWishActivity.class, Color.argb(255, 78, 135, 75)),
 		new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur,
 			CreateWishActivity.class, Color.argb(255, 73, 114, 159)),
 		new HomeItem("Meine Wunschliste", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur,
