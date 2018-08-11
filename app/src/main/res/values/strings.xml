@@ -41,5 +41,9 @@
         shank pork loin jerky venison tenderloin boudin ham hock ground round.</string>
 
     <string name="image_header">%1$s by %2$s</string>
+    <string name="picture">Picture</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
 
 </resources>

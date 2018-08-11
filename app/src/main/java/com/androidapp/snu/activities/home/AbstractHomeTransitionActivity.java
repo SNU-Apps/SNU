@@ -16,12 +16,12 @@
 
 package com.androidapp.snu.activities.home;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
@@ -32,7 +32,7 @@ import android.widget.TextView;
 import com.androidapp.snu.R;
 import com.squareup.picasso.Picasso;
 
-public abstract class AbstractHomeTransitionActivity extends Activity {
+public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	// Extra name for the ID parameter
 	public static final String EXTRA_PARAM_ID = "detail:_id";
@@ -66,13 +66,18 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
 
 		loadHeaderImage();
-
-		contentView.addView(getContent(currentItem));
+		View content = getContent(currentItem);
+		if (content != null) {
+			contentView.addView(content);
+		}
 		View preFooterView = getPreFooter(currentItem);
 		if (preFooterView != null) {
 			preFooter.addView(preFooterView);
 		}
-		footer.addView(getFooter(currentItem));
+		View footerView = getFooter(currentItem);
+		if(footerView != null) {
+			footer.addView(footerView);
+		}
 	}
 
 	protected abstract View getContent(HomeItem currentItem);
