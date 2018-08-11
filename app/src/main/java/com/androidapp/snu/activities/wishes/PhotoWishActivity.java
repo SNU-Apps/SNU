@@ -36,21 +36,13 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	@Override
 	protected View getContent(HomeItem currentItem) {
 		LinearLayout layout = new LinearLayout(this);
-		layout.setBackgroundResource(R.drawable.polaroid_big);
+		//layout.setBackgroundResource(R.drawable.polaroid_big);
 		return layout;
 	}
 
 	@Override
 	protected View getPreFooter(HomeItem currentItem) {
-		TextView takePhoto = new TextView(this);
-		takePhoto.setText("Foto aufnehmen");
-		takePhoto.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
-		takePhoto.setTextColor(currentItem.getSceneMainColor());
-
-		LinearLayout footer = new LinearLayout(this);
-		footer.addView(takePhoto);
-
-		return footer;
+		return null;
 	}
 
 	@Override

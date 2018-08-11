@@ -60,6 +60,7 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 		preFooter.setGravity(Gravity.CENTER_HORIZONTAL);
 		LinearLayout footer = findViewById(R.id.textview_footer);
 		footer.setGravity(Gravity.CENTER_HORIZONTAL);
+		footer.setBackgroundColor(Color.argb(15, 0, 0, 0));
 
 		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
 		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
@@ -68,14 +69,16 @@ public abstract class AbstractHomeTransitionActivity extends Activity {
 
 		contentView.addView(getContent(currentItem));
 		View preFooterView = getPreFooter(currentItem);
-		if(preFooterView != null) {
+		if (preFooterView != null) {
 			preFooter.addView(preFooterView);
 		}
 		footer.addView(getFooter(currentItem));
 	}
 
 	protected abstract View getContent(HomeItem currentItem);
+
 	protected abstract View getPreFooter(HomeItem currentItem);
+
 	protected abstract View getFooter(HomeItem currentItem);
 
 	private HomeItem getCurrentItem() {

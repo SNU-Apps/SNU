@@ -69,7 +69,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Title"
             android:orientation="horizontal"
             android:maxLines="2"
-            android:padding="16dp">
+            android:padding="10dp">
         </LinearLayout>
     </LinearLayout>
 
