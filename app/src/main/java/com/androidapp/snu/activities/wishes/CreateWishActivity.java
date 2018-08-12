@@ -16,9 +16,12 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,8 +40,14 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	protected View getContent(HomeItem currentItem) {
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		layout.setPadding(170, 200 ,170, 200);
+		layout.setPadding(20, 0, 20, 0);
+
+		ImageView photoThumbnail = new ImageView(this);
+		photoThumbnail.setImageResource(R.drawable.polaroid_with_camera_100px);
+
 		TextView text = new TextView(this);
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		text.setPadding(0, 20, 0, 25);
 		text.setText("Ich wünsche mir...");
 		text.setTextColor(currentItem.getSceneMainColor());
 		text.setTextSize(28);
@@ -48,14 +57,27 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		TextView text2 = new TextView(this);
 		text2.setText(
 			"\n\nein kleines, witziges Schnugg." +
-			"\n\n\nWICHIG:  Es muss seeehr klein sein!");
+				"\n\n\nWICHIG:  Es muss seeehr klein sein!");
 		text2.setTextColor(currentItem.getSceneMainColor());
 		text2.setTextSize(22);
 		text2.setTypeface(typeface);
 
 		layout.addView(text);
-		layout.addView(text2);
-		layout.setBackgroundResource(R.drawable.empty_sheet_with_empty_polaroid);
+		layout.addView(photoThumbnail);
+
+		ImageView pen = new ImageView(this);
+		pen.setImageResource(R.drawable.pen_grey_200px);
+		pen.setPadding(0, 80, 0, 50);
+		layout.addView(pen);
+
+		//layout.addView(text2);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+			LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		layoutParams.setMargins(80, 50, 80, 0);
+		//layout.setBackgroundResource(R.drawable.shadow);
+		layout.setLayoutParams(layoutParams);
+
+
 		return layout;
 	}
 
