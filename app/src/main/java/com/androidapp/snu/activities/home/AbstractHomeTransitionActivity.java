@@ -64,7 +64,10 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		preFooter.setGravity(Gravity.CENTER_HORIZONTAL);
 		LinearLayout footer = findViewById(R.id.textview_footer);
 		footer.setGravity(Gravity.CENTER_HORIZONTAL);
-		footer.setBackgroundColor(Color.argb(15, 0, 0, 0));
+		//footer.setBackgroundColor(Color.argb(15, 0, 0, 0));
+		footer.setBackgroundColor(Color.argb(255, 255, 255, 255));
+		//contentView.setBackgroundColor(Color.argb(255, 255, 255, 255));
+		findViewById(R.id.main_scene_layout).setBackgroundColor(Color.argb(255, 255, 255, 255));
 
 		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
 		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
@@ -79,7 +82,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 			preFooter.addView(preFooterView);
 		}
 		View footerView = getFooter(currentItem);
-		if(footerView != null) {
+		if (footerView != null) {
 			footer.addView(footerView);
 		}
 	}
@@ -92,7 +95,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	protected int getStatusBarColor(HomeItem currentItem) {
 		//default is "black"
-		return Color.argb(255,0,0,0);
+		return Color.argb(255, 0, 0, 0);
 	}
 
 	private HomeItem getCurrentItem() {
