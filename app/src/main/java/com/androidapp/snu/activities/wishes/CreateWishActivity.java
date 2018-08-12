@@ -27,14 +27,12 @@ import android.widget.TextView;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
+import com.androidapp.snu.components.camera.PhotoThumbnail;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final String PHOTO_PATH = "detail:_photoId";
 
-	ImageView photoThumbnail;
+	PhotoThumbnail photoThumbnail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.setPadding(20, 0, 20, 0);
 
-		photoThumbnail = new ImageView(this);
-		photoThumbnail.setImageResource(R.drawable.polaroid_with_camera_100px);
+		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
+		photoThumbnail = new PhotoThumbnail(this);
+		photoThumbnail.setPhoto(this, photoPath);
 
 		TextView text = new TextView(this);
 		text.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -82,8 +81,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		//layout.setBackgroundResource(R.drawable.shadow);
 		layout.setLayoutParams(layoutParams);
 
-		addPhoto();
-
 		return layout;
 	}
 
@@ -109,22 +106,5 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		});
 
 		return footer;
-	}
-
-	private void addPhoto() {
-		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
-		if (photoPath != null) {
-			File imgFile = new File(photoPath);
-
-			if (imgFile.exists()) {
-				Picasso
-					.with(this)
-					.load(imgFile)
-					.resize(200, 124)
-					.into(photoThumbnail);
-
-				photoThumbnail.setMaxHeight(10);
-			}
-		}
 	}
 }
