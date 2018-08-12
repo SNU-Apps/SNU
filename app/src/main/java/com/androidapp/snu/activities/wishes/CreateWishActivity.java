@@ -16,6 +16,8 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,8 +30,13 @@ import android.widget.TextView;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
+
+	ImageView photoThumbnail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.setPadding(20, 0, 20, 0);
 
-		ImageView photoThumbnail = new ImageView(this);
+		photoThumbnail = new ImageView(this);
 		photoThumbnail.setImageResource(R.drawable.polaroid_with_camera_100px);
 
 		TextView text = new TextView(this);
@@ -77,6 +84,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		//layout.setBackgroundResource(R.drawable.shadow);
 		layout.setLayoutParams(layoutParams);
 
+		File imgFile = new  File(getExternalFilesDir(null).getPath() + "/pic.jpg");
+
+		if(imgFile.exists()){
+			Picasso.with(this).load(imgFile).resize(200, 124).into(photoThumbnail);
+
+			photoThumbnail.setMaxHeight(10);
+		}
 
 		return layout;
 	}
