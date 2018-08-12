@@ -33,7 +33,6 @@ public class PhotoThumbnail extends LinearLayout {
 				.resize(125, 70)
 				.into(imageView);
 
-			imageView.setMaxHeight(10);
 			imageView.setPadding(0,20,0,50);
 			imageView.setBackgroundColor(Color.argb(255,0,0,0));
 			imageView.setBackgroundResource(R.drawable.polaroid_with_camera_100px);
