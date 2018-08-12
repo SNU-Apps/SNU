@@ -16,8 +16,10 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +31,7 @@ import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
-public class CreateWishActivity extends AbstractHomeTransitionActivity {
+public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener{
 	public static final String PHOTO_PATH = "detail:_photoId";
 
 	PhotoThumbnail photoThumbnail;
@@ -37,6 +39,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		photoThumbnail.setOnClickListener(this);
 	}
 
 	@Override
@@ -106,5 +110,14 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		});
 
 		return footer;
+	}
+
+	@Override
+	public void onClick(View view) {
+		Intent intent = new Intent(this, PhotoWishActivity.class);
+		intent.putExtra(CreateWishActivity.ENABLE_TRANSITION, false);
+		intent.putExtra(CreateWishActivity.EXTRA_PARAM_ID, HomeItem.ITEMS[0].getId());
+		finish();
+		ActivityCompat.startActivity(this, intent, null);
 	}
 }
