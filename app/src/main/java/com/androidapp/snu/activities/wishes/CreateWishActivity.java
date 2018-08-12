@@ -16,9 +16,6 @@
 
 package com.androidapp.snu.activities.wishes;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -35,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
+	public static final String PHOTO_PATH = "detail:_photoId";
 
 	ImageView photoThumbnail;
 
@@ -84,13 +82,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		//layout.setBackgroundResource(R.drawable.shadow);
 		layout.setLayoutParams(layoutParams);
 
-		File imgFile = new  File(getExternalFilesDir(null).getPath() + "/pic.jpg");
-
-		if(imgFile.exists()){
-			Picasso.with(this).load(imgFile).resize(200, 124).into(photoThumbnail);
-
-			photoThumbnail.setMaxHeight(10);
-		}
+		addPhoto();
 
 		return layout;
 	}
@@ -117,5 +109,22 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		});
 
 		return footer;
+	}
+
+	private void addPhoto() {
+		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
+		if (photoPath != null) {
+			File imgFile = new File(photoPath);
+
+			if (imgFile.exists()) {
+				Picasso
+					.with(this)
+					.load(imgFile)
+					.resize(200, 124)
+					.into(photoThumbnail);
+
+				photoThumbnail.setMaxHeight(10);
+			}
+		}
 	}
 }

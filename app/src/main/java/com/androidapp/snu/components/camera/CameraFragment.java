@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
@@ -46,9 +47,11 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -60,6 +63,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.androidapp.snu.R;
+import com.androidapp.snu.activities.wishes.CreateWishActivity;
+import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,6 +75,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -436,7 +442,7 @@ public class CameraFragment extends Fragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
+		mFile = new File(getActivity().getExternalFilesDir(null), UUID.randomUUID() + ".jpg");
 	}
 
 	@Override
@@ -806,6 +812,13 @@ public class CameraFragment extends Fragment
 		}
 	}
 
+	Context context;
+	PhotoWishActivity.PhotoCreatedCallback handler;
+	public void setPhotoCreatedHandler(Context context, PhotoWishActivity.PhotoCreatedCallback handler) {
+		this.context = context;
+		this.handler = handler;
+	}
+
 	/**
 	 * Capture a still picture. This method should be called when we get a response in
 	 * {@link #mCaptureCallback} from both {@link #lockFocus()}.
@@ -840,6 +853,10 @@ public class CameraFragment extends Fragment
 					showToast("Saved: " + mFile);
 					Log.d(TAG, mFile.toString());
 					unlockFocus();
+
+					if(handler != null) {
+						handler.onPhotoCreated(context, mFile);
+					}
 				}
 			};
 

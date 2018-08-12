@@ -16,28 +16,52 @@
 
 package com.androidapp.snu.activities.wishes;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
-import android.view.Window;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.components.camera.CameraFragment;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
+import com.androidapp.snu.components.camera.CameraFragment;
+
+import java.io.File;
 
 public class PhotoWishActivity extends AbstractHomeTransitionActivity {
+	public interface PhotoCreatedCallback {
+		void onPhotoCreated(final Context context, final File file);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera);
 
+		CameraFragment cameraFragment = CameraFragment.newInstance();
+
+		cameraFragment.setPhotoCreatedHandler(this, new PhotoCreatedCallback() {
+			@Override
+			public void onPhotoCreated(Context context, File file) {
+				openCreateWishActivtiy(context, file);
+			}
+		});
+
 		if (null == savedInstanceState) {
 			getSupportFragmentManager().beginTransaction()
-				.replace(R.id.photoCcontainer, CameraFragment.newInstance())
+				.replace(R.id.photoCcontainer, cameraFragment)
 				.commit();
 		}
+	}
+
+	private void openCreateWishActivtiy(Context context, File file) {
+		Intent intent = new Intent(this, CreateWishActivity.class);
+		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());
+		intent.putExtra(CreateWishActivity.ENABLE_TRANSITION, false);
+		intent.putExtra(CreateWishActivity.EXTRA_PARAM_ID, HomeItem.ITEMS[1].getId());
+		finish();
+		ActivityCompat.startActivity(this, intent, null);
 	}
 
 	@Override

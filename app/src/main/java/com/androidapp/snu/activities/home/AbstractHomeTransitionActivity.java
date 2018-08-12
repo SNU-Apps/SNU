@@ -26,7 +26,6 @@ import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +37,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	// Extra name for the ID parameter
 	public static final String EXTRA_PARAM_ID = "detail:_id";
+	public static final String ENABLE_TRANSITION = "detail:_enableTransition";
 
 	// Used for activity scene transitions
 	public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
@@ -68,6 +68,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		footer.setBackgroundColor(Color.argb(255, 255, 255, 255));
 		//contentView.setBackgroundColor(Color.argb(255, 255, 255, 255));
 		findViewById(R.id.main_scene_layout).setBackgroundColor(Color.argb(255, 255, 255, 255));
+
 
 		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
 		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
@@ -105,7 +106,12 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	private void loadHeaderImage() {
 		headerTitle.setText(currentItem.getName());
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && addTransitionListener()) {
+		boolean enableTransistion =
+			getIntent().getBooleanExtra(ENABLE_TRANSITION, true);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+			&& addTransitionListener()
+			&& enableTransistion) {
 			// If we're running on Lollipop and we have added a listener to the shared element
 			// transition, load the thumbnail. The listener will load the full-size image when
 			// the transition is complete.
