@@ -19,14 +19,15 @@
 
         <TextView
             android:id="@+id/picture"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#000"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#17a10f"
-            android:drawableTop="@drawable/camera_green_160px"
-            android:paddingBottom="30dp"
+            android:drawableTop="@drawable/camera_green_100px"
+            android:paddingBottom="10dp"
+            android:gravity="center"
             android:text="Foto aufnehmen" />
     </FrameLayout>
 
