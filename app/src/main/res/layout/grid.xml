@@ -9,5 +9,4 @@
     android:drawSelectorOnTop="true"
     android:horizontalSpacing="@dimen/grid_spacing"
     android:numColumns="1"
-    android:padding="@dimen/grid_spacing"
     android:verticalSpacing="@dimen/grid_spacing" />

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidapp.snu.activities.camera2basic;
+package com.androidapp.snu.components.camera;
 
 import android.content.Context;
 import android.util.AttributeSet;

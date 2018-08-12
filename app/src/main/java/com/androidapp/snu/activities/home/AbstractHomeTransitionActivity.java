@@ -25,6 +25,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +54,8 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		setContentView(R.layout.homeactivityscene);
 
 		currentItem = getCurrentItem();
+		Window window = getWindow();
+		window.setStatusBarColor(getStatusBarColor(currentItem));
 
 		headerImageView = findViewById(R.id.imageview_header);
 		headerTitle = findViewById(R.id.textview_title);
@@ -85,6 +89,11 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	protected abstract View getPreFooter(HomeItem currentItem);
 
 	protected abstract View getFooter(HomeItem currentItem);
+
+	protected int getStatusBarColor(HomeItem currentItem) {
+		//default is "black"
+		return Color.argb(255,0,0,0);
+	}
 
 	private HomeItem getCurrentItem() {
 		return HomeItem.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));

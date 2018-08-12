@@ -18,11 +18,13 @@ package com.androidapp.snu.activities.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -33,6 +35,9 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Window window = getWindow();
+		window.setStatusBarColor(Color.argb(255,0,0,0));
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grid);
 

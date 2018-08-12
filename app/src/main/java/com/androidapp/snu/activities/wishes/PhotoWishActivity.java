@@ -16,13 +16,13 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.Window;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.camera2basic.Camera2BasicFragment;
+import com.androidapp.snu.components.camera.CameraFragment;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.home.HomeItem;
 
@@ -35,7 +35,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 
 		if (null == savedInstanceState) {
 			getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, Camera2BasicFragment.newInstance())
+				.replace(R.id.photoCcontainer, CameraFragment.newInstance())
 				.commit();
 		}
 	}
@@ -56,5 +56,10 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	protected View getFooter(HomeItem currentItem) {
 		//special handling for camera activity
 		return null;
+	}
+
+	@Override
+	protected int getStatusBarColor(HomeItem currentItem) {
+		return currentItem.getSceneMainColor();
 	}
 }
