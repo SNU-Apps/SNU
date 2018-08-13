@@ -45,12 +45,12 @@ public class HomeGridAdapter extends BaseAdapter {
 		ImageView image = (ImageView) view.findViewById(R.id.imageview_item);
 		Picasso.with(image.getContext())
 				.load(item.getImageViewId())
-				.transform(new RoundedCornersTransformation(100, 30))
+				.transform(new RoundedCornersTransformation(100, 5))
 				.into(image);
 
 		// Set the TextView's contents
-		TextView name = (TextView) view.findViewById(R.id.textview_name);
-		name.setText(item.getName());
+	//	TextView name = (TextView) view.findViewById(R.id.textview_name);
+	//	name.setText(item.getName());
 		return view;
 	}
 }

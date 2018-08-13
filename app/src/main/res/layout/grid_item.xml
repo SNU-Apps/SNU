@@ -12,12 +12,12 @@
         <ImageView
             android:id="@+id/imageview_item"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scaleType="fitStart" />
 
     </com.androidapp.snu.SquareFrameLayout>
 
-    <TextView
+    <!--TextView
         android:id="@+id/textview_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +25,6 @@
         android:maxLines="1"
         android:padding="12dp"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-        android:theme="@android:style/Theme.Material" />
+        android:theme="@android:style/Theme.Material" /-->
 
 </LinearLayout>

@@ -16,10 +16,12 @@
 
 package com.androidapp.snu.activities.home;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Transition;
@@ -28,9 +30,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.androidapp.snu.R;
+import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.squareup.picasso.Picasso;
 
 public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
@@ -44,7 +46,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	public static final String VIEW_NAME_HEADER_TITLE = "detail:header:title";
 
 	private ImageView headerImageView;
-	private TextView headerTitle;
+	//private TextView headerTitle;
 	private HomeItem currentItem;
 
 	@Override
@@ -58,7 +60,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		window.setStatusBarColor(getStatusBarColor(currentItem));
 
 		headerImageView = findViewById(R.id.imageview_header);
-		headerTitle = findViewById(R.id.textview_title);
+		//headerTitle = findViewById(R.id.textview_title);
 		LinearLayout contentView = findViewById(R.id.view_content);
 		LinearLayout preFooter = findViewById(R.id.textview_pre_footer);
 		preFooter.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -71,7 +73,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 
 		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
-		ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
+		//ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
 
 		loadHeaderImage();
 		View content = getContent(currentItem);
@@ -104,34 +106,35 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	}
 
 	private void loadHeaderImage() {
-		headerTitle.setText(currentItem.getName());
+	//	headerTitle.setText(currentItem.getName());
 
 		boolean enableTransistion =
 			getIntent().getBooleanExtra(ENABLE_TRANSITION, true);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+		/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
 			&& addTransitionListener()
 			&& enableTransistion) {
 			// If we're running on Lollipop and we have added a listener to the shared element
 			// transition, load the thumbnail. The listener will load the full-size image when
 			// the transition is complete.
 			loadThumbnail();
-		} else {
+		} else {*/
 			// If all other cases we should just load the full-size image now
 			loadFullSizeImage();
-		}
+		//}
 	}
 
 	private void loadThumbnail() {
 		Picasso.with(headerImageView.getContext())
 			.load(currentItem.getImageViewId())
+				.transform(new RoundedCornersTransformation(100, 0))
 			.noFade()
 			.into(headerImageView);
 	}
 
 	private void loadFullSizeImage() {
 		Picasso.with(headerImageView.getContext())
-			.load(currentItem.getActiveImageViewId())
+			.load(currentItem.getImageViewId())
 			.noFade()
 			.noPlaceholder()
 			.into(headerImageView);
@@ -169,16 +172,24 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 				@Override
 				public void onTransitionPause(Transition transition) {
-					// No-op
+					//no-op
 				}
 
 				@Override
 				public void onTransitionResume(Transition transition) {
-					// No-op
+					//no-op
 				}
 			});
 			return true;
 		}
 		return false;
 	}
+
+	/*
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this, HomeActivity.class);
+		finish();
+		ActivityCompat.startActivity(this, intent, null);
+	}*/
 }

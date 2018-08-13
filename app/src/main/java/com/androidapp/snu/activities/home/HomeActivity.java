@@ -55,14 +55,16 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
 		Intent intent = new Intent(this, item.getTargetActivity());
 		intent.putExtra(CreateWishActivity.EXTRA_PARAM_ID, item.getId());
 
+		/*
 		ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
 				this,
 				new Pair<View, String>(view.findViewById(R.id.imageview_item),
-						CreateWishActivity.VIEW_NAME_HEADER_IMAGE),
-				new Pair<View, String>(view.findViewById(R.id.textview_name),
-						CreateWishActivity.VIEW_NAME_HEADER_TITLE));
-
+						CreateWishActivity.VIEW_NAME_HEADER_IMAGE));
+				//new Pair<View, String>(view.findViewById(R.id.textview_name),
+				//		CreateWishActivity.VIEW_NAME_HEADER_TITLE));
+*/
 		// Now we can start the Activity, providing the activity options as a bundle
-		ActivityCompat.startActivity(this, intent, activityOptions.toBundle());
+		//ActivityCompat.startActivity(this, intent, activityOptions.toBundle());
+		ActivityCompat.startActivity(this, intent, null);
 	}
 }
