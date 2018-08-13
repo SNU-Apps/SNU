@@ -43,7 +43,10 @@ public class HomeGridAdapter extends BaseAdapter {
 
 		// Load the thumbnail image
 		ImageView image = (ImageView) view.findViewById(R.id.imageview_item);
-		Picasso.with(image.getContext()).load(item.getImageViewId()).into(image);
+		Picasso.with(image.getContext())
+				.load(item.getImageViewId())
+				.transform(new RoundedCornersTransformation(100, 30))
+				.into(image);
 
 		// Set the TextView's contents
 		TextView name = (TextView) view.findViewById(R.id.textview_name);
