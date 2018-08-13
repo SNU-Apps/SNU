@@ -38,6 +38,11 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
+	protected String getHeaderText() {
+		return null;
+	}
+
+	@Override
 	protected View getContent() {
 		LinearLayout layout = new LinearLayout(this);
 		TextView text = new TextView(this);

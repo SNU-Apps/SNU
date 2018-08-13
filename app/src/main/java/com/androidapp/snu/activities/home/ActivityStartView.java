@@ -14,37 +14,43 @@ import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.squareup.picasso.Picasso;
 
 class ActivityStartView extends LinearLayout implements View.OnClickListener {
-	private Class<? extends AbstractHomeTransitionActivity> activity;
+	private AbstractHomeTransitionActivity activity;
 
 	private ActivityStartView(Context context) {
 		super(context);
-		ImageView image = new ImageView(context);
+	}
 
-		this.setPadding(10, 0, 10, 0);
-		image.setScaleType(ImageView.ScaleType.FIT_XY);
-
+	private void initActivity(AbstractHomeTransitionActivity activity) {
+		this.activity = activity;
+		final Context context = getContext();
+		View view = LayoutInflater.from(context).inflate(R.layout.activity_start_icon, null);
+		ImageView image = view.findViewById(R.id.activity_start_image_icon);
+		TextView text = view.findViewById(R.id.activity_start_header_text);
 		Picasso.with(context)
 				.load(CreateWishActivity.HEADER_IMAGE_ID)
 				.transform(new RoundedCornersTransformation(30, 5))
 				.noFade()
 				.noPlaceholder()
 				.into(image);
-		this.addView(image);
+		text.setText(activity.getHeaderText());
+
+		this.addView(view);
+		this.setPadding(20, 0, 20, 0);
 
 		image.setOnClickListener(this);
 	}
 
 	static ActivityStartView createForActivity(
-			Class<? extends AbstractHomeTransitionActivity> activity,
+			AbstractHomeTransitionActivity activity,
 			Context context) {
 		ActivityStartView view = new ActivityStartView(context);
-		view.activity = activity;
+		view.initActivity(activity);
 		return view;
 	}
 
 	@Override
 	public void onClick(View view) {
-		Intent intent = new Intent(getContext(), activity);
+		Intent intent = new Intent(getContext(), activity.getClass());
 		ActivityCompat.startActivity(getContext(), intent, null);
 	}
 }

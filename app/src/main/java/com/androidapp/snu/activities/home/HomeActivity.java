@@ -41,9 +41,9 @@ public class HomeActivity extends Activity {
 
 	private void initActivities() {
 		LinearLayout mainView = findViewById(R.id.home_view);
-		mainView.addView(ActivityStartView.createForActivity(PhotoWishActivity.class, this));
-		mainView.addView(ActivityStartView.createForActivity(CreateWishActivity.class, this));
-		mainView.addView(ActivityStartView.createForActivity(MyWishesActivity.class, this));
+		mainView.addView(ActivityStartView.createForActivity(new PhotoWishActivity(), this));
+		mainView.addView(ActivityStartView.createForActivity(new CreateWishActivity(), this));
+		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
 	}
 }
 

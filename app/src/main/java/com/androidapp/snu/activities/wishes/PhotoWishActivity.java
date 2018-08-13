@@ -60,6 +60,11 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		return HEADER_IMAGE_ID;
 	}
 
+	@Override
+	protected String getHeaderText() {
+		return null;
+	}
+
 	private void openCreateWishActivtiy(Context context, File file) {
 		Intent intent = new Intent(this, CreateWishActivity.class);
 		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());

@@ -43,6 +43,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	}
 
 	protected abstract int getHeaderImagePath();
+	protected abstract String getHeaderText();
 	protected abstract View getContent();
 	protected abstract View getPreFooter();
 	protected abstract View getFooter();
