@@ -23,9 +23,9 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.activities.home.HomeItem;
 
 public class MyWishesActivity extends AbstractHomeTransitionActivity {
+	public static final int HEADER_IMAGE_ID = R.drawable.camera_wish_blur_with_icon;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,12 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected View getContent(HomeItem currentItem) {
+	protected int getHeaderImagePath() {
+		return HEADER_IMAGE_ID;
+	}
+
+	@Override
+	protected View getContent() {
 		LinearLayout layout = new LinearLayout(this);
 		TextView text = new TextView(this);
 		text.setText("This is my second content :)");
@@ -42,16 +47,15 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected View getPreFooter(HomeItem currentItem) {
+	protected View getPreFooter() {
 		return null;
 	}
 
 	@Override
-	protected View getFooter(HomeItem currentItem) {
+	protected View getFooter() {
 		TextView text = new TextView(this);
 		text.setText("Weiter zur Vorschau");
 		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
-		text.setTextColor(currentItem.getSceneMainColor());
 		LinearLayout footer = new LinearLayout(this);
 		footer.addView(text);
 

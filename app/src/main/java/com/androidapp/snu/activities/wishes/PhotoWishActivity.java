@@ -24,12 +24,12 @@ import android.view.View;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.activities.home.HomeItem;
 import com.androidapp.snu.components.camera.CameraFragment;
 
 import java.io.File;
 
 public class PhotoWishActivity extends AbstractHomeTransitionActivity {
+	public static final int HEADER_IMAGE_ID = R.drawable.camera_wish_blur_with_icon;
 	public interface PhotoCreatedCallback {
 		void onPhotoCreated(final Context context, final File file);
 	}
@@ -55,35 +55,33 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		}
 	}
 
+	@Override
+	protected int getHeaderImagePath() {
+		return HEADER_IMAGE_ID;
+	}
+
 	private void openCreateWishActivtiy(Context context, File file) {
 		Intent intent = new Intent(this, CreateWishActivity.class);
 		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());
-		intent.putExtra(CreateWishActivity.ENABLE_TRANSITION, false);
-		intent.putExtra(CreateWishActivity.EXTRA_PARAM_ID, HomeItem.ITEMS[1].getId());
 		finish();
 		ActivityCompat.startActivity(this, intent, null);
 	}
 
 	@Override
-	protected View getContent(HomeItem currentItem) {
+	protected View getContent() {
 		//special handling for camera activity
 		return null;
 	}
 
 	@Override
-	protected View getPreFooter(HomeItem currentItem) {
+	protected View getPreFooter() {
 		//special handling for camera activity
 		return null;
 	}
 
 	@Override
-	protected View getFooter(HomeItem currentItem) {
+	protected View getFooter() {
 		//special handling for camera activity
 		return null;
-	}
-
-	@Override
-	protected int getStatusBarColor(HomeItem currentItem) {
-		return currentItem.getSceneMainColor();
 	}
 }

@@ -28,10 +28,10 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.activities.home.HomeItem;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener{
+	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800;
 	public static final String PHOTO_PATH = "detail:_photoId";
 
 	PhotoThumbnail photoThumbnail;
@@ -44,7 +44,12 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	}
 
 	@Override
-	protected View getContent(HomeItem currentItem) {
+	protected int getHeaderImagePath() {
+		return HEADER_IMAGE_ID;
+	}
+
+	@Override
+	protected View getContent() {
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.setPadding(20, 0, 20, 0);
@@ -57,7 +62,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		text.setGravity(Gravity.CENTER_HORIZONTAL);
 		text.setPadding(0, 20, 0, 25);
 		text.setText("Ich wünsche mir...");
-		text.setTextColor(currentItem.getSceneMainColor());
 		text.setTextSize(28);
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
 		text.setTypeface(typeface);
@@ -66,7 +70,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		text2.setText(
 			"\n\nein kleines, witziges Schnugg." +
 				"\n\n\nWICHIG:  Es muss seeehr klein sein!");
-		text2.setTextColor(currentItem.getSceneMainColor());
+
 		text2.setTextSize(22);
 		text2.setTypeface(typeface);
 
@@ -89,16 +93,16 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	}
 
 	@Override
-	protected View getPreFooter(HomeItem currentItem) {
+	protected View getPreFooter() {
 		return null;
 	}
 
 	@Override
-	protected View getFooter(HomeItem currentItem) {
+	protected View getFooter() {
 		TextView text = new TextView(this);
 		text.setText("Weiter zur Vorschau");
 		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
-		text.setTextColor(currentItem.getSceneMainColor());
+
 		LinearLayout footer = new LinearLayout(this);
 		footer.addView(text);
 
@@ -115,8 +119,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	@Override
 	public void onClick(View view) {
 		Intent intent = new Intent(this, PhotoWishActivity.class);
-		intent.putExtra(CreateWishActivity.ENABLE_TRANSITION, false);
-		intent.putExtra(CreateWishActivity.EXTRA_PARAM_ID, HomeItem.ITEMS[0].getId());
 		finish();
 		ActivityCompat.startActivity(this, intent, null);
 	}

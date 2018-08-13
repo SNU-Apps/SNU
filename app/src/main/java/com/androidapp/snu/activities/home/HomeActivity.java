@@ -17,54 +17,47 @@
 package com.androidapp.snu.activities.home;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.CreateWishActivity;
+import com.androidapp.snu.activities.wishes.MyWishesActivity;
+import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 
-public class HomeActivity extends Activity implements AdapterView.OnItemClickListener {
+public class HomeActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Window window = getWindow();
-		window.setStatusBarColor(Color.argb(255,0,0,0));
+		window.setStatusBarColor(Color.argb(255,255,255,255));
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.grid);
-
-		// Setup the GridView and set the adapter
-		GridView mGridView = findViewById(R.id.grid);
-		mGridView.setOnItemClickListener(this);
-		HomeGridAdapter mAdapter = new HomeGridAdapter(this);
-		mGridView.setAdapter(mAdapter);
+		setContentView(R.layout.home);
+		initActivities();
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-		HomeItem item = (HomeItem) adapterView.getItemAtPosition(position);
-
-		Intent intent = new Intent(this, item.getTargetActivity());
-		intent.putExtra(CreateWishActivity.EXTRA_PARAM_ID, item.getId());
-
-		/*
-		ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-				this,
-				new Pair<View, String>(view.findViewById(R.id.imageview_item),
-						CreateWishActivity.VIEW_NAME_HEADER_IMAGE));
-				//new Pair<View, String>(view.findViewById(R.id.textview_name),
-				//		CreateWishActivity.VIEW_NAME_HEADER_TITLE));
-*/
-		// Now we can start the Activity, providing the activity options as a bundle
-		//ActivityCompat.startActivity(this, intent, activityOptions.toBundle());
-		ActivityCompat.startActivity(this, intent, null);
+	private void initActivities() {
+		LinearLayout mainView = findViewById(R.id.home_view);
+		mainView.addView(ActivityStartView.createForActivity(PhotoWishActivity.class, this));
+		mainView.addView(ActivityStartView.createForActivity(CreateWishActivity.class, this));
+		mainView.addView(ActivityStartView.createForActivity(MyWishesActivity.class, this));
 	}
 }
+
+/*
+public static HomeItem[] ITEMS = new HomeItem[]{
+		new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur,
+			PhotoWishActivity.class, Color.argb(255, 78, 135, 75)),
+		new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur,
+			CreateWishActivity.class, Color.argb(255, 73, 114, 159)),
+		new HomeItem("Meine Wunschliste", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur,
+			MyWishesActivity.class, Color.argb(255, 144, 137, 48)),
+		new HomeItem("Wünsche von Freunden", R.drawable.friends_wishlist_blur_with_icon, R.drawable.friends_wishlist_blur,
+			CreateWishActivity.class, Color.argb(255, 139, 46, 124)),
+		new HomeItem("Geschenkideensammlung", R.drawable.ideas_blur_with_icon, R.drawable.ideas_blur,
+			CreateWishActivity.class, Color.argb(255, 190, 85, 38))
+	};
+ */

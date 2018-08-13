@@ -16,15 +16,10 @@
 
 package com.androidapp.snu.activities.home;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -32,164 +27,55 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.squareup.picasso.Picasso;
 
 public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
-
-	// Extra name for the ID parameter
-	public static final String EXTRA_PARAM_ID = "detail:_id";
-	public static final String ENABLE_TRANSITION = "detail:_enableTransition";
-
-	// Used for activity scene transitions
-	public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
-	public static final String VIEW_NAME_HEADER_TITLE = "detail:header:title";
-
-	private ImageView headerImageView;
-	//private TextView headerTitle;
-	private HomeItem currentItem;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Window window = getWindow();
+		window.setStatusBarColor(Color.argb(255,255,255,255));
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.homeactivityscene);
 
-		currentItem = getCurrentItem();
-		Window window = getWindow();
-		window.setStatusBarColor(getStatusBarColor(currentItem));
-
-		headerImageView = findViewById(R.id.imageview_header);
-		//headerTitle = findViewById(R.id.textview_title);
-		LinearLayout contentView = findViewById(R.id.view_content);
-		LinearLayout preFooter = findViewById(R.id.textview_pre_footer);
-		preFooter.setGravity(Gravity.CENTER_HORIZONTAL);
-		LinearLayout footer = findViewById(R.id.textview_footer);
-		footer.setGravity(Gravity.CENTER_HORIZONTAL);
-		//footer.setBackgroundColor(Color.argb(15, 0, 0, 0));
-		footer.setBackgroundColor(Color.argb(255, 255, 255, 255));
-		//contentView.setBackgroundColor(Color.argb(255, 255, 255, 255));
-		findViewById(R.id.main_scene_layout).setBackgroundColor(Color.argb(255, 255, 255, 255));
-
-
-		ViewCompat.setTransitionName(headerImageView, VIEW_NAME_HEADER_IMAGE);
-		//ViewCompat.setTransitionName(headerTitle, VIEW_NAME_HEADER_TITLE);
-
-		loadHeaderImage();
-		View content = getContent(currentItem);
-		if (content != null) {
-			contentView.addView(content);
-		}
-		View preFooterView = getPreFooter(currentItem);
-		if (preFooterView != null) {
-			preFooter.addView(preFooterView);
-		}
-		View footerView = getFooter(currentItem);
-		if (footerView != null) {
-			footer.addView(footerView);
-		}
+		setHeaderImage();
+		setContent();
 	}
 
-	protected abstract View getContent(HomeItem currentItem);
+	protected abstract int getHeaderImagePath();
+	protected abstract View getContent();
+	protected abstract View getPreFooter();
+	protected abstract View getFooter();
 
-	protected abstract View getPreFooter(HomeItem currentItem);
-
-	protected abstract View getFooter(HomeItem currentItem);
-
-	protected int getStatusBarColor(HomeItem currentItem) {
-		//default is "black"
-		return Color.argb(255, 0, 0, 0);
-	}
-
-	private HomeItem getCurrentItem() {
-		return HomeItem.getItem(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
-	}
-
-	private void loadHeaderImage() {
-	//	headerTitle.setText(currentItem.getName());
-
-		boolean enableTransistion =
-			getIntent().getBooleanExtra(ENABLE_TRANSITION, true);
-
-		/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-			&& addTransitionListener()
-			&& enableTransistion) {
-			// If we're running on Lollipop and we have added a listener to the shared element
-			// transition, load the thumbnail. The listener will load the full-size image when
-			// the transition is complete.
-			loadThumbnail();
-		} else {*/
-			// If all other cases we should just load the full-size image now
-			loadFullSizeImage();
-		//}
-	}
-
-	private void loadThumbnail() {
+	private void setHeaderImage() {
+		ImageView headerImageView = findViewById(R.id.imageview_header);
 		Picasso.with(headerImageView.getContext())
-			.load(currentItem.getImageViewId())
-				.transform(new RoundedCornersTransformation(100, 0))
-			.noFade()
-			.into(headerImageView);
-	}
-
-	private void loadFullSizeImage() {
-		Picasso.with(headerImageView.getContext())
-			.load(currentItem.getImageViewId())
+			.load(getHeaderImagePath())
 			.noFade()
 			.noPlaceholder()
 			.into(headerImageView);
 	}
 
-	/**
-	 * Try and add a {@link Transition.TransitionListener} to the entering shared element
-	 * {@link Transition}. We do this so that we can load the full-size image after the transition
-	 * has completed.
-	 *
-	 * @return true if we were successful in adding a listener to the enter transition
-	 */
-	private boolean addTransitionListener() {
-		final Transition transition = getWindow().getSharedElementEnterTransition();
+	private void setContent() {
+		LinearLayout content = findViewById(R.id.view_content);
+		LinearLayout preFooter = findViewById(R.id.textview_pre_footer);
+		LinearLayout footer = findViewById(R.id.textview_footer);
+		preFooter.setGravity(Gravity.CENTER_HORIZONTAL);
+		footer.setGravity(Gravity.CENTER_HORIZONTAL);
 
-		if (transition != null) {
-			// There is an entering shared element transition so add a listener to it
-			transition.addListener(new Transition.TransitionListener() {
-				@Override
-				public void onTransitionEnd(Transition transition) {
-					loadFullSizeImage();
-					transition.removeListener(this);
-				}
-
-				@Override
-				public void onTransitionStart(Transition transition) {
-					//no-op
-				}
-
-				@Override
-				public void onTransitionCancel(Transition transition) {
-					// Make sure we remove ourselves as a listener
-					transition.removeListener(this);
-				}
-
-				@Override
-				public void onTransitionPause(Transition transition) {
-					//no-op
-				}
-
-				@Override
-				public void onTransitionResume(Transition transition) {
-					//no-op
-				}
-			});
-			return true;
+		View contentView = getContent();
+		if (contentView != null) {
+			content.addView(contentView);
 		}
-		return false;
-	}
 
-	/*
-	@Override
-	public void onBackPressed() {
-		Intent intent = new Intent(this, HomeActivity.class);
-		finish();
-		ActivityCompat.startActivity(this, intent, null);
-	}*/
+		View preFooterView = getPreFooter();
+		if (preFooterView != null) {
+			preFooter.addView(preFooterView);
+		}
+
+		View footerView = getFooter();
+		if (footerView != null) {
+			footer.addView(footerView);
+		}
+	}
 }
