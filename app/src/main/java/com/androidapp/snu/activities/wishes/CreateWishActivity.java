@@ -31,7 +31,7 @@ import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener {
-	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800;
+	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800_1;
 	public static final String HEADER_TEXT = "Neuen Wunsch beschreiben...";
 	public static final String PHOTO_PATH = "detail:_photoId";
 

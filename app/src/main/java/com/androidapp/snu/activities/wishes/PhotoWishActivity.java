@@ -29,7 +29,7 @@ import com.androidapp.snu.components.camera.CameraFragment;
 import java.io.File;
 
 public class PhotoWishActivity extends AbstractHomeTransitionActivity {
-	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800_1;
+	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800_2;
 
 	public interface PhotoCreatedCallback {
 		void onPhotoCreated(final Context context, final File file);

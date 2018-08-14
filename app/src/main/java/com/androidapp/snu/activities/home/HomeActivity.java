@@ -43,22 +43,31 @@ public class HomeActivity extends Activity {
 		LinearLayout mainView = findViewById(R.id.home_view);
 		createFirstRow(mainView);
 
-		mainView.addView(ActivityStartView.createForActivity(new CreateWishActivity(), this));
-		mainView.addView(ActivityStartView.createForActivity(new CreateWishActivity(), this));
+		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
+		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
 
 	}
 
 	private void createFirstRow(LinearLayout mainView) {
 		LinearLayout firstRow = new LinearLayout(this);
 		firstRow.setOrientation(LinearLayout.HORIZONTAL);
-		firstRow.addView(ActivityStartView.createForActivity(new PhotoWishActivity(), this));
-		firstRow.addView(ActivityStartView.createForActivity(new PhotoWishActivity(), this));
+
+		firstRow.addView(
+				ActivityStartView
+						.createForActivity(new CreateWishActivity(), this)
+						.withCustomPadding(10, 0, 5, 0));
+
+		firstRow.addView(
+				ActivityStartView
+						.createForActivity(new PhotoWishActivity(), this)
+						.withCustomPadding(5, 0, 10, 0));
+
 		mainView.addView(firstRow);
 
 		//horizontal split --> same weight for each child
 		LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) firstRow.getChildAt(0).getLayoutParams();
 		layoutParams.weight = 1;
-		layoutParams.setMargins(0,0,0,0);
+		layoutParams.setMargins(0, 0, 0, 0);
 		firstRow.getChildAt(0).setLayoutParams(layoutParams);
 		firstRow.getChildAt(1).setLayoutParams(layoutParams);
 	}

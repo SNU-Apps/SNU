@@ -24,7 +24,7 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 		this.activity = activity;
 		final Context context = getContext();
 		this.addView(getIconWithText(context));
-		setExtraStyles();
+		setDefaultPadding();
 	}
 
 	private View getIconWithText(Context context) {
@@ -42,8 +42,13 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 		return view;
 	}
 
-	private void setExtraStyles() {
-		this.setPadding(0, 0, 0, 0);
+	void setDefaultPadding() {
+		this.setPadding(10, 10, 10, 0);
+	}
+
+	ActivityStartView withCustomPadding(int left, int top, int right, int bottom) {
+		this.setPadding(left, top, right, bottom);
+		return this;
 	}
 
 	static ActivityStartView createForActivity(
