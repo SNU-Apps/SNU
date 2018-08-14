@@ -1,4 +1,4 @@
-package com.androidapp.snu.activities.home;
+package com.androidapp.snu.transformation;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

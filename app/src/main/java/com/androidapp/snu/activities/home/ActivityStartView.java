@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.CreateWishActivity;
+import com.androidapp.snu.transformation.RoundedCornersTransformation;
 import com.squareup.picasso.Picasso;
 
 class ActivityStartView extends LinearLayout implements View.OnClickListener {
@@ -23,6 +24,11 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 	private void initActivity(AbstractHomeTransitionActivity activity) {
 		this.activity = activity;
 		final Context context = getContext();
+		this.addView(getIconWithText(context));
+		setExtraStyles();
+	}
+
+	private View getIconWithText(Context context) {
 		View view = LayoutInflater.from(context).inflate(R.layout.activity_start_icon, null);
 		ImageView image = view.findViewById(R.id.activity_start_image_icon);
 		TextView text = view.findViewById(R.id.activity_start_header_text);
@@ -33,11 +39,12 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 				.noPlaceholder()
 				.into(image);
 		text.setText(activity.getHeaderText());
-
-		this.addView(view);
-		this.setPadding(20, 0, 20, 0);
-
 		image.setOnClickListener(this);
+		return view;
+	}
+
+	private void setExtraStyles() {
+		this.setPadding(20, 0, 20, 0);
 	}
 
 	static ActivityStartView createForActivity(
