@@ -24,9 +24,9 @@ import android.widget.TextView;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 
-public class MyWishesActivity extends AbstractHomeTransitionActivity {
-	public static final int HEADER_IMAGE_ID = R.drawable.v3_1;
-	public static final String HEADER_TEXT = "Meine Wunschliste";
+public class FriendsWishesActivity extends AbstractHomeTransitionActivity {
+	public static final int HEADER_IMAGE_ID = R.drawable.v3_2;
+	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

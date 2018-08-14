@@ -34,7 +34,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Window window = getWindow();
-		window.setStatusBarColor(Color.argb(255,255,255,255));
+		window.setStatusBarColor(Color.argb(255, 0, 0, 0));
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.homeactivityscene);
 

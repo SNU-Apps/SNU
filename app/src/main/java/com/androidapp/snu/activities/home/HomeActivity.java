@@ -28,6 +28,7 @@ import android.widget.ScrollView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.CreateWishActivity;
+import com.androidapp.snu.activities.wishes.FriendsWishesActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 
@@ -36,8 +37,7 @@ public class HomeActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Window window = getWindow();
-		window.setStatusBarColor(Color.argb(255, 255, 255, 255));
-
+		window.setStatusBarColor(Color.argb(255, 0, 0, 0));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		initActivities();
@@ -49,6 +49,7 @@ public class HomeActivity extends Activity {
 		createFirstRow(mainView);
 
 		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
+		mainView.addView(ActivityStartView.createForActivity(new FriendsWishesActivity(), this));
 	}
 
 	private void createFirstRow(LinearLayout mainView) {
@@ -94,18 +95,3 @@ public class HomeActivity extends Activity {
 		});
 	}
 }
-
-/*
-public static HomeItem[] ITEMS = new HomeItem[]{
-		new HomeItem("Neuen Wunsch fotografieren...", R.drawable.camera_wish_blur_with_icon, R.drawable.camera_wish_blur,
-			PhotoWishActivity.class, Color.argb(255, 78, 135, 75)),
-		new HomeItem("Neuen Wunsch beschreiben...", R.drawable.manual_wish_blur_with_icon, R.drawable.manual_wish_blur,
-			CreateWishActivity.class, Color.argb(255, 73, 114, 159)),
-		new HomeItem("Meine Wunschliste", R.drawable.my_wishlist_blur_with_icon, R.drawable.my_wishlist_blur,
-			MyWishesActivity.class, Color.argb(255, 144, 137, 48)),
-		new HomeItem("Wünsche von Freunden", R.drawable.friends_wishlist_blur_with_icon, R.drawable.friends_wishlist_blur,
-			CreateWishActivity.class, Color.argb(255, 139, 46, 124)),
-		new HomeItem("Geschenkideensammlung", R.drawable.ideas_blur_with_icon, R.drawable.ideas_blur,
-			CreateWishActivity.class, Color.argb(255, 190, 85, 38))
-	};
- */

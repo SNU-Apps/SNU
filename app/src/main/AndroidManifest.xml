@@ -30,6 +30,7 @@
         <activity android:name=".activities.wishes.PhotoWishActivity" />
         <activity android:name=".activities.wishes.CreateWishActivity" />
         <activity android:name=".activities.wishes.MyWishesActivity" />
+        <activity android:name=".activities.wishes.FriendsWishesActivity" />
     </application>
 
 </manifest>
