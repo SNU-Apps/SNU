@@ -29,7 +29,8 @@ import com.androidapp.snu.components.camera.CameraFragment;
 import java.io.File;
 
 public class PhotoWishActivity extends AbstractHomeTransitionActivity {
-	public static final int HEADER_IMAGE_ID = R.drawable.camera_wish_blur_with_icon;
+	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800_1;
+
 	public interface PhotoCreatedCallback {
 		void onPhotoCreated(final Context context, final File file);
 	}
@@ -50,13 +51,13 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 
 		if (null == savedInstanceState) {
 			getSupportFragmentManager().beginTransaction()
-				.replace(R.id.photoCcontainer, cameraFragment)
-				.commit();
+					.replace(R.id.photoCcontainer, cameraFragment)
+					.commit();
 		}
 	}
 
 	@Override
-	protected int getHeaderImagePath() {
+	protected int getHeaderImageId() {
 		return HEADER_IMAGE_ID;
 	}
 

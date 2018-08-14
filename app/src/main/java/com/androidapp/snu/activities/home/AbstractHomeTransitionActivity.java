@@ -42,7 +42,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		setContent();
 	}
 
-	protected abstract int getHeaderImagePath();
+	protected abstract int getHeaderImageId();
 	protected abstract String getHeaderText();
 	protected abstract View getContent();
 	protected abstract View getPreFooter();
@@ -51,7 +51,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	private void setHeaderImage() {
 		ImageView headerImageView = findViewById(R.id.imageview_header);
 		Picasso.with(headerImageView.getContext())
-			.load(getHeaderImagePath())
+			.load(getHeaderImageId())
 			.noFade()
 			.noPlaceholder()
 			.into(headerImageView);

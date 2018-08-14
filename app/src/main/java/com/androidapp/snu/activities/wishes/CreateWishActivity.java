@@ -30,8 +30,8 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
-public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener{
-	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800_1;
+public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener {
+	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800;
 	public static final String HEADER_TEXT = "Neuen Wunsch beschreiben...";
 	public static final String PHOTO_PATH = "detail:_photoId";
 
@@ -45,7 +45,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	}
 
 	@Override
-	protected int getHeaderImagePath() {
+	protected int getHeaderImageId() {
 		return HEADER_IMAGE_ID;
 	}
 
@@ -74,8 +74,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 
 		TextView text2 = new TextView(this);
 		text2.setText(
-			"\n\nein kleines, witziges Schnugg." +
-				"\n\n\nWICHIG:  Es muss seeehr klein sein!");
+				"\n\nein kleines, witziges Schnugg." +
+						"\n\n\nWICHIG:  Es muss seeehr klein sein!");
 
 		text2.setTextSize(22);
 		text2.setTypeface(typeface);
@@ -90,7 +90,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 
 		//layout.addView(text2);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.setMargins(80, 50, 80, 0);
 		//layout.setBackgroundResource(R.drawable.shadow);
 		layout.setLayoutParams(layoutParams);

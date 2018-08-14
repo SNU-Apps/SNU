@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.androidapp.snu.transformation.RoundedCornersTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -33,8 +32,8 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 		ImageView image = view.findViewById(R.id.activity_start_image_icon);
 		TextView text = view.findViewById(R.id.activity_start_header_text);
 		Picasso.with(context)
-				.load(CreateWishActivity.HEADER_IMAGE_ID)
-				.transform(new RoundedCornersTransformation(30, 5))
+				.load(activity.getHeaderImageId())
+				.transform(new RoundedCornersTransformation(30, 0))
 				.noFade()
 				.noPlaceholder()
 				.into(image);
@@ -44,7 +43,7 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 	}
 
 	private void setExtraStyles() {
-		this.setPadding(20, 0, 20, 0);
+		this.setPadding(0, 0, 0, 0);
 	}
 
 	static ActivityStartView createForActivity(

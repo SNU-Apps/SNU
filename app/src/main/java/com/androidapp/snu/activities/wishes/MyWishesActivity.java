@@ -33,7 +33,7 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected int getHeaderImagePath() {
+	protected int getHeaderImageId() {
 		return HEADER_IMAGE_ID;
 	}
 
