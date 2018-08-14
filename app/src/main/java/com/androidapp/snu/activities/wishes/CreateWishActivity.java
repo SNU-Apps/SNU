@@ -31,7 +31,8 @@ import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener {
-	public static final int HEADER_IMAGE_ID = R.drawable.v1;
+	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
+	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
 
@@ -47,6 +48,11 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	@Override
 	protected int getHeaderImageId() {
 		return HEADER_IMAGE_ID;
+	}
+
+	@Override
+	protected int getIconImageId() {
+		return ICON_IMAGE_ID;
 	}
 
 	@Override

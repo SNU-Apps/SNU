@@ -35,6 +35,8 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		Window window = getWindow();
 		window.setStatusBarColor(Color.argb(255, 0, 0, 0));
+		getWindow().setNavigationBarColor(Color.argb(100, 0, 0, 0));
+
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.homeactivityscene);
 
@@ -43,18 +45,24 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	}
 
 	protected abstract int getHeaderImageId();
+
+	protected abstract int getIconImageId();
+
 	protected abstract String getHeaderText();
+
 	protected abstract View getContent();
+
 	protected abstract View getPreFooter();
+
 	protected abstract View getFooter();
 
 	private void setHeaderImage() {
 		ImageView headerImageView = findViewById(R.id.imageview_header);
 		Picasso.with(headerImageView.getContext())
-			.load(getHeaderImageId())
-			.noFade()
-			.noPlaceholder()
-			.into(headerImageView);
+				.load(getHeaderImageId())
+				.noFade()
+				.noPlaceholder()
+				.into(headerImageView);
 	}
 
 	private void setContent() {

@@ -32,7 +32,7 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 		ImageView image = view.findViewById(R.id.activity_start_image_icon);
 		TextView text = view.findViewById(R.id.activity_start_header_text);
 		Picasso.with(context)
-				.load(activity.getHeaderImageId())
+				.load(activity.getIconImageId())
 				.transform(new RoundedCornersTransformation(30, 0))
 				.noFade()
 				.noPlaceholder()
@@ -43,7 +43,7 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 	}
 
 	void setDefaultPadding() {
-		this.setPadding(10, 10, 10, 0);
+		this.setPadding(16, 16, 16, 0);
 	}
 
 	ActivityStartView withCustomPadding(int left, int top, int right, int bottom) {

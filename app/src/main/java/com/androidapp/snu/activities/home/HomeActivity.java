@@ -31,6 +31,7 @@ import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.androidapp.snu.activities.wishes.FriendsWishesActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
+import com.androidapp.snu.transformation.BlurBuilder;
 
 public class HomeActivity extends Activity {
 
@@ -42,6 +43,7 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.home);
 		initActivities();
 		initScrollActivationListener();
+		initStylesAndBackground();
 	}
 
 	private void initActivities() {
@@ -59,12 +61,12 @@ public class HomeActivity extends Activity {
 		firstRow.addView(
 				ActivityStartView
 						.createForActivity(new CreateWishActivity(), this)
-						.withCustomPadding(10, 0, 5, 0));
+						.withCustomPadding(16, 0, 8, 0));
 
 		firstRow.addView(
 				ActivityStartView
 						.createForActivity(new PhotoWishActivity(), this)
-						.withCustomPadding(5, 0, 10, 0));
+						.withCustomPadding(8, 0, 16, 0));
 
 		mainView.addView(firstRow);
 
@@ -93,5 +95,11 @@ public class HomeActivity extends Activity {
 				}
 			}
 		});
+	}
+
+	private void initStylesAndBackground() {
+		getWindow().getDecorView().setBackground(BlurBuilder.blur(this, R.drawable.vintage_photo_small));
+		getWindow().setStatusBarColor(Color.argb(100, 0, 0, 0));
+		getWindow().setNavigationBarColor(Color.argb(100, 0, 0, 0));
 	}
 }
