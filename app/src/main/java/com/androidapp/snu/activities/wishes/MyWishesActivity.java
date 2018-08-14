@@ -25,7 +25,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 
 public class MyWishesActivity extends AbstractHomeTransitionActivity {
-	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800;
+	public static final int HEADER_IMAGE_ID = R.drawable.v3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

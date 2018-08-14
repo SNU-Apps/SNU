@@ -29,7 +29,8 @@ import com.androidapp.snu.components.camera.CameraFragment;
 import java.io.File;
 
 public class PhotoWishActivity extends AbstractHomeTransitionActivity {
-	public static final int HEADER_IMAGE_ID = R.drawable.vintage_photo_w800_2;
+	public static final int HEADER_IMAGE_ID = R.drawable.v2;
+	public static final String HEADER_TEXT = "...fotografieren";
 
 	public interface PhotoCreatedCallback {
 		void onPhotoCreated(final Context context, final File file);
@@ -63,7 +64,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 
 	@Override
 	protected String getHeaderText() {
-		return null;
+		return HEADER_TEXT;
 	}
 
 	private void openCreateWishActivtiy(Context context, File file) {

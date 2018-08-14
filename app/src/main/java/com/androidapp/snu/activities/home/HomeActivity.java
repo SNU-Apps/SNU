@@ -19,8 +19,12 @@ package com.androidapp.snu.activities.home;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.CreateWishActivity;
@@ -37,6 +41,7 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		initActivities();
+		initScrollActivationListener();
 	}
 
 	private void initActivities() {
@@ -44,8 +49,6 @@ public class HomeActivity extends Activity {
 		createFirstRow(mainView);
 
 		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
-		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
-
 	}
 
 	private void createFirstRow(LinearLayout mainView) {
@@ -67,9 +70,28 @@ public class HomeActivity extends Activity {
 		//horizontal split --> same weight for each child
 		LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) firstRow.getChildAt(0).getLayoutParams();
 		layoutParams.weight = 1;
-		layoutParams.setMargins(0, 0, 0, 0);
 		firstRow.getChildAt(0).setLayoutParams(layoutParams);
 		firstRow.getChildAt(1).setLayoutParams(layoutParams);
+	}
+
+	private void initScrollActivationListener() {
+		ScrollView scrollView = findViewById(R.id.home_layout);
+		scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+			@Override
+			public void onGlobalLayout() {
+				ScrollView scrollView = findViewById(R.id.home_layout);
+				LinearLayout mainView = findViewById(R.id.home_view);
+				int childHeight = mainView.getHeight();
+				boolean isScrollable = scrollView.getHeight() < childHeight + scrollView.getPaddingTop() + scrollView.getPaddingBottom();
+				if (isScrollable) {
+					FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mainView.getLayoutParams();
+					layoutParams.gravity = Gravity.TOP;
+					mainView.setLayoutParams(layoutParams);
+					//remove the listener as soon as we know, that we need to scroll
+					scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+				}
+			}
+		});
 	}
 }
 
