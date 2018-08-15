@@ -22,7 +22,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
@@ -39,7 +38,6 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
-import android.hardware.camera2.params.OutputConfiguration;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
@@ -48,11 +46,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -64,7 +60,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.CreateWishActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 
 import java.io.File;
@@ -431,7 +426,7 @@ public class CameraFragment extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 													 Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_camera2_basic, container, false);
+		return inflater.inflate(R.layout.fragment_camera, container, false);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		getWindow().setNavigationBarColor(Color.argb(100, 0, 0, 0));
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		setContentView(R.layout.homeactivityscene);
+		setContentView(R.layout.activity_home_scene);
 
 		setHeaderImage();
 		setContent();

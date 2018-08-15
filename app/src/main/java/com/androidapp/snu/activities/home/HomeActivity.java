@@ -40,7 +40,7 @@ public class HomeActivity extends Activity {
 		Window window = getWindow();
 		window.setStatusBarColor(Color.argb(255, 0, 0, 0));
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home);
+		setContentView(R.layout.activity_home);
 		initActivities();
 		initScrollActivationListener();
 		initStylesAndBackground();

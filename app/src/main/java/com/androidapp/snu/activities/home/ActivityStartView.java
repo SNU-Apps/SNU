@@ -28,7 +28,7 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 	}
 
 	private View getIconWithText(Context context) {
-		View view = LayoutInflater.from(context).inflate(R.layout.activity_start_icon, null);
+		View view = LayoutInflater.from(context).inflate(R.layout.fragment_activity_home_scene, null);
 		ImageView image = view.findViewById(R.id.activity_start_image_icon);
 		TextView text = view.findViewById(R.id.activity_start_header_text);
 		Picasso.with(context)
