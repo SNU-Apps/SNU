@@ -19,6 +19,7 @@ package com.androidapp.snu.activities.wishes;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.Gravity;
 import android.view.View;
@@ -66,9 +67,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.setPadding(20, 0, 20, 0);
 
-		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
 		photoThumbnail = new PhotoThumbnail(this);
-		photoThumbnail.setPhoto(this, photoPath);
 
 		TextView text = new TextView(this);
 		text.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -78,16 +77,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
 		text.setTypeface(typeface);
 
-		TextView text2 = new TextView(this);
-		text2.setText(
-				"\n\nein kleines, witziges Schnugg." +
-						"\n\n\nWICHIG:  Es muss seeehr klein sein!");
-
-		text2.setTextSize(22);
-		text2.setTypeface(typeface);
-
 		layout.addView(text);
 		layout.addView(photoThumbnail);
+
 
 		ImageView pen = new ImageView(this);
 		pen.setImageResource(R.drawable.pen_grey_200px);
@@ -102,6 +94,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		layout.setLayoutParams(layoutParams);
 
 		return layout;
+	}
+
+	@Override
+	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
+		photoThumbnail.setPhoto(this, photoPath);
 	}
 
 	@Override
