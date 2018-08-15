@@ -21,9 +21,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,13 +36,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
 
+	LinearLayout contentView;
 	PhotoThumbnail photoThumbnail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		super.onCreate(savedInstanceState);
-
-		photoThumbnail.setOnClickListener(this);
 	}
 
 	@Override
@@ -63,44 +62,22 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 
 	@Override
 	protected View getContent() {
-		LinearLayout layout = new LinearLayout(this);
-		layout.setOrientation(LinearLayout.VERTICAL);
-		layout.setPadding(20, 0, 20, 0);
-
-		photoThumbnail = new PhotoThumbnail(this);
-
-		TextView text = new TextView(this);
-		text.setGravity(Gravity.CENTER_HORIZONTAL);
-		text.setPadding(0, 20, 0, 25);
-		text.setText("Ich wünsche mir...");
-		text.setTextSize(28);
+		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
+		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
+		TextView description = contentView.findViewById(R.id.activity_create_wish_content_description);
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
-		text.setTypeface(typeface);
+		headline.setTypeface(typeface);
+		description.setTypeface(typeface);
 
-		layout.addView(text);
-		layout.addView(photoThumbnail);
-
-
-		ImageView pen = new ImageView(this);
-		pen.setImageResource(R.drawable.pen_grey_200px);
-		pen.setPadding(0, 80, 0, 50);
-		layout.addView(pen);
-
-		//layout.addView(text2);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.setMargins(80, 50, 80, 0);
-		//layout.setBackgroundResource(R.drawable.shadow);
-		layout.setLayoutParams(layoutParams);
-
-		return layout;
+		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
+		photoThumbnail.setPhoto(this, photoPath);
+		photoThumbnail.setOnClickListener(this);
+		return contentView;
 	}
 
 	@Override
 	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
-		photoThumbnail.setPhoto(this, photoPath);
 	}
 
 	@Override

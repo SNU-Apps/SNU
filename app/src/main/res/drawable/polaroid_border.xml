@@ -3,8 +3,7 @@
         <layer-list>
             <item android:bottom="0dp" android:left="0dp">
                 <shape>
-                    <gradient android:angle="315"
-                        android:endColor="#cccccc" android:startColor="#f9f9f9" />
+                    <gradient android:angle="315" android:endColor="#d6d6d6" android:startColor="#f1f1f1" />
                 </shape>
             </item>
         </layer-list>
