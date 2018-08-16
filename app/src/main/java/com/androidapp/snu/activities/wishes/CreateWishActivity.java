@@ -66,12 +66,12 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	protected View getContent() {
 		initHeadlineAndDescription();
 		initPhotoThumbnail();
-		initFooter();
 		return contentView;
 	}
 
 	@Override
 	protected View getFooter() {
+		initFooter();
 		return footerView;
 	}
 
