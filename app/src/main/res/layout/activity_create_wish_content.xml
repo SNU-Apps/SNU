@@ -3,8 +3,8 @@
     android:id="@+id/activity_create_wish_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -24,14 +24,14 @@
 
     </com.androidapp.snu.components.camera.PhotoThumbnail>
 
-    <TextView
+    <EditText
         android:id="@+id/activity_create_wish_content_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:hint="... beschreibung"
         android:paddingBottom="10dp"
         android:paddingTop="20dp"
-        android:text="... ein sehr sehr kleines Schnugg"
         android:textSize="28sp" />
 
 </LinearLayout>

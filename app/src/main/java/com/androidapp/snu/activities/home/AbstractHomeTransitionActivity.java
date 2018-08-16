@@ -65,10 +65,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	private void setContent() {
 		LinearLayout content = findViewById(R.id.view_content);
-		LinearLayout preFooter = findViewById(R.id.textview_pre_footer);
 		LinearLayout footer = findViewById(R.id.textview_footer);
-		preFooter.setGravity(Gravity.CENTER_HORIZONTAL);
-		footer.setGravity(Gravity.CENTER_HORIZONTAL);
 
 		View contentView = getContent();
 		if (contentView != null) {

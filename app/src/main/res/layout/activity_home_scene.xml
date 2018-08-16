@@ -37,30 +37,11 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/textview_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
-        <LinearLayout
-            android:id="@+id/textview_pre_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@android:style/Theme.Material"
-            android:textAppearance="@android:style/TextAppearance.Material.Title"
-            android:orientation="horizontal"
-            android:maxLines="2"
-            android:padding="16dp">
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/textview_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@android:style/Theme.Material"
-            android:textAppearance="@android:style/TextAppearance.Material.Title"
-            android:orientation="horizontal"
-            android:maxLines="2"
-            android:padding="10dp">
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
