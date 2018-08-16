@@ -16,6 +16,7 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
-public class CreateWishActivity extends AbstractHomeTransitionActivity implements View.OnClickListener {
+public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
@@ -74,13 +75,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		return footerView;
 	}
 
-	@Override
-	public void onClick(View view) {
-		Intent intent = new Intent(this, PhotoWishActivity.class);
-		finish();
-		ActivityCompat.startActivity(this, intent, null);
-	}
-
 	private void initHeadlineAndDescription() {
 		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
 		TextView description = contentView.findViewById(R.id.activity_create_wish_content_description);
@@ -90,10 +84,18 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	}
 
 	private void initPhotoThumbnail() {
+		final Context context = this;
 		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
 		photoThumbnail.setPhoto(this, photoPath);
-		photoThumbnail.setOnClickListener(this);
+		photoThumbnail.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(context, PhotoWishActivity.class);
+				finish();
+				ActivityCompat.startActivity(context, intent, null);
+			}
+		});
 	}
 
 	private void initFooter() {
