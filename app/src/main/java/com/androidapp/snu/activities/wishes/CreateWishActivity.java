@@ -16,11 +16,8 @@
 
 package com.androidapp.snu.activities.wishes;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -84,14 +81,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initPhotoThumbnail() {
-		final Context context = this;
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
 		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
-		photoThumbnail.setOnClickListener(view -> {
-			Intent intent = new Intent(context, PhotoWishActivity.class);
-			finish();
-			ActivityCompat.startActivity(context, intent, null);
-		});
+		photoThumbnail.setOnClickListener(view -> PhotoWishActivity.start(this));
 	}
 
 	private void initFooter() {
