@@ -85,9 +85,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	private void initPhotoThumbnail() {
 		final Context context = this;
-		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, photoPath);
+		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
