@@ -18,6 +18,8 @@ package com.androidapp.snu.activities.wishes.createWish;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
