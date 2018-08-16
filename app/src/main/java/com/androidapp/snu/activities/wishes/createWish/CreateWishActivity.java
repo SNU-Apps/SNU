@@ -18,8 +18,6 @@ package com.androidapp.snu.activities.wishes.createWish;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -36,8 +34,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
-
-	private final static CurrentWish currentWish = new CurrentWish();
 
 	LinearLayout contentView;
 	LinearLayout footerView;
@@ -87,9 +83,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initPhotoThumbnail() {
-		currentWish.setPhotoPath(getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
+		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail.setOnClickListener(view -> {
 			PhotoWishActivity.start(this);
 			finish();
@@ -101,9 +96,5 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
 		footerText.setTypeface(typeface);
 		footerText.setOnClickListener(view -> finish());
-	}
-
-	public static CurrentWish getCurrentWish() {
-		return currentWish;
 	}
 }
