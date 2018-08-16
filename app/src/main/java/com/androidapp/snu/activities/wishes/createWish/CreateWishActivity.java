@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidapp.snu.activities.wishes;
+package com.androidapp.snu.activities.wishes.createWish;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
+import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
@@ -33,6 +34,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
+
+	private final static CurrentWish currentWish = new CurrentWish();
 
 	LinearLayout contentView;
 	LinearLayout footerView;
@@ -82,8 +85,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initPhotoThumbnail() {
+		currentWish.setPhotoPath(getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
+		photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
 		photoThumbnail.setOnClickListener(view -> PhotoWishActivity.start(this));
 	}
 
@@ -92,5 +96,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
 		footerText.setTypeface(typeface);
 		footerText.setOnClickListener(view -> finish());
+	}
+
+	public static CurrentWish getCurrentWish() {
+		return currentWish;
 	}
 }

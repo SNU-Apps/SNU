@@ -24,6 +24,7 @@ import android.view.View;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
+import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.components.camera.CameraFragment;
 
 import java.io.File;

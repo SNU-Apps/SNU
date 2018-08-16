@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.CreateWishActivity;
+import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.activities.wishes.FriendsWishesActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
