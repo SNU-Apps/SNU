@@ -744,6 +744,7 @@ public class CameraFragment extends Fragment
 
 	public float finger_spacing = 0;
 	public int zoom_level = 1;
+	Rect zoom;
 
 	private boolean onTouch(View view, MotionEvent event) {
 		try {
@@ -773,7 +774,7 @@ public class CameraFragment extends Fragment
 					int cropH = difH /100 *(int)zoom_level;
 					cropW -= cropW & 3;
 					cropH -= cropH & 3;
-					Rect zoom = new Rect(cropW, cropH, m.width() - cropW, m.height() - cropH);
+					zoom = new Rect(cropW, cropH, m.width() - cropW, m.height() - cropH);
 					mPreviewRequestBuilder.set(CaptureRequest.SCALER_CROP_REGION, zoom);
 				}
 				finger_spacing = current_finger_spacing;
@@ -904,6 +905,9 @@ public class CameraFragment extends Fragment
 			captureBuilder.addTarget(mImageReader.getSurface());
 
 			// Use the same AE and AF modes as the preview.
+
+			captureBuilder.set(CaptureRequest.SCALER_CROP_REGION, zoom);
+
 			captureBuilder.set(CaptureRequest.CONTROL_AF_MODE,
 					CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
 			setAutoFlash(captureBuilder);
