@@ -58,11 +58,6 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected View getPreFooter() {
-		return null;
-	}
-
-	@Override
 	protected View getFooter() {
 		TextView text = new TextView(this);
 		text.setText("Weiter zur Vorschau");

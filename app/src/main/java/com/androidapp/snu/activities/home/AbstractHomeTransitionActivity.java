@@ -52,8 +52,6 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	protected abstract View getContent();
 
-	protected abstract View getPreFooter();
-
 	protected abstract View getFooter();
 
 	private void setHeaderImage() {
@@ -75,11 +73,6 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		View contentView = getContent();
 		if (contentView != null) {
 			content.addView(contentView);
-		}
-
-		View preFooterView = getPreFooter();
-		if (preFooterView != null) {
-			preFooter.addView(preFooterView);
 		}
 
 		View footerView = getFooter();

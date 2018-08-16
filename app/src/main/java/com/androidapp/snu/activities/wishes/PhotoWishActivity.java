@@ -86,12 +86,6 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected View getPreFooter() {
-		//special handling for camera activity
-		return null;
-	}
-
-	@Override
 	protected View getFooter() {
 		//special handling for camera activity
 		return null;

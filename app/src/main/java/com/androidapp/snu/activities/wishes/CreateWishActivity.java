@@ -19,7 +19,6 @@ package com.androidapp.snu.activities.wishes;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +36,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	public static final String PHOTO_PATH = "detail:_photoId";
 
 	LinearLayout contentView;
+	LinearLayout footerView;
 	PhotoThumbnail photoThumbnail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
+		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -64,36 +65,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 	protected View getContent() {
 		initHeadlineAndDescription();
 		initPhotoThumbnail();
+		initFooter();
 		return contentView;
 	}
 
 	@Override
-	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-	}
-
-	@Override
-	protected View getPreFooter() {
-		return null;
-	}
-
-	@Override
 	protected View getFooter() {
-		TextView text = new TextView(this);
-		text.setText("Weiter zur Vorschau");
-		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
-
-		LinearLayout footer = new LinearLayout(this);
-		footer.addView(text);
-
-		text.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
-
-		return footer;
+		return footerView;
 	}
 
 	@Override
@@ -116,5 +94,17 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
 		photoThumbnail.setPhoto(this, photoPath);
 		photoThumbnail.setOnClickListener(this);
+	}
+
+	private void initFooter() {
+		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
+		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
+		footerText.setTypeface(typeface);
+		footerText.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 	}
 }
