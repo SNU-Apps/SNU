@@ -751,7 +751,7 @@ public class CameraFragment extends Fragment
 			Activity activity = getActivity();
 			CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
 			CameraCharacteristics characteristics = manager.getCameraCharacteristics(mCameraId);
-			float maxzoom = (characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM))*10;
+			float maxzoom = (characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM))*5;
 
 			Rect m = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE);
 			int action = event.getAction();
@@ -761,9 +761,9 @@ public class CameraFragment extends Fragment
 				// Multi touch logic
 				current_finger_spacing = getFingerSpacing(event);
 				if(finger_spacing != 0){
-					if(current_finger_spacing > finger_spacing && maxzoom > zoom_level){
+					if(current_finger_spacing - 3 > finger_spacing && maxzoom > zoom_level){
 						zoom_level++;
-					} else if (current_finger_spacing < finger_spacing && zoom_level > 1){
+					} else if (current_finger_spacing + 3 < finger_spacing && zoom_level > 1){
 						zoom_level--;
 					}
 					int minW = (int) (m.width() / maxzoom);
