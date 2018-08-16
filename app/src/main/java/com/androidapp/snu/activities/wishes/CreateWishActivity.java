@@ -62,16 +62,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 
 	@Override
 	protected View getContent() {
-		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
-		TextView description = contentView.findViewById(R.id.activity_create_wish_content_description);
-		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
-		headline.setTypeface(typeface);
-		description.setTypeface(typeface);
-
-		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
-		photoThumbnail.setPhoto(this, photoPath);
-		photoThumbnail.setOnClickListener(this);
+		initHeadlineAndDescription();
+		initPhotoThumbnail();
 		return contentView;
 	}
 
@@ -109,5 +101,20 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity implement
 		Intent intent = new Intent(this, PhotoWishActivity.class);
 		finish();
 		ActivityCompat.startActivity(this, intent, null);
+	}
+
+	private void initHeadlineAndDescription() {
+		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
+		TextView description = contentView.findViewById(R.id.activity_create_wish_content_description);
+		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
+		headline.setTypeface(typeface);
+		description.setTypeface(typeface);
+	}
+
+	private void initPhotoThumbnail() {
+		final String photoPath = getIntent().getStringExtra(PHOTO_PATH);
+		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
+		photoThumbnail.setPhoto(this, photoPath);
+		photoThumbnail.setOnClickListener(this);
 	}
 }
