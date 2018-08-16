@@ -72,22 +72,20 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		return HEADER_TEXT;
 	}
 
-	private void openCreateWishActivtiy(File file) {
-		Intent intent = new Intent(this, CreateWishActivity.class);
-		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());
-		finish();
-		ActivityCompat.startActivity(this, intent, null);
-	}
-
 	@Override
 	protected View getContent() {
-		//special handling for camera activity
 		return null;
 	}
 
 	@Override
 	protected View getFooter() {
-		//special handling for camera activity
 		return null;
+	}
+
+	private void openCreateWishActivtiy(File file) {
+		Intent intent = new Intent(this, CreateWishActivity.class);
+		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());
+		finish();
+		ActivityCompat.startActivity(this, intent, null);
 	}
 }
