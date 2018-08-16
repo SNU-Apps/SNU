@@ -33,7 +33,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	public static final String HEADER_TEXT = "...fotografieren";
 
 	public interface PhotoCreatedCallback {
-		void onPhotoCreated(final Context context, final File file);
+		void onPhotoCreated(final File file);
 	}
 
 	public static void start(final Context context) {
@@ -45,14 +45,10 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera);
 
-		CameraFragment cameraFragment = CameraFragment.newInstance();
-
-		cameraFragment.setPhotoCreatedHandler(this, new PhotoCreatedCallback() {
-			@Override
-			public void onPhotoCreated(Context context, File file) {
-				openCreateWishActivtiy(context, file);
-			}
-		});
+		CameraFragment cameraFragment =
+				CameraFragment
+						.newInstance()
+						.withPhotoCreatedHandler(this::openCreateWishActivtiy);
 
 		if (null == savedInstanceState) {
 			getSupportFragmentManager().beginTransaction()
@@ -76,7 +72,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		return HEADER_TEXT;
 	}
 
-	private void openCreateWishActivtiy(Context context, File file) {
+	private void openCreateWishActivtiy(File file) {
 		Intent intent = new Intent(this, CreateWishActivity.class);
 		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());
 		finish();

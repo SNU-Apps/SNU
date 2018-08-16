@@ -815,9 +815,9 @@ public class CameraFragment extends Fragment
 	Context context;
 	PhotoWishActivity.PhotoCreatedCallback handler;
 
-	public void setPhotoCreatedHandler(Context context, PhotoWishActivity.PhotoCreatedCallback handler) {
-		this.context = context;
+	public CameraFragment withPhotoCreatedHandler(PhotoWishActivity.PhotoCreatedCallback handler) {
 		this.handler = handler;
+		return this;
 	}
 
 	/**
@@ -868,7 +868,7 @@ public class CameraFragment extends Fragment
 					unlockFocus();
 
 					if (handler != null) {
-						handler.onPhotoCreated(context, mFile);
+						handler.onPhotoCreated(mFile);
 					}
 				}
 			};
