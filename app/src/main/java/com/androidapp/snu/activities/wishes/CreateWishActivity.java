@@ -87,13 +87,10 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		final Context context = this;
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
 		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
-		photoThumbnail.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(context, PhotoWishActivity.class);
-				finish();
-				ActivityCompat.startActivity(context, intent, null);
-			}
+		photoThumbnail.setOnClickListener(view -> {
+			Intent intent = new Intent(context, PhotoWishActivity.class);
+			finish();
+			ActivityCompat.startActivity(context, intent, null);
 		});
 	}
 
@@ -101,11 +98,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
 		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
 		footerText.setTypeface(typeface);
-		footerText.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
+		footerText.setOnClickListener(view -> finish());
 	}
 }
