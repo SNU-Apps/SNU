@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -74,7 +75,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	private void initHeadlineAndDescription() {
 		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
-		TextView description = contentView.findViewById(R.id.activity_create_wish_content_description);
+		EditText description = contentView.findViewById(R.id.activity_create_wish_content_description);
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
 		headline.setTypeface(typeface);
 		description.setTypeface(typeface);

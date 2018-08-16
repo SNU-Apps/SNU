@@ -9,19 +9,19 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <com.androidapp.snu.SquareFrameLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <ImageView
-                      android:id="@+id/imageview_header"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:scaleType="centerCrop" />
+                    android:id="@+id/imageview_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
 
             </com.androidapp.snu.SquareFrameLayout>
 
@@ -40,8 +40,8 @@
         android:id="@+id/view_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true">
-    </LinearLayout>
+        android:background="#fafafa"/>
 
 </RelativeLayout>

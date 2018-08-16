@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.wishes.PhotoWishActivity" />
-        <activity android:name=".activities.wishes.CreateWishActivity" />
+        <activity android:name=".activities.wishes.CreateWishActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.wishes.MyWishesActivity" />
         <activity android:name=".activities.wishes.FriendsWishesActivity" />
     </application>
