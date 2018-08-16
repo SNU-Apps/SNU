@@ -35,6 +35,7 @@
         android:hint="... beschreibung"
         android:paddingBottom="30dp"
         android:paddingTop="20dp"
+        android:textColor="#737373"
         android:textSize="28sp" />
 
 </LinearLayout>
