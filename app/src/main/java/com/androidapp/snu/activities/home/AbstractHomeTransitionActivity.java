@@ -20,7 +20,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -65,7 +64,7 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	private void setContent() {
 		LinearLayout content = findViewById(R.id.view_content);
-		LinearLayout footer = findViewById(R.id.textview_footer);
+		LinearLayout footer = findViewById(R.id.view_footer);
 
 		View contentView = getContent();
 		if (contentView != null) {
