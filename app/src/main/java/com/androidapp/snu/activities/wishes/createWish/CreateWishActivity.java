@@ -75,12 +75,14 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initHeadlineAndDescription() {
+		View mainLayout = findViewById(R.id.main_scene_layout);
 		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
 		EditText description = contentView.findViewById(R.id.activity_create_wish_content_description);
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
 		headline.setTypeface(typeface);
 		description.setTypeface(typeface);
 		description.setOnFocusChangeListener((view, hasFocus) -> description.setCursorVisible(hasFocus));
+		mainLayout.setOnClickListener(view -> description.clearFocus());
 	}
 
 	private void initPhotoThumbnail() {
