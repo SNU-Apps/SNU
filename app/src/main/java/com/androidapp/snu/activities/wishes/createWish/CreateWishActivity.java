@@ -93,6 +93,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 			description.setHint(hasFocus ? "" : getResources().getString(R.string.activity_create_wish_content_description_hint));
 		});
 		mainLayout.setOnClickListener(view -> description.clearFocus());
+		contentView.setOnClickListener(view -> description.clearFocus());
 	}
 
 	private void initPhotoThumbnail() {
