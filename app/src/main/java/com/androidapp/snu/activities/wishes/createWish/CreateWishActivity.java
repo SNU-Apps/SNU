@@ -35,6 +35,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
 
+	private static final String fontPath = "fonts/handwrite.ttf";
+
 	LinearLayout contentView;
 	LinearLayout footerView;
 	PhotoThumbnail photoThumbnail;
@@ -63,7 +65,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	@Override
 	protected View getContent() {
-		initHeadlineAndDescription();
+		initHeadline();
+		initDescription();
 		initPhotoThumbnail();
 		return contentView;
 	}
@@ -74,14 +77,21 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		return footerView;
 	}
 
-	private void initHeadlineAndDescription() {
-		View mainLayout = findViewById(R.id.main_scene_layout);
+	private void initHeadline() {
 		TextView headline = contentView.findViewById(R.id.activity_create_wish_content_headline);
-		EditText description = contentView.findViewById(R.id.activity_create_wish_content_description);
-		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
+		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		headline.setTypeface(typeface);
+	}
+
+	private void initDescription() {
+		View mainLayout = findViewById(R.id.main_scene_layout);
+		EditText description = contentView.findViewById(R.id.activity_create_wish_content_description);
+		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		description.setTypeface(typeface);
-		description.setOnFocusChangeListener((view, hasFocus) -> description.setCursorVisible(hasFocus));
+		description.setOnFocusChangeListener((view, hasFocus) -> {
+			description.setCursorVisible(hasFocus);
+			description.setHint(hasFocus ? "" : getResources().getString(R.string.activity_create_wish_content_description_hint));
+		});
 		mainLayout.setOnClickListener(view -> description.clearFocus());
 	}
 
@@ -95,7 +105,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initFooter() {
-		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
+		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
 		footerText.setTypeface(typeface);
 		footerText.setOnClickListener(view -> finish());

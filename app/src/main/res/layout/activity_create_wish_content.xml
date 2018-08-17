@@ -34,7 +34,7 @@
         android:background="@android:color/transparent"
         android:cursorVisible="false"
         android:gravity="center"
-        android:hint="... beschreibung"
+        android:hint="@string/activity_create_wish_content_description_hint"
         android:paddingBottom="30dp"
         android:paddingTop="20dp"
         android:textColor="#737373"
