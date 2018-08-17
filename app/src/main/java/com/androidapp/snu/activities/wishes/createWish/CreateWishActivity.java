@@ -80,6 +80,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/handwrite.ttf");
 		headline.setTypeface(typeface);
 		description.setTypeface(typeface);
+		description.setOnFocusChangeListener((view, hasFocus) -> description.setCursorVisible(hasFocus));
 	}
 
 	private void initPhotoThumbnail() {
