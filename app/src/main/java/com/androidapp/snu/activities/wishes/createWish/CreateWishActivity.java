@@ -17,10 +17,10 @@
 package com.androidapp.snu.activities.wishes.createWish;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -28,9 +28,12 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
-import com.androidapp.snu.components.keyboard.KeyboardUtils;
+import com.androidapp.snu.components.utils.BitmapUtils;
+import com.androidapp.snu.components.utils.ImagePicker;
+import com.androidapp.snu.components.utils.KeyboardUtils;
+
+import java.io.File;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
@@ -98,7 +101,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail.setOnClickListener(view -> {
 			KeyboardUtils.removeAllKeyboardToggleListeners();
-			ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
+			//ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
+			getPictureFromGalery();
 			//finish();
 		});
 	}
@@ -108,5 +112,27 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
 		footerText.setTypeface(typeface);
 		footerText.setOnClickListener(view -> finish());
+	}
+
+	public static final int PICK_IMAGE = 1;
+
+	private void getPictureFromGalery() {
+		String[] mimeTypes = {"image/jpeg", "image/png"};
+		Intent chooserIntent = new Intent(Intent.ACTION_GET_CONTENT)
+				.setType("image/*")
+				.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+		startActivityForResult(chooserIntent, PICK_IMAGE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == PICK_IMAGE) {
+			Bitmap bitmap;
+			bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+			File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
+			if (jpg != null) {
+				photoThumbnail.setPhoto(this, jpg.getPath());
+			}
+		}
 	}
 }

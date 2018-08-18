@@ -1,4 +1,4 @@
-package com.androidapp.snu.components.keyboard;
+package com.androidapp.snu.components.utils;
 
 import android.app.Activity;
 import android.content.Context;
