@@ -16,6 +16,7 @@
 
 package com.androidapp.snu.activities.wishes.createWish;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -28,9 +29,9 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.components.camera.PhotoThumbnail;
+import com.androidapp.snu.components.camera.PhotoPolaroid;
+import com.androidapp.snu.components.camera.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.utils.BitmapUtils;
-import com.androidapp.snu.components.utils.ImagePicker;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 
 import java.io.File;
@@ -40,12 +41,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
-
 	private static final String fontPath = "fonts/handwrite.ttf";
+
+	private static String currentPhotoPath;
 
 	LinearLayout contentView;
 	LinearLayout footerView;
-	PhotoThumbnail photoThumbnail;
+	PhotoPolaroidThumbnail photoThumbnail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +99,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initPhotoThumbnail() {
+		currentPhotoPath = getIntent().getStringExtra(PHOTO_PATH);
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
+		photoThumbnail.setPhoto(this, currentPhotoPath);
 		photoThumbnail.setOnClickListener(view -> {
-			KeyboardUtils.removeAllKeyboardToggleListeners();
+			openDialog();
 			//ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
-			getPictureFromGalery();
+			//getPictureFromGalery();
 			//finish();
 		});
 	}
@@ -128,11 +131,32 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == PICK_IMAGE) {
 			Bitmap bitmap;
-			bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+			bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
 			File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
 			if (jpg != null) {
 				photoThumbnail.setPhoto(this, jpg.getPath());
 			}
 		}
+	}
+
+
+	private void openDialog() {
+		// custom dialog
+		final Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.activity_select_photo);
+
+		PhotoPolaroid photo = dialog.findViewById(R.id.activity_create_wish_content_photo_polaroid);
+		photo.setPhoto(this, currentPhotoPath);
+
+//		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+//		// if button is clicked, close the custom dialog
+//		dialogButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				dialog.dismiss();
+//			}
+//		});
+
+		dialog.show();
 	}
 }

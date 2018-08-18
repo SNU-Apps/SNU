@@ -1,7 +1,6 @@
 package com.androidapp.snu.components.camera;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
@@ -12,22 +11,21 @@ import com.androidapp.snu.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.jar.Attributes;
 
-public class PhotoThumbnail extends ConstraintLayout {
+public class PhotoPolaroid extends ConstraintLayout {
 
-	public PhotoThumbnail(Context context) {
+	public PhotoPolaroid(Context context) {
 		super(context);
-		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid_thumbnail, null));
+		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid, null));
 	}
 
-	public PhotoThumbnail(Context context, AttributeSet attributeSet) {
+	public PhotoPolaroid(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
-		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid_thumbnail, null));
+		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid, null));
 	}
 
 	public void setPhoto(final Context context, final String path) {
-		ImageView imageView = this.findViewById(R.id.component_polaroid_image_thumbnail);
+		ImageView imageView = this.findViewById(R.id.component_polaroid_image);
 		File imgFile;
 		if (path != null && (imgFile = new File(path)).exists()) {
 			Picasso
@@ -38,7 +36,7 @@ public class PhotoThumbnail extends ConstraintLayout {
 	}
 
 	public void setPhoto(final Context context, final Uri uri) {
-		ImageView imageView = this.findViewById(R.id.component_polaroid_image_thumbnail);
+		ImageView imageView = this.findViewById(R.id.component_polaroid_image);
 		if (uri != null) {
 			Picasso
 					.with(context)

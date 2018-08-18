@@ -1,4 +1,4 @@
-package com.androidapp.snu.components.utils;
+package com.androidapp.snu.activities.wishes.createWish;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.provider.MediaStore;
 import java.io.File;
 import java.io.IOException;
 
-public class ImagePicker {
+public class CreateWishImagePicker {
 	private static final String TEMP_IMAGE_NAME = "tempImage";
 
 	public static Bitmap getImageFromResult(Context context, int resultCode, Intent imageReturnedIntent) {
