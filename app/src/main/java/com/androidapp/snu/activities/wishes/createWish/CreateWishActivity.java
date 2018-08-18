@@ -108,6 +108,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 			//getPictureFromGalery();
 			//finish();
 		});
+		if (currentPhotoPath != null) {
+			openDialog();
+		}
 	}
 
 	private void initFooter() {
