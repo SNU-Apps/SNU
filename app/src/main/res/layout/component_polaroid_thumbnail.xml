@@ -19,7 +19,7 @@
         android:background="@color/black"
         android:maxHeight="72dp"
         android:maxWidth="70dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/camera_70px"/>
+        android:scaleType="fitXY"/>
+        <!--android:src="@drawable/camera_70px"/-->
 
 </android.support.constraint.ConstraintLayout>

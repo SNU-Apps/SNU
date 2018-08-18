@@ -37,10 +37,6 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		void onPhotoCreated(final File file);
 	}
 
-	public static void start(final Context context) {
-		ActivityCompat.startActivity(context, new Intent(context, PhotoWishActivity.class), null);
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

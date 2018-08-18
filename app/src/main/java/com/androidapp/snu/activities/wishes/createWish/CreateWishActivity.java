@@ -16,11 +16,13 @@
 
 package com.androidapp.snu.activities.wishes.createWish;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 import com.androidapp.snu.components.camera.PhotoThumbnail;
+import com.androidapp.snu.components.keyboard.KeyboardUtils;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
@@ -84,23 +87,18 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initDescription() {
-		View mainLayout = findViewById(R.id.main_scene_layout);
-		EditText description = contentView.findViewById(R.id.activity_create_wish_content_description);
+		TextInputEditText description = contentView.findViewById(R.id.activity_create_wish_content_description);
 		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		description.setTypeface(typeface);
-		description.setOnFocusChangeListener((view, hasFocus) -> {
-			description.setCursorVisible(hasFocus);
-			description.setHint(hasFocus ? "" : getResources().getString(R.string.activity_create_wish_content_description_hint));
-		});
-		mainLayout.setOnClickListener(view -> description.clearFocus());
-		contentView.setOnClickListener(view -> description.clearFocus());
+		KeyboardUtils.addKeyboardToggleListener(this, description::setCursorVisible);
 	}
 
 	private void initPhotoThumbnail() {
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
 		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail.setOnClickListener(view -> {
-			PhotoWishActivity.start(this);
+			KeyboardUtils.removeAllKeyboardToggleListeners();
+			ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
 			//finish();
 		});
 	}
