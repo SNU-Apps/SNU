@@ -24,8 +24,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.androidapp.snu.R;
+import com.androidapp.snu.components.utils.KeyboardUtils;
 import com.squareup.picasso.Picasso;
 
 public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
@@ -41,6 +43,9 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 		setHeaderImage();
 		setContent();
+
+		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
+		mainLayout.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(mainLayout));
 	}
 
 	protected abstract int getHeaderImageId();

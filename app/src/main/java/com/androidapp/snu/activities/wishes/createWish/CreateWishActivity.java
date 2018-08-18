@@ -74,6 +74,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		initHeadline();
 		initDescription();
 		initPhotoThumbnail();
+		contentView.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(contentView));
+
 		return contentView;
 	}
 
