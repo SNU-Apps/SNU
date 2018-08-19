@@ -50,6 +50,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		CurrentWish.clear();
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
 		super.onCreate(savedInstanceState);
@@ -154,9 +155,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	private void showModifyPhotoDialog() {
 		final Dialog dialog = new Dialog(this);
-		dialog.setContentView(R.layout.activity_select_photo);
+		dialog.setContentView(R.layout.dialog_modify_photo);
 
-		PhotoPolaroid photo = dialog.findViewById(R.id.activity_create_wish_content_photo_polaroid);
+		PhotoPolaroid photo = dialog.findViewById(R.id.dialog_modify_photo_content_polaroid);
 		photo.setPhoto(this, CurrentWish.getPhotoPath());
 
 //		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
@@ -173,9 +174,9 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	private void showNewPhotoDialog() {
 		final Dialog dialog = new Dialog(this);
-		dialog.setContentView(R.layout.activity_select_photo);
+		dialog.setContentView(R.layout.dialog_modify_photo);
 
-		PhotoPolaroid photo = dialog.findViewById(R.id.activity_create_wish_content_photo_polaroid);
+		PhotoPolaroid photo = dialog.findViewById(R.id.dialog_modify_photo_content_polaroid);
 		photo.setPhoto(this, CurrentWish.getPhotoPath());
 
 //		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
