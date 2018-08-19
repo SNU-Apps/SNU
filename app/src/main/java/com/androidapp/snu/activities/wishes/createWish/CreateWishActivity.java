@@ -42,6 +42,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	public static final String PHOTO_PATH = "detail:_photoId";
 	private static final String fontPath = "fonts/handwrite.ttf";
+	public static final int PICK_IMAGE_FROM_GALLERY = 1;
 
 	LinearLayout contentView;
 	LinearLayout footerView;
@@ -74,8 +75,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		initHeadline();
 		initDescription();
 		initPhotoThumbnail();
-		contentView.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(contentView));
-
 		return contentView;
 	}
 
@@ -83,6 +82,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	protected View getFooter() {
 		initFooter();
 		return footerView;
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == PICK_IMAGE_FROM_GALLERY) {
+			handleImageFromGalleryReceived(resultCode, data);
+		}
 	}
 
 	private void initHeadline() {
@@ -96,6 +102,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		description.setTypeface(typeface);
 		KeyboardUtils.addKeyboardToggleListener(this, description::setCursorVisible);
+		contentView.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(contentView));
 	}
 
 	private void initPhotoThumbnail() {
@@ -119,25 +126,19 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		footerText.setOnClickListener(view -> finish());
 	}
 
-	public static final int PICK_IMAGE = 1;
-
 	private void getPictureFromGalery() {
 		String[] mimeTypes = {"image/jpeg", "image/png"};
 		Intent chooserIntent = new Intent(Intent.ACTION_GET_CONTENT)
 				.setType("image/*")
 				.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-		startActivityForResult(chooserIntent, PICK_IMAGE);
+		startActivityForResult(chooserIntent, PICK_IMAGE_FROM_GALLERY);
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == PICK_IMAGE) {
-			Bitmap bitmap;
-			bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
-			File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
-			if (jpg != null) {
-				photoThumbnail.setPhoto(this, jpg.getPath());
-			}
+	private void handleImageFromGalleryReceived(final int resultCode, final Intent data) {
+		final Bitmap bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
+		final File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
+		if (jpg != null) {
+			photoThumbnail.setPhoto(this, jpg.getPath());
 		}
 	}
 
