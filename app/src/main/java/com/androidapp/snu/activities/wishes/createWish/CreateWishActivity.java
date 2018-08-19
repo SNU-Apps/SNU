@@ -106,16 +106,17 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initPhotoThumbnail() {
+		CurrentWish.setPhotoPath(getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
+		photoThumbnail.setPhoto(this, CurrentWish.getPhotoPath());
 		photoThumbnail.setOnClickListener(view -> {
-			openDialog();
+			showPhotoDialog();
 			//ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
 			//getPictureFromGalery();
 			//finish();
 		});
 		if (getIntent().getStringExtra(PHOTO_PATH) != null) {
-			openDialog();
+			showPhotoDialog();
 		}
 	}
 
@@ -138,18 +139,44 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		final Bitmap bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
 		final File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
 		if (jpg != null) {
-			photoThumbnail.setPhoto(this, jpg.getPath());
+			CurrentWish.setPhotoPath(jpg.getPath());
+			photoThumbnail.setPhoto(this, CurrentWish.getPhotoPath());
 		}
 	}
 
+	private void showPhotoDialog() {
+		if (CurrentWish.hasPhoto()) {
+			showModifyPhotoDialog();
+		} else {
+			showNewPhotoDialog();
+		}
+	}
 
-	private void openDialog() {
-		// custom dialog
+	private void showModifyPhotoDialog() {
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(R.layout.activity_select_photo);
 
 		PhotoPolaroid photo = dialog.findViewById(R.id.activity_create_wish_content_photo_polaroid);
-		photo.setPhoto(this, getIntent().getStringExtra(PHOTO_PATH));
+		photo.setPhoto(this, CurrentWish.getPhotoPath());
+
+//		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+//		// if button is clicked, close the custom dialog
+//		dialogButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				dialog.dismiss();
+//			}
+//		});
+
+		dialog.show();
+	}
+
+	private void showNewPhotoDialog() {
+		final Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.activity_select_photo);
+
+		PhotoPolaroid photo = dialog.findViewById(R.id.activity_create_wish_content_photo_polaroid);
+		photo.setPhoto(this, CurrentWish.getPhotoPath());
 
 //		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
 //		// if button is clicked, close the custom dialog
