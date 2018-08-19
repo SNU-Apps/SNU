@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_modify_photo"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:background="#f000"
     android:orientation="vertical">
 
     <com.androidapp.snu.components.camera.PhotoPolaroid
         android:id="@+id/dialog_modify_photo_content_polaroid"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-    </com.androidapp.snu.components.camera.PhotoPolaroid>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#f000"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="365dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Foo BAr Baz" />
+    </LinearLayout>
 
 </LinearLayout>
