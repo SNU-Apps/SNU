@@ -40,7 +40,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
-	public static final String PHOTO_PATH = "detail:_photoId";
 	private static final String fontPath = "fonts/handwrite.ttf";
 	public static final int PICK_IMAGE_FROM_GALLERY = 1;
 
@@ -48,9 +47,11 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	LinearLayout footerView;
 	PhotoPolaroidThumbnail photoThumbnail;
 
+	private Wish currentWish;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		CurrentWish.clear();
+		currentWish = Wish.fromIntent(getIntent());
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
 		super.onCreate(savedInstanceState);
@@ -107,16 +108,15 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void initPhotoThumbnail() {
-		CurrentWish.setPhotoPath(getIntent().getStringExtra(PHOTO_PATH));
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, CurrentWish.getPhotoPath());
+		photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
 		photoThumbnail.setOnClickListener(view -> {
 			showPhotoDialog();
 			//ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
 			//getPictureFromGalery();
 			//finish();
 		});
-		if (getIntent().getStringExtra(PHOTO_PATH) != null) {
+		if (currentWish.hasPhoto()) {
 			showPhotoDialog();
 		}
 	}
@@ -140,13 +140,13 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		final Bitmap bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
 		final File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
 		if (jpg != null) {
-			CurrentWish.setPhotoPath(jpg.getPath());
-			photoThumbnail.setPhoto(this, CurrentWish.getPhotoPath());
+			currentWish.setPhotoPath(jpg.getPath());
+			photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
 		}
 	}
 
 	private void showPhotoDialog() {
-		if (CurrentWish.hasPhoto()) {
+		if (currentWish.hasPhoto()) {
 			showModifyPhotoDialog();
 		} else {
 			showNewPhotoDialog();
@@ -158,7 +158,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		dialog.setContentView(R.layout.dialog_modify_photo);
 
 		PhotoPolaroid photo = dialog.findViewById(R.id.dialog_modify_photo_content_polaroid);
-		photo.setPhoto(this, CurrentWish.getPhotoPath());
+		photo.setPhoto(this, currentWish.getPhotoPath());
 
 //		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
 //		// if button is clicked, close the custom dialog
@@ -177,7 +177,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		dialog.setContentView(R.layout.dialog_modify_photo);
 
 		PhotoPolaroid photo = dialog.findViewById(R.id.dialog_modify_photo_content_polaroid);
-		photo.setPhoto(this, CurrentWish.getPhotoPath());
+		photo.setPhoto(this, currentWish.getPhotoPath());
 
 //		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
 //		// if button is clicked, close the custom dialog

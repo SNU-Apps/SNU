@@ -16,7 +16,6 @@
 
 package com.androidapp.snu.activities.wishes;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -25,6 +24,7 @@ import android.view.View;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
+import com.androidapp.snu.activities.wishes.createWish.Wish;
 import com.androidapp.snu.components.camera.CameraFragment;
 
 import java.io.File;
@@ -81,7 +81,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 
 	private void openCreateWishActivtiy(File file) {
 		Intent intent = new Intent(this, CreateWishActivity.class);
-		intent.putExtra(CreateWishActivity.PHOTO_PATH, file.getPath());
+		intent.putExtra(Wish.PHOTO_PATH, file.getPath());
 		finish();
 		ActivityCompat.startActivity(this, intent, null);
 	}
