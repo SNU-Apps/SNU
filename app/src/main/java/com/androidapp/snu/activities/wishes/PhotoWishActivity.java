@@ -80,9 +80,10 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void openCreateWishActivtiy(File file) {
+		Wish wish = new Wish();
+		wish.setPhotoPath(file.getPath());
 		Intent intent = new Intent(this, CreateWishActivity.class);
-		intent.putExtra(Wish.PHOTO_PATH, file.getPath());
-		finish();
+		Wish.addToIntent(wish, intent);
 		ActivityCompat.startActivity(this, intent, null);
 	}
 }

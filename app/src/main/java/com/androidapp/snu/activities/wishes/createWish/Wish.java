@@ -13,12 +13,18 @@ public class Wish {
 	private String photoPath;
 	private String description;
 
-	static Wish fromIntent(final Intent intent) {
+	public static Wish fromIntent(final Intent intent) {
 		Wish wish = new Wish();
 		wish.wishId = UUID.fromString(intent.getStringExtra(ID));
 		wish.photoPath = intent.getStringExtra(PHOTO_PATH);
 		wish.description = intent.getStringExtra(DESCRIPTION);
 		return wish;
+	}
+
+	public static void addToIntent(final Wish wish, final Intent intent) {
+		intent.putExtra(Wish.ID, wish.getWishId().toString());
+		intent.putExtra(Wish.PHOTO_PATH, wish.getPhotoPath());
+		intent.putExtra(Wish.DESCRIPTION, wish.getDescription());
 	}
 
 	public UUID getWishId() {
