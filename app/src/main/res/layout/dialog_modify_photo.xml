@@ -23,6 +23,7 @@
         tools:layout_editor_absoluteY="365dp">
 
         <TextView
+            android:id="@+id/dialog_modify_photo_content_rotate_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -34,6 +35,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/dialog_modify_photo_content_rotate_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="1dp"
@@ -46,6 +48,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/dialog_modify_photo_content_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -58,6 +61,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/dialog_modify_photo_content_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -69,6 +73,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/dialog_modify_photo_content_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"

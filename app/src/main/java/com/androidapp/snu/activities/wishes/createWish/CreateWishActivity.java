@@ -16,12 +16,15 @@
 
 package com.androidapp.snu.activities.wishes.createWish;
 
-import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -29,7 +32,8 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.components.camera.PhotoPolaroid;
+import com.androidapp.snu.activities.wishes.PhotoWishActivity;
+import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.utils.BitmapUtils;
 import com.androidapp.snu.components.utils.KeyboardUtils;
@@ -105,6 +109,23 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		description.setTypeface(typeface);
 		KeyboardUtils.addKeyboardToggleListener(this, description::setCursorVisible);
 		contentView.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(contentView));
+		description.setText(currentWish.getDescription());
+		description.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+				currentWish.setDescription(charSequence.toString());
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+
+			}
+		});
 	}
 
 	private void initPhotoThumbnail() {
@@ -112,9 +133,6 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
 		photoThumbnail.setOnClickListener(view -> {
 			showPhotoDialog();
-			//ActivityCompat.startActivity(this, new Intent(this, PhotoWishActivity.class), null);
-			//getPictureFromGalery();
-			//finish();
 		});
 		if (currentWish.hasPhoto()) {
 			showPhotoDialog();
@@ -154,40 +172,56 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void showModifyPhotoDialog() {
-		final Dialog dialog = new Dialog(this);
-		dialog.setContentView(R.layout.dialog_modify_photo);
+		Context context = this;
+		PhotoModifyDialog dialog =
+				new PhotoModifyDialog(this, currentWish);
+		dialog.show(new PhotoModifyDialog.ToolbarListener() {
+			@Override
+			public void onRotateLeft() {
+				rotate(270);
+			}
 
-		PhotoPolaroid photo = dialog.findViewById(R.id.dialog_modify_photo_content_polaroid);
-		photo.setPhoto(this, currentWish.getPhotoPath());
+			@Override
+			public void onRotateRight() {
+				rotate(90);
+			}
 
-//		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-//		// if button is clicked, close the custom dialog
-//		dialogButton.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				dialog.dismiss();
-//			}
-//		});
+			@Override
+			public void onDelete() {
+				BitmapUtils
+						.getJpgAsFile(currentWish.getPhotoPath())
+						.delete();
+				photoThumbnail.deletePhoto();
+				currentWish.setPhotoPath(null);
+				dialog.dismiss();
+			}
 
-		dialog.show();
+			@Override
+			public void onNew() {
+
+			}
+
+			@Override
+			public void onOK() {
+				dialog.dismiss();
+			}
+
+			private void rotate(float rotation) {
+				Bitmap bitmap = BitmapUtils.loadBitmapAndDeleteFile(currentWish.getPhotoPath());
+				Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, rotation);
+				File newJpg = BitmapUtils.storeAsJpg(rotatedBitmap, false, context);
+				photoThumbnail.setPhoto(context, newJpg.getPath());
+				dialog.setPhoto(context, newJpg.getPath());
+				currentWish.setPhotoPath(newJpg.getPath());
+			}
+		});
 	}
 
 	private void showNewPhotoDialog() {
-		final Dialog dialog = new Dialog(this);
-		dialog.setContentView(R.layout.dialog_modify_photo);
-
-		PhotoPolaroid photo = dialog.findViewById(R.id.dialog_modify_photo_content_polaroid);
-		photo.setPhoto(this, currentWish.getPhotoPath());
-
-//		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-//		// if button is clicked, close the custom dialog
-//		dialogButton.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				dialog.dismiss();
-//			}
-//		});
-
-		dialog.show();
+		Intent intent = new Intent(this, PhotoWishActivity.class);
+		Wish.addToIntent(currentWish, intent);
+		ActivityCompat.startActivity(this, intent, null);
+		//getPictureFromGalery();
+		//finish();
 	}
 }

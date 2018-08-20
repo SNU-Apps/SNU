@@ -1,7 +1,6 @@
 package com.androidapp.snu.components.camera;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
@@ -12,7 +11,6 @@ import com.androidapp.snu.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.jar.Attributes;
 
 public class PhotoPolaroidThumbnail extends ConstraintLayout {
 
@@ -45,5 +43,10 @@ public class PhotoPolaroidThumbnail extends ConstraintLayout {
 					.load(uri)
 					.into(imageView);
 		}
+	}
+
+	public void deletePhoto() {
+		ImageView imageView = this.findViewById(R.id.component_polaroid_image_thumbnail);
+		imageView.setImageDrawable(null);
 	}
 }

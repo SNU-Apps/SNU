@@ -15,14 +15,16 @@ public class Wish {
 
 	public static Wish fromIntent(final Intent intent) {
 		Wish wish = new Wish();
-		wish.wishId = UUID.fromString(intent.getStringExtra(ID));
+		String id = intent.getStringExtra(ID);
+		wish.wishId = id != null ? UUID.fromString(id) : null;
 		wish.photoPath = intent.getStringExtra(PHOTO_PATH);
 		wish.description = intent.getStringExtra(DESCRIPTION);
 		return wish;
 	}
 
 	public static void addToIntent(final Wish wish, final Intent intent) {
-		intent.putExtra(Wish.ID, wish.getWishId().toString());
+		UUID id = wish.getWishId();
+		intent.putExtra(Wish.ID, id != null ? id.toString() : null);
 		intent.putExtra(Wish.PHOTO_PATH, wish.getPhotoPath());
 		intent.putExtra(Wish.DESCRIPTION, wish.getDescription());
 	}

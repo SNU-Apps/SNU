@@ -2,6 +2,7 @@ package com.androidapp.snu.components.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 
 import java.io.ByteArrayOutputStream;
@@ -12,26 +13,14 @@ import java.util.UUID;
 public class BitmapUtils {
 
 	public static File storeAsJpg(Bitmap bitmap, boolean compress, final Context context) {
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		if (compress) {
-			Bitmap bmp = BitmapUtils.getResizedBitmap(bitmap, bitmap.getWidth() / 3, bitmap.getHeight() / 3);
-			bmp.compress(Bitmap.CompressFormat.JPEG, 30, stream);
-		} else {
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-		}
-		byte[] byteArray = stream.toByteArray();
+		return storeAsJpgInternal(bitmap, compress, UUID.randomUUID().toString(), context);
+	}
 
-		File mFile;
-		try {
-			mFile = new File(context.getExternalFilesDir(null), UUID.randomUUID() + ".jpg");
-			FileOutputStream fos = new FileOutputStream(mFile);
-			fos.write(byteArray);
-			fos.flush();
-			fos.close();
-		} catch (Exception e) {
-			return null;
-		}
-		return mFile;
+	public static Bitmap loadBitmapAndDeleteFile(final String path) {
+		File image = new File(path);
+		Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+		image.delete();
+		return bitmap;
 	}
 
 	public static Bitmap getRotatedBitmap(Bitmap bm, float rotation) {
@@ -39,7 +28,7 @@ public class BitmapUtils {
 		int height = bm.getHeight();
 
 		Matrix matrix = new Matrix();
-		matrix.postRotate(rotation);
+		matrix.setRotate(rotation);
 
 		return Bitmap.createBitmap(
 				bm, 0, 0, width, height, matrix, false);
@@ -59,5 +48,32 @@ public class BitmapUtils {
 		// "RECREATE" THE NEW BITMAP
 		return Bitmap.createBitmap(
 				bm, 0, 0, width, height, matrix, false);
+	}
+
+	public static File getJpgAsFile(String path) {
+		return new File(path);
+	}
+
+	private static File storeAsJpgInternal(Bitmap bitmap, boolean compress, String fileName, final Context context) {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		if (compress) {
+			Bitmap bmp = BitmapUtils.getResizedBitmap(bitmap, bitmap.getWidth() / 3, bitmap.getHeight() / 3);
+			bmp.compress(Bitmap.CompressFormat.JPEG, 30, stream);
+		} else {
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		}
+		byte[] byteArray = stream.toByteArray();
+
+		File mFile;
+		try {
+			mFile = new File(context.getExternalFilesDir(null), fileName + ".jpg");
+			FileOutputStream fos = new FileOutputStream(mFile);
+			fos.write(byteArray);
+			fos.flush();
+			fos.close();
+		} catch (Exception e) {
+			return null;
+		}
+		return mFile;
 	}
 }
