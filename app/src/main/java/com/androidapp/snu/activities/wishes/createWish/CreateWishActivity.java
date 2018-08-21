@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
@@ -39,7 +40,6 @@ import com.androidapp.snu.components.utils.BitmapUtils;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 
 import java.io.File;
-import java.util.UUID;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
@@ -47,6 +47,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	private static final String fontPath = "fonts/handwrite.ttf";
 	public static final int PICK_IMAGE_FROM_GALLERY = 1;
+	public static final int PICK_IMAGE_FROM_CAMERA = 2;
 
 	LinearLayout contentView;
 	LinearLayout footerView;
@@ -95,6 +96,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == PICK_IMAGE_FROM_GALLERY) {
 			handleImageFromGalleryReceived(resultCode, data);
+		} else if (requestCode == PICK_IMAGE_FROM_CAMERA) {
+			handleImageFromCameraReceived(resultCode);
 		}
 	}
 
@@ -164,6 +167,19 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		}
 	}
 
+	private void handleImageFromCameraReceived(final int resultCode) {
+		if (resultCode != RESULT_OK) {
+			return;
+		}
+		Bitmap bitmap = BitmapUtils.loadBitmapAndDeleteFile(getExternalFilesDir(null) + "/temp.jpg");
+		Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, 90);
+		final File jpg = BitmapUtils.storeAsJpg(rotatedBitmap, true, this);
+		if (jpg != null) {
+			currentWish.setPhotoPath(jpg.getPath());
+			photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
+		}
+	}
+
 	private void showPhotoDialog() {
 		if (currentWish.hasPhoto()) {
 			showModifyPhotoDialog();
@@ -218,24 +234,16 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		});
 	}
 
-	public static final int PICK_IMAGE_FROM_CAMERA = 2;
-
 	private void showNewPhotoDialog() {
-		//maybe better:
-		// https://stackoverflow.com/questions/9890757/android-camera-data-intent-returns-null
+		//todo check how this can be removed!
+		StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+		StrictMode.setVmPolicy(builder.build());
+		//end todo
 
-		/*
-		Intent intent = new Intent(this, PhotoWishActivity.class);
-		Wish.addToIntent(currentWish, intent);
-		ActivityCompat.startActivity(this, intent, null);
-		*/
-
-		Intent photo = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		Uri uri = Uri.parse(getExternalFilesDir(null) + UUID.randomUUID().toString() + ".jpg");
-		photo.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, uri);
-		startActivityForResult(photo, PICK_IMAGE_FROM_CAMERA);
-
-		//getPictureFromGalery();
-		//finish();
+		File tempFile = new File(getExternalFilesDir(null), "temp.jpg");
+		Uri uri = Uri.fromFile(tempFile);
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+		startActivityForResult(intent, PICK_IMAGE_FROM_CAMERA);
 	}
 }
