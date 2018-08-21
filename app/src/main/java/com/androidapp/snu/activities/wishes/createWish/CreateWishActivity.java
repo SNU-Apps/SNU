@@ -20,9 +20,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -32,13 +33,13 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.utils.BitmapUtils;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 
 import java.io.File;
+import java.util.UUID;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
@@ -217,10 +218,23 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		});
 	}
 
+	public static final int PICK_IMAGE_FROM_CAMERA = 2;
+
 	private void showNewPhotoDialog() {
+		//maybe better:
+		// https://stackoverflow.com/questions/9890757/android-camera-data-intent-returns-null
+
+		/*
 		Intent intent = new Intent(this, PhotoWishActivity.class);
 		Wish.addToIntent(currentWish, intent);
 		ActivityCompat.startActivity(this, intent, null);
+		*/
+
+		Intent photo = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		Uri uri = Uri.parse(getExternalFilesDir(null) + UUID.randomUUID().toString() + ".jpg");
+		photo.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, uri);
+		startActivityForResult(photo, PICK_IMAGE_FROM_CAMERA);
+
 		//getPictureFromGalery();
 		//finish();
 	}
