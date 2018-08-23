@@ -18,12 +18,12 @@
         android:text="Ich wünsche mir..."
         android:textSize="28sp" />
 
-    <com.androidapp.snu.components.camera.PhotoPolaroidThumbnail
+    <com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail
         android:id="@+id/activity_create_wish_content_photo_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    </com.androidapp.snu.components.camera.PhotoPolaroidThumbnail>
+    </com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail>
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/activity_create_wish_content_description"

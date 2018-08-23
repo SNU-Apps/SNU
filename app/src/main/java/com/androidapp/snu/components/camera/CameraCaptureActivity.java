@@ -32,7 +32,7 @@ import java.io.File;
 
 public class CameraCaptureActivity extends AppCompatActivity {
 	public interface PhotoCreatedCallback {
-		void onPhotoCreated(final File file);
+		void onPhotoCreated(final File file, final int rotation);
 	}
 
 	@Override
@@ -54,19 +54,19 @@ public class CameraCaptureActivity extends AppCompatActivity {
 		}
 	}
 
-	private void onPhotoCreated(File file) {
-		initRotate(file);
+	private void onPhotoCreated(File file, int rotation) {
+		initRotate(file, rotation);
 		Intent returnIntent = new Intent();
 		returnIntent.putExtra(CreateWishActivity.PHOTO_FILE_NAME, file.getName());
 		setResult(Activity.RESULT_OK, returnIntent);
 		finish();
 	}
 
-	private void initRotate(File file) {
+	private void initRotate(File file, int rotation) {
 		//initial rotate to fit in polaroid
 		final ImageRepository imageRepository = ImageRepository.withContext(this);
 		Bitmap bitmap = imageRepository.findAsBitmap(file.getName());
 		imageRepository
-				.store(BitmapUtils.getRotatedBitmap(bitmap, 90), file.getName());
+				.store(BitmapUtils.getRotatedBitmap(bitmap, rotation), file.getName());
 	}
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.components.camera.PhotoPolaroid;
+import com.androidapp.snu.components.polaroid.PhotoPolaroid;
 
 import java.io.File;
 

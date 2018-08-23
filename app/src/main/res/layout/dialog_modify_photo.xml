@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.androidapp.snu.components.camera.PhotoPolaroid
+    <com.androidapp.snu.components.polaroid.PhotoPolaroid
         android:id="@+id/dialog_modify_photo_content_polaroid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

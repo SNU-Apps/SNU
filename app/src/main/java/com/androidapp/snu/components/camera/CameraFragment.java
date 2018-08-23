@@ -939,7 +939,7 @@ public class CameraFragment extends Fragment
 					unlockFocus();
 
 					if (handler != null) {
-						handler.onPhotoCreated(mFile);
+						handler.onPhotoCreated(mFile, getOrientation(rotation));
 					}
 				}
 			};
@@ -958,7 +958,7 @@ public class CameraFragment extends Fragment
 	 * @param rotation The screen rotation.
 	 * @return The JPEG orientation (one of 0, 90, 270, and 360)
 	 */
-	private int getOrientation(int rotation) {
+	public int getOrientation(int rotation) {
 		// Sensor orientation is 90 for most devices, or 270 for some devices (eg. Nexus 5X)
 		// We have to take that into account and rotate JPEG properly.
 		// For devices withContext orientation of 90, we simply return our mapping from ORIENTATIONS.

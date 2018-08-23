@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.components.camera.PhotoPolaroidThumbnail;
+import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.image.ImageRepository;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 

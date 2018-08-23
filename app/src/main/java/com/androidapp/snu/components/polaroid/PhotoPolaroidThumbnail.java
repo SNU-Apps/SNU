@@ -1,4 +1,4 @@
-package com.androidapp.snu.components.camera;
+package com.androidapp.snu.components.polaroid;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
