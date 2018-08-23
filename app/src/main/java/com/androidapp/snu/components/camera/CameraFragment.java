@@ -62,7 +62,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -751,7 +750,7 @@ public class CameraFragment extends Fragment
 			Activity activity = getActivity();
 			CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
 			CameraCharacteristics characteristics = manager.getCameraCharacteristics(mCameraId);
-			float maxzoom = (characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM))*5;
+			float maxzoom = (characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)) * 5;
 
 			Rect m = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE);
 			int action = event.getAction();
@@ -760,25 +759,25 @@ public class CameraFragment extends Fragment
 			if (event.getPointerCount() > 1) {
 				// Multi touch logic
 				current_finger_spacing = getFingerSpacing(event);
-				if(finger_spacing != 0){
-					if(current_finger_spacing - 3 > finger_spacing && maxzoom > zoom_level){
+				if (finger_spacing != 0) {
+					if (current_finger_spacing - 3 > finger_spacing && maxzoom > zoom_level) {
 						zoom_level++;
-					} else if (current_finger_spacing + 3 < finger_spacing && zoom_level > 1){
+					} else if (current_finger_spacing + 3 < finger_spacing && zoom_level > 1) {
 						zoom_level--;
 					}
 					int minW = (int) (m.width() / maxzoom);
 					int minH = (int) (m.height() / maxzoom);
 					int difW = m.width() - minW;
 					int difH = m.height() - minH;
-					int cropW = difW /100 *(int)zoom_level;
-					int cropH = difH /100 *(int)zoom_level;
+					int cropW = difW / 100 * (int) zoom_level;
+					int cropH = difH / 100 * (int) zoom_level;
 					cropW -= cropW & 3;
 					cropH -= cropH & 3;
 					zoom = new Rect(cropW, cropH, m.width() - cropW, m.height() - cropH);
 					mPreviewRequestBuilder.set(CaptureRequest.SCALER_CROP_REGION, zoom);
 				}
 				finger_spacing = current_finger_spacing;
-			} else{
+			} else {
 				if (action == MotionEvent.ACTION_UP) {
 					//single touch logic
 				}
@@ -882,9 +881,9 @@ public class CameraFragment extends Fragment
 	}
 
 	Context context;
-	PhotoWishActivity.PhotoCreatedCallback handler;
+	CameraCaptureActivity.PhotoCreatedCallback handler;
 
-	public CameraFragment withPhotoCreatedHandler(PhotoWishActivity.PhotoCreatedCallback handler) {
+	public CameraFragment withPhotoCreatedHandler(CameraCaptureActivity.PhotoCreatedCallback handler) {
 		this.handler = handler;
 		return this;
 	}

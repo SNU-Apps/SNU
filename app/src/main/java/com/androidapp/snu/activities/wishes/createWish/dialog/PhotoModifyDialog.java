@@ -5,8 +5,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.createWish.Wish;
 import com.androidapp.snu.components.camera.PhotoPolaroid;
+
+import java.io.File;
 
 public class PhotoModifyDialog extends Dialog {
 	public interface ToolbarListener {
@@ -23,11 +24,11 @@ public class PhotoModifyDialog extends Dialog {
 
 	private PhotoPolaroid photo;
 
-	public PhotoModifyDialog(@NonNull Context context, @NonNull final Wish wish) {
+	public PhotoModifyDialog(@NonNull Context context, @NonNull final File jpg) {
 		super(context);
 		setContentView(R.layout.dialog_modify_photo);
 		photo = findViewById(R.id.dialog_modify_photo_content_polaroid);
-		photo.setPhoto(context, wish.getPhotoPath());
+		photo.setPhoto(context, jpg);
 	}
 
 	public void show(@NonNull final ToolbarListener toolbar) {
@@ -39,7 +40,7 @@ public class PhotoModifyDialog extends Dialog {
 		findViewById(R.id.dialog_modify_photo_content_ok).setOnClickListener((view -> toolbar.onOK()));
 	}
 
-	public void setPhoto(Context context, String path) {
-		photo.setPhoto(context, path);
+	public void setPhoto(Context context, File jpg) {
+		photo.setPhoto(context, jpg);
 	}
 }

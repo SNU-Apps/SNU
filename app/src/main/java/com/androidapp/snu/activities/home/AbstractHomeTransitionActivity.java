@@ -54,9 +54,13 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 
 	protected abstract String getHeaderText();
 
-	protected abstract View getContent();
+	protected View getContent() {
+		return null;
+	}
 
-	protected abstract View getFooter();
+	protected View getFooter() {
+		return null;
+	}
 
 	private void setHeaderImage() {
 		ImageView headerImageView = findViewById(R.id.imageview_header);

@@ -42,22 +42,31 @@ class ImageRepositoryImpl implements ImageRepository {
 
 	@Override
 	public File findAsFile(String fileName) {
-		return new File(context.getExternalFilesDir(null), fileName + ".jpg");
+		return fileName != null
+				? new File(context.getExternalFilesDir(null), getNormalizeFileName(fileName))
+				: null;
 	}
 
 	@Override
 	public Bitmap findAsBitmap(String fileName) {
-		File image = new File(context.getExternalFilesDir(null), fileName + ".jpg");
+		if (fileName == null) {
+			return null;
+		}
+		File image = new File(context.getExternalFilesDir(null), getNormalizeFileName(fileName));
 		return BitmapFactory.decodeFile(image.getAbsolutePath());
 	}
 
 	@Override
 	public void delete(String fileName) {
-		new File(context.getExternalFilesDir(null), fileName + ".jpg").delete();
+		if (fileName == null) {
+			return;
+		}
+		new File(context.getExternalFilesDir(null), getNormalizeFileName(fileName))
+				.delete();
 	}
 
 	private File storeByteArrayToFileInternal(byte[] byteArray, String fileName) {
-		File mFile = new File(context.getExternalFilesDir(null), fileName + ".jpg");
+		File mFile = new File(context.getExternalFilesDir(null), getNormalizeFileName(fileName));
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(mFile);
@@ -68,5 +77,12 @@ class ImageRepositoryImpl implements ImageRepository {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	private String getNormalizeFileName(String fileName) {
+		if (!fileName.endsWith(".jpg")) {
+			return fileName += ".jpg";
+		}
+		return fileName;
 	}
 }

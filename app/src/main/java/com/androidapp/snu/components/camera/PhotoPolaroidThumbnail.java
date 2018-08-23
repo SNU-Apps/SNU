@@ -1,7 +1,6 @@
 package com.androidapp.snu.components.camera;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -24,23 +23,13 @@ public class PhotoPolaroidThumbnail extends ConstraintLayout {
 		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid_thumbnail, null));
 	}
 
-	public void setPhoto(final Context context, final String path) {
+	public void setPhoto(final Context context, final File jpg) {
 		ImageView imageView = this.findViewById(R.id.component_polaroid_image_thumbnail);
-		File imgFile;
-		if (path != null && (imgFile = new File(path)).exists()) {
+		imageView.setImageDrawable(null);
+		if (jpg != null) {
 			Picasso
 					.with(context)
-					.load(imgFile)
-					.into(imageView);
-		}
-	}
-
-	public void setPhoto(final Context context, final Uri uri) {
-		ImageView imageView = this.findViewById(R.id.component_polaroid_image_thumbnail);
-		if (uri != null) {
-			Picasso
-					.with(context)
-					.load(uri)
+					.load(jpg)
 					.into(imageView);
 		}
 	}

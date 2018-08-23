@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".components.camera.CameraCaptureActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.wishes.PhotoWishActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.wishes.createWish.CreateWishActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.wishes.MyWishesActivity" android:screenOrientation="portrait"/>
