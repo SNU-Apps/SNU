@@ -51,7 +51,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		CameraFragment cameraFragment =
 				CameraFragment
 						.newInstance()
-						.withPhotoCreatedHandler(this::openCreateWishActivtiy);
+						.withPhotoCreatedHandler(this::onPhotoCreated);
 
 		if (null == savedInstanceState) {
 			getSupportFragmentManager().beginTransaction()
@@ -87,7 +87,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 		return null;
 	}
 
-	private void openCreateWishActivtiy(File file) {
+	private void onPhotoCreated(File file) {
 		file = initRotate(file);
 		wish.setPhotoPath(file.getPath());
 		wish.setPhotoFileName(file.getName()); //todo check if .jpg is included

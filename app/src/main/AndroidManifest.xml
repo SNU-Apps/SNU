@@ -28,10 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.wishes.PhotoWishActivity" />
+        <activity android:name=".activities.wishes.PhotoWishActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.wishes.createWish.CreateWishActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activities.wishes.MyWishesActivity" />
-        <activity android:name=".activities.wishes.FriendsWishesActivity" />
+        <activity android:name=".activities.wishes.MyWishesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.wishes.FriendsWishesActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
