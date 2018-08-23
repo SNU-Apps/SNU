@@ -375,9 +375,9 @@ public class CameraFragment extends Fragment
 	/**
 	 * Given {@code choices} of {@code Size}s supported by a camera, choose the smallest one that
 	 * is at least as large as the respective texture view size, and that is at most as large as the
-	 * respective max size, and whose aspect ratio matches with the specified value. If such size
+	 * respective max size, and whose aspect ratio matches withContext the specified value. If such size
 	 * doesn't exist, choose the largest one that is at most as large as the respective max size,
-	 * and whose aspect ratio matches with the specified value.
+	 * and whose aspect ratio matches withContext the specified value.
 	 *
 	 * @param choices           The list of sizes that the camera supports for the intended output
 	 *                          class
@@ -526,7 +526,7 @@ public class CameraFragment extends Fragment
 				mImageReader.setOnImageAvailableListener(
 						mOnImageAvailableListener, mBackgroundHandler);
 
-				// Find out if we need to swap dimension to get the preview size relative to sensor
+				// Find out if we need to swap dimension to withContext the preview size relative to sensor
 				// coordinate.
 				int displayRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
 				//noinspection ConstantConditions
@@ -693,7 +693,7 @@ public class CameraFragment extends Fragment
 			// This is the output Surface we need to start preview.
 			Surface surface = new Surface(texture);
 
-			// We set up a CaptureRequest.Builder with the output Surface.
+			// We set up a CaptureRequest.Builder withContext the output Surface.
 			mPreviewRequestBuilder
 					= mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
 			mPreviewRequestBuilder.addTarget(surface);
@@ -865,7 +865,7 @@ public class CameraFragment extends Fragment
 
 	/**
 	 * Run the precapture sequence for capturing a still image. This method should be called when
-	 * we get a response in {@link #mCaptureCallback} from {@link #lockFocus()}.
+	 * we withContext a response in {@link #mCaptureCallback} from {@link #lockFocus()}.
 	 */
 	private void runPrecaptureSequence() {
 		try {
@@ -890,7 +890,7 @@ public class CameraFragment extends Fragment
 	}
 
 	/**
-	 * Capture a still picture. This method should be called when we get a response in
+	 * Capture a still picture. This method should be called when we withContext a response in
 	 * {@link #mCaptureCallback} from both {@link #lockFocus()}.
 	 */
 	private void captureStillPicture() {
@@ -962,8 +962,8 @@ public class CameraFragment extends Fragment
 	private int getOrientation(int rotation) {
 		// Sensor orientation is 90 for most devices, or 270 for some devices (eg. Nexus 5X)
 		// We have to take that into account and rotate JPEG properly.
-		// For devices with orientation of 90, we simply return our mapping from ORIENTATIONS.
-		// For devices with orientation of 270, we need to rotate the JPEG 180 degrees.
+		// For devices withContext orientation of 90, we simply return our mapping from ORIENTATIONS.
+		// For devices withContext orientation of 270, we need to rotate the JPEG 180 degrees.
 		return (ORIENTATIONS.get(rotation) + mSensorOrientation + 270) % 360;
 	}
 

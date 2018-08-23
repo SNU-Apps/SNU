@@ -36,10 +36,12 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.PhotoPolaroidThumbnail;
+import com.androidapp.snu.components.image.ImageRepository;
 import com.androidapp.snu.components.utils.BitmapUtils;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 
 import java.io.File;
+import java.util.UUID;
 
 public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
@@ -160,7 +162,12 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 	private void handleImageFromGalleryReceived(final int resultCode, final Intent data) {
 		final Bitmap bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
-		final File jpg = BitmapUtils.storeAsJpg(bitmap, true, this);
+		final String fileName = UUID.randomUUID().toString();
+
+		final File jpg =
+				ImageRepository.withContext(this)
+						.storeCompressed(bitmap, fileName);
+
 		if (jpg != null) {
 			currentWish.setPhotoPath(jpg.getPath());
 			photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
@@ -171,9 +178,20 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 		if (resultCode != RESULT_OK) {
 			return;
 		}
-		Bitmap bitmap = BitmapUtils.loadBitmapAndDeleteFile(getExternalFilesDir(null) + "/temp.jpg");
+
+		ImageRepository imageRepository = ImageRepository.withContext(this);
+
+		//load bitmap and delete file
+		Bitmap bitmap = imageRepository.findAsBitmap("temp");
+		imageRepository.delete("temp");
+
 		Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, 90);
-		final File jpg = BitmapUtils.storeAsJpg(rotatedBitmap, true, this);
+		final String fileName = UUID.randomUUID().toString();
+
+		final File jpg =
+				ImageRepository.withContext(this)
+						.store(rotatedBitmap, fileName);
+
 		if (jpg != null) {
 			currentWish.setPhotoPath(jpg.getPath());
 			photoThumbnail.setPhoto(this, currentWish.getPhotoPath());
@@ -205,9 +223,8 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 
 			@Override
 			public void onDelete() {
-				BitmapUtils
-						.getJpgAsFile(currentWish.getPhotoPath())
-						.delete();
+				ImageRepository.withContext(context)
+						.delete(currentWish.getPhotoFileName());
 				photoThumbnail.deletePhoto();
 				currentWish.setPhotoPath(null);
 				dialog.dismiss();
@@ -224,9 +241,19 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 			}
 
 			private void rotate(float rotation) {
-				Bitmap bitmap = BitmapUtils.loadBitmapAndDeleteFile(currentWish.getPhotoPath());
+				ImageRepository imageRepository = ImageRepository.withContext(context);
+
+				//load bitmap and delete file
+				Bitmap bitmap = imageRepository.findAsBitmap(currentWish.getPhotoFileName());
+				imageRepository.delete(currentWish.getPhotoFileName());
+
 				Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, rotation);
-				File newJpg = BitmapUtils.storeAsJpg(rotatedBitmap, false, context);
+				final String fileName = UUID.randomUUID().toString();
+
+				final File newJpg =
+						ImageRepository.withContext(context)
+								.store(rotatedBitmap, fileName);
+
 				photoThumbnail.setPhoto(context, newJpg.getPath());
 				dialog.setPhoto(context, newJpg.getPath());
 				currentWish.setPhotoPath(newJpg.getPath());

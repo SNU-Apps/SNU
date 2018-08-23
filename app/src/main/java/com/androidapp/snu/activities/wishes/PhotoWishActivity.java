@@ -27,9 +27,11 @@ import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.activities.wishes.createWish.Wish;
 import com.androidapp.snu.components.camera.CameraFragment;
+import com.androidapp.snu.components.image.ImageRepository;
 import com.androidapp.snu.components.utils.BitmapUtils;
 
 import java.io.File;
+import java.util.UUID;
 
 public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v2;
@@ -88,6 +90,7 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	private void openCreateWishActivtiy(File file) {
 		file = initRotate(file);
 		wish.setPhotoPath(file.getPath());
+		wish.setPhotoFileName(file.getName()); //todo check if .jpg is included
 		Intent intent = new Intent(this, CreateWishActivity.class);
 		Wish.addToIntent(wish, intent);
 		ActivityCompat.startActivity(this, intent, null);
@@ -96,8 +99,15 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 
 	private File initRotate(File file) {
 		//initial rotate to fit in polaroid
-		Bitmap bitmap = BitmapUtils.getRotatedBitmap(
-				BitmapUtils.loadBitmapAndDeleteFile(file.getPath()), 90);
-		return BitmapUtils.storeAsJpg(bitmap, false, this);
+		ImageRepository imageRepository = ImageRepository.withContext(this);
+
+		//load bitmap and delete file
+		Bitmap bitmap = imageRepository.findAsBitmap(file.getName());
+		imageRepository.delete(file.getName());
+
+		//rotate and store as new jpg
+		bitmap = BitmapUtils.getRotatedBitmap(bitmap, 90);
+		final String fileName = UUID.randomUUID().toString();
+		return imageRepository.store(bitmap, fileName);
 	}
 }
