@@ -36,6 +36,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.PhotoPolaroidThumbnail;
+import com.androidapp.snu.components.gallery.GalleryImagePicker;
 import com.androidapp.snu.components.image.ImageRepository;
 import com.androidapp.snu.components.utils.BitmapUtils;
 import com.androidapp.snu.components.utils.KeyboardUtils;
@@ -161,7 +162,7 @@ public class CreateWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	private void handleImageFromGalleryReceived(final int resultCode, final Intent data) {
-		final Bitmap bitmap = CreateWishImagePicker.getImageFromResult(this, resultCode, data);
+		final Bitmap bitmap = GalleryImagePicker.getImageFromResult(this, resultCode, data);
 		final String fileName = UUID.randomUUID().toString();
 
 		final File jpg =

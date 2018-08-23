@@ -21,8 +21,7 @@ public class PhotoModifyDialog extends Dialog {
 		void onOK();
 	}
 
-	private ToolbarListener toolbar;
-	PhotoPolaroid photo;
+	private PhotoPolaroid photo;
 
 	public PhotoModifyDialog(@NonNull Context context, @NonNull final Wish wish) {
 		super(context);
