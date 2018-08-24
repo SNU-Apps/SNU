@@ -18,68 +18,61 @@
         android:layout_gravity="bottom"
         android:gravity="center"
         android:orientation="horizontal"
+        android:layout_marginBottom="10sp"
         android:paddingTop="5dp"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="365dp">
 
-        <TextView
+        <ImageView
             android:id="@+id/dialog_modify_photo_content_rotate_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:drawableTop="@drawable/rotate_left_grey_45px"
-            android:maxLines="2"
-            android:text="n. links\ndrehen"
+            android:maxLines="1"
+            android:src="@drawable/rotate_left_grey_45px"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/dialog_modify_photo_content_rotate_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginRight="1dp"
             android:layout_weight="1"
-            android:drawableTop="@drawable/rotate_right_grey_45px"
+            android:src="@drawable/rotate_right_grey_45px"
             android:maxLines="2"
-            android:text="n. rechts\ndrehen"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/dialog_modify_photo_content_delete"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:drawableTop="@drawable/trash_grey_45px"
-            android:maxLines="2"
-            android:text="löschen"
+            android:src="@drawable/trash_grey_45px"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/dialog_modify_photo_content_new"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="top"
-            android:layout_weight="2"
-            android:drawableTop="@drawable/camera_grey_45px"
-            android:text="neu"
+            android:layout_weight="1"
+            android:src="@drawable/camera_grey_45px"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/dialog_modify_photo_content_ok"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_weight="2"
-            android:drawableTop="@drawable/accept_green_45px"
-            android:text="OK"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/accept_green_45px"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />

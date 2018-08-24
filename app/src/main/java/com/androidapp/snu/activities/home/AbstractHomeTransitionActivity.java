@@ -22,10 +22,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.components.utils.KeyboardUtils;
@@ -36,14 +36,14 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Window window = getWindow();
-		window.setStatusBarColor(Color.argb(100, 0, 0, 0));
-		getWindow().setNavigationBarColor(Color.argb(100, 0, 0, 0));
+		window.setStatusBarColor(Color.argb(200, 0, 0, 0));
+		getWindow().setNavigationBarColor(Color.argb(200, 0, 0, 0));
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_home_base_layout);
 		setContent();
 
-		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
+		AppCompatImageView mainLayout = findViewById(R.id.main_scene_layout_background_image);
 		mainLayout.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(mainLayout));
 
 		setDefaultBackGroundImage();
@@ -62,16 +62,16 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	}
 
 	protected void setBackGroundImage(Bitmap bitmap) {
-		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
-		Drawable d = BlurBuilder.blur(this, bitmap);
-		d.setAlpha(170);
+		AppCompatImageView mainLayout = findViewById(R.id.main_scene_layout_background_image);
+		Drawable d = BlurBuilder.blur(this, bitmap, 0.4f, 0.4f, 7.5f);
+		d.setAlpha(160);
 		mainLayout.setBackground(d);
 	}
 
 	protected void setDefaultBackGroundImage() {
-		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
+		AppCompatImageView mainLayout = findViewById(R.id.main_scene_layout_background_image);
 		Drawable d = BlurBuilder.blur(this, R.drawable.vintage_photo_small);
-		d.setAlpha(170);
+		d.setAlpha(210);
 		mainLayout.setBackground(d);
 	}
 

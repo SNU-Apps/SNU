@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:layout_gravity="end"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
         android:id="@+id/activity_create_wish_footer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Weiter zur Vorschau"
-        android:textSize="20sp" />
+        android:layout_gravity="end"
+        android:paddingBottom="15dp"
+        android:paddingEnd="15dp"
+        android:src="@drawable/accept_brown_100px" />
 
 </LinearLayout>

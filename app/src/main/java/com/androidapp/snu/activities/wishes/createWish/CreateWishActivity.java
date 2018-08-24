@@ -152,6 +152,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 								.store(rotatedBitmap, newFileName);
 
 				dialog.setPhoto(context, newJpg);
+				setBackGroundImage(rotatedBitmap);
 				photoThumbnail.setPhoto(context, newJpg);
 				currentWish.setPhotoFileName(newJpg.getName());
 			}

@@ -23,6 +23,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -114,8 +115,7 @@ public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionA
 
 	private void initFooter() {
 		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
-		TextView footerText = footerView.findViewById(R.id.activity_create_wish_footer);
-		footerText.setTypeface(typeface);
-		footerText.setOnClickListener(view -> finish());
+		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
+		accept.setOnClickListener(view -> finish());
 	}
 }
