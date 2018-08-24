@@ -16,9 +16,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="10sp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginBottom="10sp"
         android:paddingTop="5dp"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="365dp">
@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_rotate_left"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:maxLines="1"
             android:src="@drawable/rotate_left_grey_45px"
@@ -37,11 +37,11 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_rotate_right"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginRight="1dp"
             android:layout_weight="1"
-            android:src="@drawable/rotate_right_grey_45px"
             android:maxLines="2"
+            android:src="@drawable/rotate_right_grey_45px"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />
@@ -49,7 +49,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_delete"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:src="@drawable/trash_grey_45px"
             android:textAlignment="center"
@@ -60,7 +60,6 @@
             android:id="@+id/dialog_modify_photo_content_new"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_gravity="top"
             android:layout_weight="1"
             android:src="@drawable/camera_grey_45px"
             android:textAlignment="center"
