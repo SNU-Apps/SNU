@@ -17,38 +17,37 @@
 package com.androidapp.snu.activities.home;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.components.utils.KeyboardUtils;
-import com.squareup.picasso.Picasso;
+import com.androidapp.snu.transformation.BlurBuilder;
 
 public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Window window = getWindow();
-		window.setStatusBarColor(Color.argb(255, 0, 0, 0));
+		window.setStatusBarColor(Color.argb(100, 0, 0, 0));
 		getWindow().setNavigationBarColor(Color.argb(100, 0, 0, 0));
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_home_base_layout);
-
-		setHeaderImage();
 		setContent();
 
 		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
 		mainLayout.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(mainLayout));
-	}
 
-	protected abstract int getHeaderImageId();
+		setDefaultBackGroundImage();
+	}
 
 	protected abstract int getIconImageId();
 
@@ -62,13 +61,18 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		return null;
 	}
 
-	private void setHeaderImage() {
-		ImageView headerImageView = findViewById(R.id.imageview_header);
-		Picasso.with(headerImageView.getContext())
-				.load(getHeaderImageId())
-				.noFade()
-				.noPlaceholder()
-				.into(headerImageView);
+	protected void setBackGroundImage(Bitmap bitmap) {
+		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
+		Drawable d = BlurBuilder.blur(this, bitmap);
+		d.setAlpha(170);
+		mainLayout.setBackground(d);
+	}
+
+	protected void setDefaultBackGroundImage() {
+		RelativeLayout mainLayout = findViewById(R.id.main_scene_layout);
+		Drawable d = BlurBuilder.blur(this, R.drawable.vintage_photo_small);
+		d.setAlpha(170);
+		mainLayout.setBackground(d);
 	}
 
 	private void setContent() {

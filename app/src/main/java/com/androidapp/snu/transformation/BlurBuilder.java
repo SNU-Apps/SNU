@@ -18,11 +18,16 @@ public class BlurBuilder {
 	public static Drawable blur(Context context, final int drawableId) {
 		Drawable wallpaperDrawable = context.getResources().getDrawable(drawableId);
 		Bitmap bitmap = ((BitmapDrawable) wallpaperDrawable).getBitmap();
-		Bitmap blurryBitmap = blur(context, bitmap);
+		Bitmap blurryBitmap = blurInternal(context, bitmap);
 		return new BitmapDrawable(context.getResources(), blurryBitmap);
 	}
 
-	public static Bitmap blur(Context context, Bitmap image) {
+	public static Drawable blur(Context context, final Bitmap bitmap) {
+		Bitmap blurryBitmap = blurInternal(context, bitmap);
+		return new BitmapDrawable(context.getResources(), blurryBitmap);
+	}
+
+	private static Bitmap blurInternal(Context context, Bitmap image) {
 		int width = Math.round(image.getWidth() * BITMAP_SCALE);
 		int height = Math.round(image.getHeight() * BITMAP_SCALE);
 

@@ -36,11 +36,6 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected int getHeaderImageId() {
-		return HEADER_IMAGE_ID;
-	}
-
-	@Override
 	protected int getIconImageId() {
 		return HEADER_IMAGE_ID;
 	}

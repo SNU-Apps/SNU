@@ -37,8 +37,6 @@ public class HomeActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Window window = getWindow();
-		window.setStatusBarColor(Color.argb(255, 0, 0, 0));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		initActivities();

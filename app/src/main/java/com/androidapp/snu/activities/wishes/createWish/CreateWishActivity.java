@@ -39,6 +39,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 		super.onCreate(savedInstanceState);
 		photoThumbnail.setOnClickListener(view -> showPhotoDialog());
 		if (currentWish.hasPhoto()) {
+			final ImageRepository imageRepository = ImageRepository.withContext(this);
+			setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
 			showPhotoDialog();
 		}
 	}
@@ -69,6 +71,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	}
 
 	private void handleImageFromGalleryReceived(final int resultCode, final Intent data) {
+		final ImageRepository imageRepository = ImageRepository.withContext(this);
 		final Bitmap bitmap = GalleryImagePicker.getImageFromResult(this, resultCode, data);
 		final String fileName = UUID.randomUUID().toString();
 
@@ -78,6 +81,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 
 		if (jpg != null) {
 			currentWish.setPhotoFileName(jpg.getName());
+			setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
 			photoThumbnail.setPhoto(this, jpg);
 			showPhotoDialog();
 		}
@@ -91,6 +95,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 
 			if (jpg != null) {
 				currentWish.setPhotoFileName(fileName);
+				setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
 				photoThumbnail.setPhoto(this, jpg);
 				showPhotoDialog();
 			}
@@ -119,6 +124,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 			public void onDelete() {
 				ImageRepository.withContext(context)
 						.delete(currentWish.getPhotoFileName());
+				setDefaultBackGroundImage();
 				photoThumbnail.deletePhoto();
 				currentWish.setPhotoFileName(null);
 				dialog.dismiss();

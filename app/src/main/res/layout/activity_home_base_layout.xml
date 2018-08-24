@@ -9,40 +9,20 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/view_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.androidapp.snu.SquareFrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imageview_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop" />
-
-            </com.androidapp.snu.SquareFrameLayout>
-
-            <LinearLayout
-                android:id="@+id/view_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textAppearance="@android:style/TextAppearance.Material.Body1" />
-
-        </LinearLayout>
+            android:orientation="vertical"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/view_footer"
-        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:background="#fafafa"/>
+        android:paddingBottom="10dp" />
 
 </RelativeLayout>

@@ -28,13 +28,12 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.image.ImageRepository;
+import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 
 public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionActivity {
 	public static final String PHOTO_FILE_NAME = "detail:_photoFileName";
-	public static final int HEADER_IMAGE_ID = R.drawable.v1_1;
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	private static final String fontPath = "fonts/handwrite.ttf";
@@ -51,11 +50,6 @@ public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionA
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
 		super.onCreate(savedInstanceState);
-	}
-
-	@Override
-	protected int getHeaderImageId() {
-		return HEADER_IMAGE_ID;
 	}
 
 	@Override
