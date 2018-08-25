@@ -16,7 +16,9 @@
 
 package com.androidapp.snu.activities.wishes.createWish;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -122,12 +124,30 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 
 			@Override
 			public void onDelete() {
-				ImageRepository.withContext(context)
-						.delete(currentWish.getPhotoFileName());
-				setDefaultBackGroundImage();
-				photoThumbnail.deletePhoto();
-				currentWish.setPhotoFileName(null);
-				dialog.dismiss();
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setCancelable(false);
+				builder.setTitle("Sicher?");
+				builder.setMessage("Willst Du das Bild wirklich löschen?");
+				builder.setPositiveButton("Ja!",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface alertDialog, int which) {
+								ImageRepository.withContext(context)
+										.delete(currentWish.getPhotoFileName());
+								setDefaultBackGroundImage();
+								photoThumbnail.deletePhoto();
+								currentWish.setPhotoFileName(null);
+								dialog.dismiss();
+							}
+						});
+				builder.setNegativeButton("Nein, doch nicht!", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface alertDialog, int which) {
+						alertDialog.dismiss();
+					}
+				});
+				AlertDialog alertDialog = builder.create();
+				alertDialog.show();
 			}
 
 			@Override
