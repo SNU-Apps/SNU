@@ -934,8 +934,8 @@ public class CameraFragment extends Fragment
 				public void onCaptureCompleted(@NonNull CameraCaptureSession session,
 																			 @NonNull CaptureRequest request,
 																			 @NonNull TotalCaptureResult result) {
-					showToast("Saved: " + mFile);
-					Log.d(TAG, mFile.toString());
+					//showToast("Saved: " + mFile);
+					//Log.d(TAG, mFile.toString());
 					unlockFocus();
 
 					if (handler != null) {

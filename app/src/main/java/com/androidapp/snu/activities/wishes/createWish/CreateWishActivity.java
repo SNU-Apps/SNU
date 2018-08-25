@@ -18,9 +18,9 @@ package com.androidapp.snu.activities.wishes.createWish;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
@@ -129,31 +129,36 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 				builder.setTitle("Sicher?");
 				builder.setMessage("Willst Du das Bild wirklich löschen?");
 				builder.setPositiveButton("Ja!",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface alertDialog, int which) {
-								ImageRepository.withContext(context)
-										.delete(currentWish.getPhotoFileName());
-								setDefaultBackGroundImage();
-								photoThumbnail.deletePhoto();
-								currentWish.setPhotoFileName(null);
-								dialog.dismiss();
-							}
+						(alertDialog, which) -> {
+							deletePhoto();
+							dialog.dismiss();
 						});
-				builder.setNegativeButton("Nein, doch nicht!", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface alertDialog, int which) {
-						alertDialog.dismiss();
-					}
-				});
+				builder.setNegativeButton("Nein, doch nicht!", (alertDialog, which) -> alertDialog.dismiss());
 				AlertDialog alertDialog = builder.create();
 				alertDialog.show();
+				int textColor = Color.argb(255, 204, 153, 102);
+				alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(textColor);
+				alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(textColor);
 			}
 
 			@Override
 			public void onNew() {
-				onDelete();
-				showPhotoDialog();
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setCancelable(false);
+				builder.setTitle("Sicher?");
+				builder.setMessage("Willst Du das Bild wirklich löschen und durch ein anderes ersetzen?");
+				builder.setPositiveButton("Ja!",
+						(alertDialog, which) -> {
+							deletePhoto();
+							dialog.dismiss();
+							showPhotoDialog();
+						});
+				builder.setNegativeButton("Nein, doch nicht!", (alertDialog, which) -> alertDialog.dismiss());
+				AlertDialog alertDialog = builder.create();
+				alertDialog.show();
+				int textColor = Color.argb(255, 204, 153, 102);
+				alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(textColor);
+				alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(textColor);
 			}
 
 			@Override
@@ -175,6 +180,14 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 				setBackGroundImage(rotatedBitmap);
 				photoThumbnail.setPhoto(context, newJpg);
 				currentWish.setPhotoFileName(newJpg.getName());
+			}
+
+			private void deletePhoto() {
+				ImageRepository.withContext(context)
+						.delete(currentWish.getPhotoFileName());
+				setDefaultBackGroundImage();
+				photoThumbnail.deletePhoto();
+				currentWish.setPhotoFileName(null);
 			}
 		});
 	}

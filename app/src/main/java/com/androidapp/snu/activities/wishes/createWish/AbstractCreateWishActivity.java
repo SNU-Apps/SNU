@@ -98,6 +98,9 @@ public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionA
 			@Override
 			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 				currentWish.setDescription(charSequence.toString());
+				footerView.setVisibility(currentWish.getDescription() != null && currentWish.getDescription().length() > 0
+						? View.VISIBLE
+						: View.INVISIBLE);
 			}
 
 			@Override
@@ -116,6 +119,7 @@ public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionA
 	private void initFooter() {
 		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
+		footerView.setVisibility(View.INVISIBLE);
 		accept.setOnClickListener(view -> finish());
 	}
 }
