@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoCreateDialog;
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.CameraCaptureActivity;
 import com.androidapp.snu.components.gallery.GalleryImagePicker;
@@ -193,7 +194,22 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	}
 
 	private void showNewPhotoDialog() {
-		Intent intent = new Intent(this, CameraCaptureActivity.class);
-		startActivityForResult(intent, CreateWishActivity.PICK_IMAGE_FROM_CAMERA);
+		final Context context = this;
+		final PhotoCreateDialog dialog = new PhotoCreateDialog(context);
+
+		dialog.show(new PhotoCreateDialog.ToolbarListener() {
+
+			@Override
+			public void onNewFromCamera() {
+				dialog.dismiss();
+				Intent intent = new Intent(context, CameraCaptureActivity.class);
+				startActivityForResult(intent, CreateWishActivity.PICK_IMAGE_FROM_CAMERA);
+			}
+
+			@Override
+			public void onNewFromGallery() {
+
+			}
+		});
 	}
 }
