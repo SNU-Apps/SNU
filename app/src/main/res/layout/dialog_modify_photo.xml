@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_rotate_left"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:layout_weight="1"
             android:maxLines="1"
             android:src="@drawable/rotate_left_grey_45px"
@@ -37,7 +37,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_rotate_right"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:layout_marginRight="1dp"
             android:layout_weight="1"
             android:maxLines="2"
@@ -49,7 +49,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_delete"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:layout_weight="1"
             android:src="@drawable/trash_grey_45px"
             android:textAlignment="center"
@@ -59,7 +59,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_new"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
             android:src="@drawable/camera_grey_45px"
             android:textAlignment="center"
@@ -69,7 +69,7 @@
         <ImageView
             android:id="@+id/dialog_modify_photo_content_ok"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
             android:src="@drawable/accept_green_45px"
             android:textAlignment="center"
