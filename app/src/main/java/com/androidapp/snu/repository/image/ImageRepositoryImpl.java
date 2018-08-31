@@ -81,7 +81,7 @@ class ImageRepositoryImpl implements ImageRepository {
 
 	private String getNormalizeFileName(String fileName) {
 		if (!fileName.endsWith(".jpg")) {
-			return fileName += ".jpg";
+			return fileName + ".jpg";
 		}
 		return fileName;
 	}
