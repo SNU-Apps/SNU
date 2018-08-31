@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,11 +27,19 @@ class WishRepositoryImpl implements WishRepository {
 	public Wish store(Wish wish) {
 		wish.setWishId(wish.getWishId() != null ? wish.getWishId() : UUID.randomUUID());
 		wish.setCreatedDate(new Date());
-		return storeWishToFileInternal(wish);
+		List<Wish> wishes = delete(wish);
+		wishes.add(wish);
+		storeWishListToFileInternal(wishes);
+		return wish;
 	}
 
 	@Override
 	public Wish findById(UUID id) {
+		for (Wish wish : findAll()) {
+			if(wish.getWishId().equals(id)) {
+				return wish;
+			}
+		}
 		return null;
 	}
 
@@ -43,12 +52,22 @@ class WishRepositoryImpl implements WishRepository {
 	}
 
 	@Override
-	public void delete(Wish wish) {
-
+	public List<Wish> delete(Wish wish) {
+		List<Wish> remainingWishes = findAll();
+		if (!remainingWishes.isEmpty()) {
+			Iterator<Wish> wishIterator = remainingWishes.iterator();
+			while (wishIterator.hasNext()) {
+				Wish currentWish = wishIterator.next();
+				if(currentWish.getWishId().equals(wish.getWishId())) {
+					wishIterator.remove();
+				}
+			}
+		}
+		return remainingWishes;
 	}
 
 	private Wish storeWishToFileInternal(Wish wish) {
-		File mFile = new File(context.getExternalFilesDir(null), getNormalizeFileName(wish.getWishId().toString()));
+		File mFile = new File(context.getExternalFilesDir(null), getNormalizedWishFileName(wish.getWishId().toString()));
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(mFile);
@@ -60,10 +79,30 @@ class WishRepositoryImpl implements WishRepository {
 			return null;
 		}
 	}
+	private List<Wish> storeWishListToFileInternal(List<Wish> wishes) {
+		File mFile = new File(context.getExternalFilesDir(null), getNormalizedWishListFileName("myWishList"));
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(mFile);
+			fos.write(serialize(wishes));
+			fos.flush();
+			fos.close();
+			return wishes;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-	private String getNormalizeFileName(String fileName) {
+	private String getNormalizedWishFileName(String fileName) {
 		if (!fileName.endsWith(".wsh")) {
 			return fileName + ".wsh";
+		}
+		return fileName;
+	}
+
+	private String getNormalizedWishListFileName(String fileName) {
+		if (!fileName.endsWith(".wsl")) {
+			return fileName + ".wsl";
 		}
 		return fileName;
 	}
