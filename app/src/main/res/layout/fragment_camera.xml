@@ -24,7 +24,7 @@
             android:background="#000">
 
             <ImageView
-                android:id="@+id/picture"
+                android:id="@+id/take_picture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="#000"

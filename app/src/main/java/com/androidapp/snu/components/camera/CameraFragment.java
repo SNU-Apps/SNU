@@ -432,7 +432,7 @@ public class CameraFragment extends Fragment
 
 	@Override
 	public void onViewCreated(final View view, Bundle savedInstanceState) {
-		view.findViewById(R.id.picture).setOnClickListener(this);
+		view.findViewById(R.id.take_picture).setOnClickListener(this);
 		mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
 	}
 
@@ -990,7 +990,8 @@ public class CameraFragment extends Fragment
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.picture: {
+			case R.id.take_picture: {
+				view.findViewById(R.id.take_picture).setClickable(false);
 				takePicture();
 				break;
 			}
