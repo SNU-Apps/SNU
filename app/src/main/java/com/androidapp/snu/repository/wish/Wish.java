@@ -1,9 +1,10 @@
 package com.androidapp.snu.repository.wish;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class Wish {
+public class Wish implements Serializable{
 	private UUID wishId;
 	private Date createdDate;
 	private String photoFileName;
