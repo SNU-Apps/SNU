@@ -16,16 +16,13 @@
 
 package com.androidapp.snu.activities.wishes;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.AbstractBaseActivity;
-import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail;
+import com.androidapp.snu.components.polaroid.PhotoPolaroidDetailThumbnail;
 import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.repository.wish.Wish;
 import com.androidapp.snu.repository.wish.WishRepository;
@@ -33,7 +30,6 @@ import com.androidapp.snu.repository.wish.WishRepository;
 import java.util.List;
 
 public class MyWishesActivity extends AbstractBaseActivity {
-	private static final String fontPath = "fonts/handwrite.ttf";
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_1;
 	public static final String HEADER_TEXT = "Meine Wunschliste";
 
@@ -54,31 +50,18 @@ public class MyWishesActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
-		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
+		final ImageRepository imageRepository = ImageRepository.withContext(this);
+		final WishRepository wishRepository = WishRepository.withContext(this);
 
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		final List<Wish> currentWishes = WishRepository.withContext(this)
-				.findAll();
+		final List<Wish> currentWishes = wishRepository.findAll();
 
-		for (Wish wish : currentWishes) {
-			LinearLayout wishLayout = new LinearLayout(this);
-
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-			layoutParams.setMargins(10, 10, 0, 0);
-			wishLayout.setLayoutParams(layoutParams);
-
-			TextView text = new TextView(this);
-			text.setTypeface(typeface);
-			text.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-			text.setText(wish.getDescription());
-			PhotoPolaroidThumbnail polaroidThumbnail = new PhotoPolaroidThumbnail(this);
-			polaroidThumbnail.setPhoto(this, ImageRepository.withContext(this).findAsFile(wish.getPhotoFileName()));
-			wishLayout.addView(polaroidThumbnail);
-			wishLayout.addView(text);
-			layout.addView(wishLayout);
+		for (Wish currentWish : currentWishes) {
+			final PhotoPolaroidDetailThumbnail wish = new PhotoPolaroidDetailThumbnail(this);
+			wish.setPhoto(this, imageRepository.findAsFile(currentWish.getPhotoFileName()));
+			wish.setDescription(this, currentWish.getDescription());
+			layout.addView(wish);
 		}
 		return layout;
 	}
