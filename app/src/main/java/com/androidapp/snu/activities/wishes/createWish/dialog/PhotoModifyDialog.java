@@ -17,7 +17,9 @@ public class PhotoModifyDialog extends Dialog {
 
 		void onDelete();
 
-		void onNew();
+		void onNewFromCamera();
+
+		void onNewFromGallery();
 
 		void onOK();
 	}
@@ -36,7 +38,8 @@ public class PhotoModifyDialog extends Dialog {
 		findViewById(R.id.dialog_modify_photo_content_rotate_left).setOnClickListener((view -> toolbar.onRotateLeft()));
 		findViewById(R.id.dialog_modify_photo_content_rotate_right).setOnClickListener((view -> toolbar.onRotateRight()));
 		findViewById(R.id.dialog_modify_photo_content_delete).setOnClickListener((view -> toolbar.onDelete()));
-		findViewById(R.id.dialog_modify_photo_content_new).setOnClickListener((view -> toolbar.onNew()));
+		findViewById(R.id.dialog_modify_photo_content_new_from_camera).setOnClickListener((view -> toolbar.onNewFromCamera()));
+		findViewById(R.id.dialog_modify_photo_content_new_from_gallery).setOnClickListener((view -> toolbar.onNewFromGallery()));
 		findViewById(R.id.dialog_modify_photo_content_ok).setOnClickListener((view -> toolbar.onOK()));
 	}
 

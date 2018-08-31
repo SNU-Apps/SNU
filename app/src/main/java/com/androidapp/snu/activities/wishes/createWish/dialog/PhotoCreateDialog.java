@@ -14,8 +14,6 @@ public class PhotoCreateDialog extends Dialog {
 		void onNewFromGallery();
 	}
 
-	private PhotoPolaroid photo;
-
 	public PhotoCreateDialog(@NonNull Context context) {
 		super(context);
 		setContentView(R.layout.dialog_new_photo);

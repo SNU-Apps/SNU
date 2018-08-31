@@ -143,7 +143,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 			}
 
 			@Override
-			public void onNew() {
+			public void onNewFromCamera() {
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setCancelable(false);
 				builder.setTitle("Sicher?");
@@ -152,7 +152,28 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 						(alertDialog, which) -> {
 							deletePhoto();
 							dialog.dismiss();
-							showPhotoDialog();
+							Intent intent = new Intent(context, CameraCaptureActivity.class);
+							startActivityForResult(intent, CreateWishActivity.PICK_IMAGE_FROM_CAMERA);
+						});
+				builder.setNegativeButton("Nein, doch nicht!", (alertDialog, which) -> alertDialog.dismiss());
+				AlertDialog alertDialog = builder.create();
+				alertDialog.show();
+				int textColor = Color.argb(255, 204, 153, 102);
+				alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(textColor);
+				alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(textColor);
+			}
+
+			@Override
+			public void onNewFromGallery() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setCancelable(false);
+				builder.setTitle("Sicher?");
+				builder.setMessage("Willst Du das Bild wirklich löschen und durch ein anderes ersetzen?");
+				builder.setPositiveButton("Ja!",
+						(alertDialog, which) -> {
+							deletePhoto();
+							dialog.dismiss();
+							getPictureFromGalery();
 						});
 				builder.setNegativeButton("Nein, doch nicht!", (alertDialog, which) -> alertDialog.dismiss());
 				AlertDialog alertDialog = builder.create();
@@ -208,7 +229,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 
 			@Override
 			public void onNewFromGallery() {
-
+				dialog.dismiss();
+				getPictureFromGalery();
 			}
 		});
 	}

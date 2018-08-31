@@ -17,18 +17,21 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
-        <TextView
-            android:id="@+id/picture"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#000"
-            android:drawableTop="@drawable/camera_160px"
+            android:layout_height="120dp"
             android:gravity="center"
-            android:paddingBottom="10dp"
-            android:text="Foto aufnehmen"
-            android:textColor="#ffff"
-            android:textSize="16sp" />
+            android:background="#000">
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#000"
+                android:src="@drawable/camera_160px"
+                android:gravity="center"
+                android:paddingBottom="10dp" />
+        </LinearLayout>
     </FrameLayout>
 
 </RelativeLayout>

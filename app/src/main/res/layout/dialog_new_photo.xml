@@ -11,28 +11,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/dialog_new_photo_content_new_from_camera"
-        android:layout_width="193dp"
-        android:layout_height="155dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:drawableTop="@drawable/camera_160px"
-        android:text="Foto aufnehmen"
-        android:textAlignment="center"
-        android:textColor="#FFF"
-        android:textSize="24dp" />
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
 
-    <TextView
-        android:id="@+id/dialog_new_photo_content_new_from_gallery"
-        android:layout_width="193dp"
-        android:layout_height="155dp"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="170dp"
-        android:drawableTop="@drawable/folder_160px"
-        android:text="Aus Gallerie"
-        android:textAlignment="center"
-        android:textColor="#FFF"
-        android:textSize="24dp" />
+        <ImageView
+            android:id="@+id/dialog_new_photo_content_new_from_camera"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/camera_black_45px"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/dialog_new_photo_content_new_from_gallery"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/folder_black_160px"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 </FrameLayout>

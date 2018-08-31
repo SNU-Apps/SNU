@@ -57,11 +57,21 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/dialog_modify_photo_content_new"
+            android:id="@+id/dialog_modify_photo_content_new_from_camera"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_weight="1"
             android:src="@drawable/camera_black_45px"
+            android:textAlignment="center"
+            android:textColor="#737373"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/dialog_modify_photo_content_new_from_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/folder_black_45px"
             android:textAlignment="center"
             android:textColor="#737373"
             android:textSize="12sp" />
