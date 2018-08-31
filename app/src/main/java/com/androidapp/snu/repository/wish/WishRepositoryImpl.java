@@ -2,9 +2,9 @@ package com.androidapp.snu.repository.wish;
 
 import android.content.Context;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,8 +45,14 @@ class WishRepositoryImpl implements WishRepository {
 
 	@Override
 	public List<Wish> findAll() {
-		final List<Wish> wishes = new ArrayList<>();
-		//todo load all
+		List<Wish> wishes;
+		try {
+			File file = new File(context.getExternalFilesDir(null), getNormalizedWishListFileName("myWishList"));
+			wishes = (List<Wish>) deserialize(file);
+		} catch (IOException | ClassNotFoundException e) {
+			return new ArrayList<>();
+		}
+
 		Collections.sort(wishes, (w1, w2) -> w1.getCreatedDate().compareTo(w2.getCreatedDate()));
 		return wishes;
 	}
@@ -114,8 +120,8 @@ class WishRepositoryImpl implements WishRepository {
 		return out.toByteArray();
 	}
 
-	public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-		ByteArrayInputStream in = new ByteArrayInputStream(data);
+	private static Object deserialize(File data) throws IOException, ClassNotFoundException {
+		FileInputStream in = new FileInputStream(data);
 		ObjectInputStream is = new ObjectInputStream(in);
 		return is.readObject();
 	}
