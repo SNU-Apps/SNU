@@ -27,7 +27,7 @@ import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoCreateDialog;
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.CameraCaptureActivity;
 import com.androidapp.snu.components.gallery.GalleryImagePicker;
-import com.androidapp.snu.components.image.ImageRepository;
+import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.components.utils.BitmapUtils;
 
 import java.io.File;

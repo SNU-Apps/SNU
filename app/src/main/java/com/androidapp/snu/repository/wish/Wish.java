@@ -1,9 +1,11 @@
-package com.androidapp.snu.activities.wishes.createWish;
+package com.androidapp.snu.repository.wish;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Wish {
 	private UUID wishId;
+	private Date createdDate;
 	private String photoFileName;
 	private String description;
 
@@ -13,6 +15,14 @@ public class Wish {
 
 	public void setWishId(UUID wishId) {
 		this.wishId = wishId;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getDescription() {

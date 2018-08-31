@@ -21,11 +21,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
+import com.androidapp.snu.activities.AbstractBaseActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.components.camera.CameraCaptureActivity;
 
-public class PhotoWishActivity extends AbstractHomeTransitionActivity {
+public class PhotoWishActivity extends AbstractBaseActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v2;
 	public static final String HEADER_TEXT = "...fotografieren";
 
@@ -36,12 +36,12 @@ public class PhotoWishActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected int getIconImageId() {
+	public int getIconImageId() {
 		return HEADER_IMAGE_ID;
 	}
 
 	@Override
-	protected String getHeaderText() {
+	public String getHeaderText() {
 		return HEADER_TEXT;
 	}
 

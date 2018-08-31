@@ -22,9 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
+import com.androidapp.snu.activities.AbstractBaseActivity;
 
-public class FriendsWishesActivity extends AbstractHomeTransitionActivity {
+public class FriendsWishesActivity extends AbstractBaseActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_2;
 	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
@@ -34,12 +34,12 @@ public class FriendsWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected int getIconImageId() {
+	public int getIconImageId() {
 		return HEADER_IMAGE_ID;
 	}
 
 	@Override
-	protected String getHeaderText() {
+	public String getHeaderText() {
 		return HEADER_TEXT;
 	}
 

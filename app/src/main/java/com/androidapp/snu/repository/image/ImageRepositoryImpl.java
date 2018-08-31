@@ -1,4 +1,4 @@
-package com.androidapp.snu.components.image;
+package com.androidapp.snu.repository.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidapp.snu.activities.home;
+package com.androidapp.snu.activities;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -31,7 +31,7 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 import com.androidapp.snu.transformation.BlurBuilder;
 
-public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
+public abstract class AbstractBaseActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,9 +49,9 @@ public abstract class AbstractHomeTransitionActivity extends AppCompatActivity {
 		setDefaultBackGroundImage();
 	}
 
-	protected abstract int getIconImageId();
+	public abstract int getIconImageId();
 
-	protected abstract String getHeaderText();
+	public abstract String getHeaderText();
 
 	protected View getContent() {
 		return null;

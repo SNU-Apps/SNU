@@ -16,6 +16,7 @@
 
 package com.androidapp.snu.activities.wishes.createWish;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -28,12 +29,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
-import com.androidapp.snu.components.image.ImageRepository;
+import com.androidapp.snu.activities.AbstractBaseActivity;
+import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.utils.KeyboardUtils;
+import com.androidapp.snu.repository.image.ImageRepository;
+import com.androidapp.snu.repository.wish.Wish;
+import com.androidapp.snu.repository.wish.WishRepository;
 
-public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionActivity {
+public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	public static final String PHOTO_FILE_NAME = "detail:_photoFileName";
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
@@ -54,12 +58,12 @@ public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionA
 	}
 
 	@Override
-	protected int getIconImageId() {
+	public int getIconImageId() {
 		return ICON_IMAGE_ID;
 	}
 
 	@Override
-	protected String getHeaderText() {
+	public String getHeaderText() {
 		return HEADER_TEXT;
 	}
 
@@ -117,9 +121,14 @@ public abstract class AbstractCreateWishActivity extends AbstractHomeTransitionA
 	}
 
 	private void initFooter() {
-		Typeface typeface = Typeface.createFromAsset(getAssets(), fontPath);
 		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
 		footerView.setVisibility(View.INVISIBLE);
-		accept.setOnClickListener(view -> finish());
+		accept.setOnClickListener(view -> {
+			WishRepository.withContext(this)
+				.store(currentWish);
+			Intent intent = new Intent(this, MyWishesActivity.class);
+			startActivity(intent);
+			finish();
+		});
 	}
 }

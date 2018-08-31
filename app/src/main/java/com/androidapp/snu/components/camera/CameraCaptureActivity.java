@@ -25,7 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
-import com.androidapp.snu.components.image.ImageRepository;
+import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.components.utils.BitmapUtils;
 
 import java.io.File;

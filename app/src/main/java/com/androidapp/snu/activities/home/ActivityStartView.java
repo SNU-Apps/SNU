@@ -10,17 +10,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
+import com.androidapp.snu.activities.AbstractBaseActivity;
 import com.androidapp.snu.transformation.RoundedCornersTransformation;
 import com.squareup.picasso.Picasso;
 
 class ActivityStartView extends LinearLayout implements View.OnClickListener {
-	private AbstractHomeTransitionActivity activity;
+	private AbstractBaseActivity activity;
 
 	private ActivityStartView(Context context) {
 		super(context);
 	}
 
-	private void initActivity(AbstractHomeTransitionActivity activity) {
+	private void initActivity(AbstractBaseActivity activity) {
 		this.activity = activity;
 		final Context context = getContext();
 		this.addView(getIconWithText(context));
@@ -52,7 +53,7 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 	}
 
 	static ActivityStartView createForActivity(
-			AbstractHomeTransitionActivity activity,
+			AbstractBaseActivity activity,
 			Context context) {
 		ActivityStartView view = new ActivityStartView(context);
 		view.initActivity(activity);

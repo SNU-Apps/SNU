@@ -22,9 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.home.AbstractHomeTransitionActivity;
+import com.androidapp.snu.activities.AbstractBaseActivity;
 
-public class MyWishesActivity extends AbstractHomeTransitionActivity {
+public class MyWishesActivity extends AbstractBaseActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_1;
 	public static final String HEADER_TEXT = "Meine Wunschliste";
 
@@ -34,12 +34,12 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 	}
 
 	@Override
-	protected int getIconImageId() {
+	public int getIconImageId() {
 		return HEADER_IMAGE_ID;
 	}
 
 	@Override
-	protected String getHeaderText() {
+	public String getHeaderText() {
 		return HEADER_TEXT;
 	}
 
@@ -50,23 +50,5 @@ public class MyWishesActivity extends AbstractHomeTransitionActivity {
 		text.setText("This is my second content :)");
 		layout.addView(text);
 		return layout;
-	}
-
-	@Override
-	protected View getFooter() {
-		TextView text = new TextView(this);
-		text.setText("Weiter zur Vorschau");
-		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
-		LinearLayout footer = new LinearLayout(this);
-		footer.addView(text);
-
-		text.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
-
-		return footer;
 	}
 }
