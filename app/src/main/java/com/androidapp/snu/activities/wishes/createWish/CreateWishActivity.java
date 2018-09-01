@@ -27,8 +27,8 @@ import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoCreateDialog;
 import com.androidapp.snu.activities.wishes.createWish.dialog.PhotoModifyDialog;
 import com.androidapp.snu.components.camera.CameraCaptureActivity;
 import com.androidapp.snu.components.gallery.GalleryImagePicker;
-import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.components.utils.BitmapUtils;
+import com.androidapp.snu.repository.image.ImageRepository;
 
 import java.io.File;
 import java.util.UUID;
@@ -44,7 +44,9 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 		if (currentWish.hasPhoto()) {
 			final ImageRepository imageRepository = ImageRepository.withContext(this);
 			setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
-			showPhotoDialog();
+			if (currentWish.getWishId() == null) {
+				showPhotoDialog();
+			}
 		}
 	}
 

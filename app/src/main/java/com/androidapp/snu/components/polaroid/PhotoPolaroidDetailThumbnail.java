@@ -27,6 +27,7 @@ public class PhotoPolaroidDetailThumbnail extends ConstraintLayout {
 	public void setPhoto(final Context context, final File jpg) {
 		PhotoPolaroidThumbnail polaroid = this.findViewById(R.id.component_polaroid_image_detail_thumbnail);
 		polaroid.setPhoto(context, jpg);
+		polaroid.setOnClickListener(v -> new PhotoPolaroidDialog(context, jpg).show());
 	}
 
 	public void setDescription(final Context context, final String description) {

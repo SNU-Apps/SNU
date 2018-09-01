@@ -53,6 +53,10 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 
 	public abstract String getHeaderText();
 
+	protected View getHeader() {
+		return null;
+	}
+
 	protected View getContent() {
 		return null;
 	}
@@ -62,10 +66,12 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 	}
 
 	protected void setBackGroundImage(Bitmap bitmap) {
-		AppCompatImageView mainLayout = findViewById(R.id.main_scene_layout_background_image);
-		Drawable d = BlurBuilder.blur(this, bitmap, 0.4f, 0.4f, 7.5f);
-		d.setAlpha(160);
-		mainLayout.setBackground(d);
+		if (bitmap != null) {
+			AppCompatImageView mainLayout = findViewById(R.id.main_scene_layout_background_image);
+			Drawable d = BlurBuilder.blur(this, bitmap, 0.4f, 0.4f, 7.5f);
+			d.setAlpha(160);
+			mainLayout.setBackground(d);
+		}
 	}
 
 	protected void setDefaultBackGroundImage() {
@@ -76,8 +82,15 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 	}
 
 	private void setContent() {
+		LinearLayout header = findViewById(R.id.view_header);
 		LinearLayout content = findViewById(R.id.view_content);
 		LinearLayout footer = findViewById(R.id.view_footer);
+
+		View headerView = getHeader();
+		if (headerView != null) {
+			header.addView(headerView);
+			header.setBackgroundColor(Color.argb(200, 0, 0, 0));
+		}
 
 		View contentView = getContent();
 		if (contentView != null) {

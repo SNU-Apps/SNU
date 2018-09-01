@@ -53,7 +53,7 @@ class WishRepositoryImpl implements WishRepository {
 			return new ArrayList<>();
 		}
 
-		Collections.sort(wishes, (w1, w2) -> w1.getCreatedDate().compareTo(w2.getCreatedDate()));
+		Collections.sort(wishes, (w1, w2) -> w2.getCreatedDate().compareTo(w1.getCreatedDate()));
 		return wishes;
 	}
 

@@ -37,8 +37,12 @@ import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.repository.wish.Wish;
 import com.androidapp.snu.repository.wish.WishRepository;
 
+import java.util.UUID;
+
 public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	public static final String PHOTO_FILE_NAME = "detail:_photoFileName";
+	public static final String WISH_ID = "detail:_wishId";
+
 	public static final int ICON_IMAGE_ID = R.drawable.v1;
 	public static final String HEADER_TEXT = "Neuen Wunsch...";
 	private static final String fontPath = "fonts/handwrite.ttf";
@@ -69,6 +73,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
+		initializeCurrentWish();
 		initHeadline();
 		initDescription();
 		initPhotoThumbnail();
@@ -79,6 +84,14 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	protected View getFooter() {
 		initFooter();
 		return footerView;
+	}
+
+	private void initializeCurrentWish() {
+		final String currentWishIdString = getIntent().getStringExtra(WISH_ID);
+		UUID currentWishId = currentWishIdString != null ? UUID.fromString(currentWishIdString) : null;
+		if (currentWishId != null) {
+			currentWish = WishRepository.withContext(this).findById(currentWishId);
+		}
 	}
 
 	private void initHeadline() {
@@ -102,9 +115,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 			@Override
 			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 				currentWish.setDescription(charSequence.toString());
-				footerView.setVisibility(currentWish.getDescription() != null && currentWish.getDescription().length() > 0
-						? View.VISIBLE
-						: View.INVISIBLE);
+				toggleFooterVisibility();
 			}
 
 			@Override
@@ -112,6 +123,14 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 			}
 		});
+		description.setText(currentWish.getDescription());
+		toggleFooterVisibility();
+	}
+
+	private void toggleFooterVisibility() {
+		footerView.setVisibility(currentWish.getDescription() != null && currentWish.getDescription().length() > 0
+				? View.VISIBLE
+				: View.INVISIBLE);
 	}
 
 	private void initPhotoThumbnail() {
@@ -122,10 +141,9 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 	private void initFooter() {
 		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
-		footerView.setVisibility(View.INVISIBLE);
 		accept.setOnClickListener(view -> {
 			WishRepository.withContext(this)
-				.store(currentWish);
+					.store(currentWish);
 			Intent intent = new Intent(this, MyWishesActivity.class);
 			startActivity(intent);
 			finish();
