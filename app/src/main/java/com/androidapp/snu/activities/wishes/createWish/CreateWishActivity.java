@@ -60,7 +60,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	}
 
 	private void showPhotoDialog() {
-		if (currentWish.hasPhoto()) {
+		if (currentWish.hasPhoto() || tempPhotoFileName != null) {
 			showModifyPhotoDialog();
 		} else {
 			showNewPhotoDialog();
@@ -85,8 +85,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 						.storeCompressed(bitmap, fileName);
 
 		if (jpg != null) {
-			currentWish.setPhotoFileName(jpg.getName());
-			setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
+			tempPhotoFileName = jpg.getName();
+			setBackGroundImage(imageRepository.findAsBitmap(tempPhotoFileName));
 			photoThumbnail.setPhoto(this, jpg);
 			showPhotoDialog();
 		}
@@ -99,8 +99,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 			final File jpg = imageRepository.findAsFile(fileName);
 
 			if (jpg != null) {
-				currentWish.setPhotoFileName(fileName);
-				setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
+				tempPhotoFileName = fileName;
+				setBackGroundImage(imageRepository.findAsBitmap(tempPhotoFileName));
 				photoThumbnail.setPhoto(this, jpg);
 				showPhotoDialog();
 			}
@@ -111,7 +111,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	private void showModifyPhotoDialog() {
 		final Context context = this;
 		final ImageRepository imageRepository = ImageRepository.withContext(context);
-		final File currentPhoto = imageRepository.findAsFile(currentWish.getPhotoFileName());
+		final File currentPhoto = imageRepository.findAsFile(tempPhotoFileName);
 		final PhotoModifyDialog dialog = new PhotoModifyDialog(context, currentPhoto);
 
 		dialog.show(new PhotoModifyDialog.ToolbarListener() {
@@ -127,6 +127,10 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 
 			@Override
 			public void onDelete() {
+				if (!currentWish.hasPhoto()) {
+					ImageRepository.withContext(context).delete(tempPhotoFileName);
+				}
+
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setCancelable(false);
 				builder.setTitle("Sicher?");
@@ -191,27 +195,28 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 			}
 
 			private void rotate(float rotation) {
-				final Bitmap bitmap = imageRepository.findAsBitmap(currentWish.getPhotoFileName());
+				final Bitmap bitmap = imageRepository.findAsBitmap(tempPhotoFileName);
 				final Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, rotation);
-				imageRepository.delete(currentWish.getPhotoFileName());
 
-				String newFileName = UUID.randomUUID().toString();
+				if (!currentWish.hasPhoto()) {
+					ImageRepository.withContext(context).delete(tempPhotoFileName);
+				}
+
+				tempPhotoFileName = UUID.randomUUID().toString();
 				final File newJpg =
 						imageRepository
-								.store(rotatedBitmap, newFileName);
+								.store(rotatedBitmap, tempPhotoFileName);
 
 				dialog.setPhoto(context, newJpg);
 				setBackGroundImage(rotatedBitmap);
 				photoThumbnail.setPhoto(context, newJpg);
-				currentWish.setPhotoFileName(newJpg.getName());
+				//currentWish.setPhotoFileName(newJpg.getName());
 			}
 
 			private void deletePhoto() {
-				ImageRepository.withContext(context)
-						.delete(currentWish.getPhotoFileName());
+				tempPhotoFileName = null;
 				setDefaultBackGroundImage();
 				photoThumbnail.deletePhoto();
-				currentWish.setPhotoFileName(null);
 			}
 		});
 	}

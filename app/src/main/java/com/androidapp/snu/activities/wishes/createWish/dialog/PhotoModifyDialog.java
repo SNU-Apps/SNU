@@ -46,4 +46,8 @@ public class PhotoModifyDialog extends Dialog {
 	public void setPhoto(Context context, File jpg) {
 		photo.setPhoto(context, jpg);
 	}
+
+	public void deletePhoto() {
+		photo.deletePhoto();
+	}
 }
