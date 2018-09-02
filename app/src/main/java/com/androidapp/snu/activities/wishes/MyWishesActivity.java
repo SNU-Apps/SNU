@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.AbstractBaseActivity;
+import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidDetailThumbnail;
 import com.androidapp.snu.repository.image.ImageRepository;
@@ -92,5 +93,12 @@ public class MyWishesActivity extends AbstractBaseActivity {
 			});
 		}
 		return layout;
+	}
+
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
 	}
 }

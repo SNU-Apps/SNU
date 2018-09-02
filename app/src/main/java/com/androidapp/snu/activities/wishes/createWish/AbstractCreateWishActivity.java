@@ -157,9 +157,9 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 			WishRepository.withContext(this)
 					.store(currentWish);
 
-			finish();
 			Intent intent = new Intent(this, MyWishesActivity.class);
 			startActivity(intent);
+			finish();
 		});
 	}
 
