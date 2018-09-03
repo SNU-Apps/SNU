@@ -3,14 +3,15 @@
     android:id="@+id/component_polaroid_detail_thumbnail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:paddingBottom="5sp"
     android:paddingStart="10sp"
-    android:paddingTop="5sp"
-    android:paddingBottom="5sp">
+    android:paddingTop="5sp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#33dbdbdb">
+        android:background="#0ddbdbdb">
 
         <com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail
             android:id="@+id/component_polaroid_image_detail_thumbnail"

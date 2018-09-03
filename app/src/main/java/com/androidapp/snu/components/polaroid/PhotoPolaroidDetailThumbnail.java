@@ -3,7 +3,6 @@ package com.androidapp.snu.components.polaroid;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
@@ -16,12 +15,9 @@ public class PhotoPolaroidDetailThumbnail extends ConstraintLayout {
 
 	public PhotoPolaroidDetailThumbnail(Context context) {
 		super(context);
-		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid_detail_thumbnail, null));
-	}
-
-	public PhotoPolaroidDetailThumbnail(Context context, AttributeSet attributeSet) {
-		super(context, attributeSet);
-		this.addView(LayoutInflater.from(context).inflate(R.layout.component_polaroid_detail_thumbnail, null));
+		ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.component_polaroid_detail_thumbnail, null);
+		this.addView(layout);
+		layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 	}
 
 	public void setPhoto(final Context context, final File jpg) {

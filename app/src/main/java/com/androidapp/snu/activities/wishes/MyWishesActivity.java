@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,8 +44,11 @@ public class MyWishesActivity extends AbstractBaseActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_1;
 	public static final String HEADER_TEXT = "Meine Wunschliste";
 
+	private LinearLayout contentView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_my_wishes_content, null);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -73,9 +77,6 @@ public class MyWishesActivity extends AbstractBaseActivity {
 	protected View getContent() {
 		final ImageRepository imageRepository = ImageRepository.withContext(this);
 		final WishRepository wishRepository = WishRepository.withContext(this);
-
-		LinearLayout layout = new LinearLayout(this);
-		layout.setOrientation(LinearLayout.VERTICAL);
 		final List<Wish> currentWishes = wishRepository.findAll();
 
 		for (Wish currentWish : currentWishes) {
@@ -84,7 +85,7 @@ public class MyWishesActivity extends AbstractBaseActivity {
 			final File photo = imageRepository.findAsFile(currentWish.getPhotoFileName());
 			wish.setPhoto(this, photo);
 			wish.setDescription(this, currentWish.getDescription());
-			layout.addView(wish);
+			contentView.addView(wish);
 
 			wish.setOnClickListener(v -> {
 				Intent intent = new Intent(context, CreateWishActivity.class);
@@ -92,7 +93,7 @@ public class MyWishesActivity extends AbstractBaseActivity {
 				startActivity(intent);
 			});
 		}
-		return layout;
+		return contentView;
 	}
 
 	@Override
