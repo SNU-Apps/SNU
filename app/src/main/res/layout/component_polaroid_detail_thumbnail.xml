@@ -27,7 +27,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:scrollHorizontally="true"
-            android:textSize="22dp" />
+            android:textColor="#000000"
+            android:textSize="23dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
