@@ -21,17 +21,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.activities.wishes.FriendsWishesActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
+import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.transformation.BlurBuilder;
+import com.google.android.gms.ads.MobileAds;
 
 public class HomeActivity extends Activity {
 
@@ -42,6 +42,9 @@ public class HomeActivity extends Activity {
 		initActivities();
 		initScrollActivationListener();
 		initStylesAndBackground();
+
+		// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+		MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
 	}
 
 	private void initActivities() {
@@ -50,6 +53,20 @@ public class HomeActivity extends Activity {
 
 		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
 		mainView.addView(ActivityStartView.createForActivity(new FriendsWishesActivity(), this));
+
+//		AdView adView = new AdView(this);
+//		//adView.setAdSize(AdSize.BANNER);
+//		adView.setAdSize(new AdSize(300, 100));
+//		adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+//
+//		mainView.addView(adView);
+//
+//		AdRequest.Builder builder = new AdRequest.Builder()
+//				.addKeyword("car")
+//				.addKeyword("black");
+//
+//		adView.loadAd(builder.build());
+
 	}
 
 	private void createFirstRow(LinearLayout mainView) {
