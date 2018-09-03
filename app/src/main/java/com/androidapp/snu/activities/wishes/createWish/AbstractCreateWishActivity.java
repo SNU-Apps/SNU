@@ -57,7 +57,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		tempPhotoFileName = getIntent().getStringExtra(PHOTO_FILE_NAME);
-		currentWish.setPhotoFileName(getIntent().getStringExtra(PHOTO_FILE_NAME));
+		currentWish.setPhotoFileName(tempPhotoFileName);
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
 		initializeCurrentWish();
