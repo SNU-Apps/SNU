@@ -16,8 +16,8 @@ public class PhotoPolaroidDetailThumbnail extends ConstraintLayout {
 	public PhotoPolaroidDetailThumbnail(Context context) {
 		super(context);
 		ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.component_polaroid_detail_thumbnail, null);
-		this.addView(layout);
 		layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		this.addView(layout);
 	}
 
 	public void setPhoto(final Context context, final File jpg) {
