@@ -198,7 +198,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 				final Bitmap bitmap = imageRepository.findAsBitmap(tempPhotoFileName);
 				final Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, rotation);
 
-				if (!currentWish.hasPhoto()) {
+				if (!currentWish.hasPhoto() // create mode
+						|| (tempPhotoFileName != null && !tempPhotoFileName.equals(currentWish.getPhotoFileName()) /*modify mode*/)) {
 					ImageRepository.withContext(context).delete(tempPhotoFileName);
 				}
 
