@@ -51,16 +51,14 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	LinearLayout footerView;
 	PhotoPolaroidThumbnail photoThumbnail;
 
-	Wish currentWish = new Wish();
-	String tempPhotoFileName;
+	Wish currentWish;
+	Wish tempWish = new Wish();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		tempPhotoFileName = getIntent().getStringExtra(PHOTO_FILE_NAME);
-		currentWish.setPhotoFileName(tempPhotoFileName);
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
-		initializeCurrentWish();
+		inititalizeWish();
 		super.onCreate(savedInstanceState);
 	}
 
@@ -90,19 +88,29 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 	@Override
 	public void onBackPressed() {
-		if (tempPhotoFileName != null && !tempPhotoFileName.equals(currentWish.getPhotoFileName())) {
-			ImageRepository.withContext(this)
-					.delete(tempPhotoFileName);
+		if (currentWish == null) {
+			// create mode
+			ImageRepository.withContext(this).delete(tempWish.getPhotoFileName());
+		} else {
+			// modify mode
+			if (tempWish.hasPhoto() && !tempWish.getPhotoFileName().equals(currentWish.getPhotoFileName())) {
+				ImageRepository.withContext(this).delete(tempWish.getPhotoFileName());
+			}
 		}
 		super.onBackPressed();
 	}
 
-	private void initializeCurrentWish() {
+	private void inititalizeWish() {
 		final String currentWishIdString = getIntent().getStringExtra(WISH_ID);
 		UUID currentWishId = currentWishIdString != null ? UUID.fromString(currentWishIdString) : null;
 		if (currentWishId != null) {
+			// modify mode
 			currentWish = WishRepository.withContext(this).findById(currentWishId);
-			tempPhotoFileName = currentWish.getPhotoFileName();
+			tempWish.setPhotoFileName(currentWish.getPhotoFileName());
+			tempWish.setDescription(currentWish.getDescription());
+		} else {
+			// create mode
+			tempWish.setPhotoFileName(getIntent().getStringExtra(PHOTO_FILE_NAME));
 		}
 	}
 
@@ -126,7 +134,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 			@Override
 			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-				currentWish.setDescription(charSequence.toString());
+				tempWish.setDescription(charSequence.toString());
 				toggleFooterVisibility();
 			}
 
@@ -135,12 +143,12 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 			}
 		});
-		description.setText(currentWish.getDescription());
+		description.setText(tempWish.getDescription());
 		toggleFooterVisibility();
 	}
 
 	private void toggleFooterVisibility() {
-		footerView.setVisibility(currentWish.getDescription() != null && currentWish.getDescription().length() > 0
+		footerView.setVisibility(tempWish.getDescription() != null && tempWish.getDescription().length() > 0
 				? View.VISIBLE
 				: View.INVISIBLE);
 	}
@@ -148,13 +156,13 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	private void initPhotoThumbnail() {
 		final ImageRepository imageRepository = ImageRepository.withContext(this);
 		photoThumbnail = contentView.findViewById(R.id.activity_create_wish_content_photo_thumbnail);
-		photoThumbnail.setPhoto(this, imageRepository.findAsFile(currentWish.getPhotoFileName()));
+		photoThumbnail.setPhoto(this, imageRepository.findAsFile(tempWish.getPhotoFileName()));
 	}
 
 	private void initFooter() {
 		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
 		accept.setOnClickListener(view -> {
-			prepareWishToStrore(currentWish);
+			prepareWishToStrore();
 			WishRepository.withContext(this)
 					.store(currentWish);
 
@@ -164,11 +172,18 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 		});
 	}
 
-	private void prepareWishToStrore(final Wish currentWish) {
-		if (tempPhotoFileName == null || !tempPhotoFileName.equals(currentWish.getPhotoFileName())) {
-			ImageRepository.withContext(this)
-					.delete(currentWish.getPhotoFileName());
-			currentWish.setPhotoFileName(tempPhotoFileName);
+	private void prepareWishToStrore() {
+		if (currentWish == null) {
+			// create mode
+			currentWish = new Wish();
+		} else {
+			// modify mode
+			if (!tempWish.hasPhoto() || !tempWish.getPhotoFileName().equals(currentWish.getPhotoFileName())) {
+				ImageRepository.withContext(this)
+						.delete(currentWish.getPhotoFileName());
+			}
 		}
+		currentWish.setPhotoFileName(tempWish.getPhotoFileName());
+		currentWish.setDescription(tempWish.getDescription());
 	}
 }

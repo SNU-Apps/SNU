@@ -41,10 +41,11 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		photoThumbnail.setOnClickListener(view -> showPhotoDialog());
-		if (currentWish.hasPhoto()) {
+		if (tempWish.hasPhoto()) {
 			final ImageRepository imageRepository = ImageRepository.withContext(this);
-			setBackGroundImage(imageRepository.findAsBitmap(currentWish.getPhotoFileName()));
-			if (currentWish.getWishId() == null) {
+			setBackGroundImage(imageRepository.findAsBitmap(tempWish.getPhotoFileName()));
+			if (currentWish == null) {
+				// create mode
 				showPhotoDialog();
 			}
 		}
@@ -60,7 +61,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	}
 
 	private void showPhotoDialog() {
-		if (currentWish.hasPhoto() || tempPhotoFileName != null) {
+		if (tempWish.hasPhoto()) {
 			showModifyPhotoDialog();
 		} else {
 			showNewPhotoDialog();
@@ -85,8 +86,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 						.storeCompressed(bitmap, fileName);
 
 		if (jpg != null) {
-			tempPhotoFileName = jpg.getName();
-			setBackGroundImage(imageRepository.findAsBitmap(tempPhotoFileName));
+			tempWish.setPhotoFileName(jpg.getName());
+			setBackGroundImage(imageRepository.findAsBitmap(tempWish.getPhotoFileName()));
 			photoThumbnail.setPhoto(this, jpg);
 			showPhotoDialog();
 		}
@@ -99,8 +100,8 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 			final File jpg = imageRepository.findAsFile(fileName);
 
 			if (jpg != null) {
-				tempPhotoFileName = fileName;
-				setBackGroundImage(imageRepository.findAsBitmap(tempPhotoFileName));
+				tempWish.setPhotoFileName(fileName);
+				setBackGroundImage(imageRepository.findAsBitmap(tempWish.getPhotoFileName()));
 				photoThumbnail.setPhoto(this, jpg);
 				showPhotoDialog();
 			}
@@ -111,7 +112,7 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 	private void showModifyPhotoDialog() {
 		final Context context = this;
 		final ImageRepository imageRepository = ImageRepository.withContext(context);
-		final File currentPhoto = imageRepository.findAsFile(tempPhotoFileName);
+		final File currentPhoto = imageRepository.findAsFile(tempWish.getPhotoFileName());
 		final PhotoModifyDialog dialog = new PhotoModifyDialog(context, currentPhoto);
 
 		dialog.show(new PhotoModifyDialog.ToolbarListener() {
@@ -127,8 +128,14 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 
 			@Override
 			public void onDelete() {
-				if (!currentWish.hasPhoto()) {
-					ImageRepository.withContext(context).delete(tempPhotoFileName);
+				if (currentWish == null) {
+					// create mode
+					ImageRepository.withContext(context).delete(tempWish.getPhotoFileName());
+				} else {
+					// modify mode
+					if (tempWish.hasPhoto() && !tempWish.getPhotoFileName().equals(currentWish.getPhotoFileName())) {
+						ImageRepository.withContext(context).delete(tempWish.getPhotoFileName());
+					}
 				}
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -195,27 +202,31 @@ public class CreateWishActivity extends AbstractCreateWishActivity {
 			}
 
 			private void rotate(float rotation) {
-				final Bitmap bitmap = imageRepository.findAsBitmap(tempPhotoFileName);
+				final Bitmap bitmap = imageRepository.findAsBitmap(tempWish.getPhotoFileName());
 				final Bitmap rotatedBitmap = BitmapUtils.getRotatedBitmap(bitmap, rotation);
 
-				if (!currentWish.hasPhoto() // create mode
-						|| (tempPhotoFileName != null && !tempPhotoFileName.equals(currentWish.getPhotoFileName()) /*modify mode*/)) {
-					ImageRepository.withContext(context).delete(tempPhotoFileName);
+				if (currentWish == null) {
+					// create mode
+					ImageRepository.withContext(context).delete(tempWish.getPhotoFileName());
+				} else {
+					// modify mode
+					if (!tempWish.getPhotoFileName().equals(currentWish.getPhotoFileName())) {
+						ImageRepository.withContext(context).delete(tempWish.getPhotoFileName());
+					}
 				}
 
-				tempPhotoFileName = UUID.randomUUID().toString();
+				tempWish.setPhotoFileName(UUID.randomUUID().toString());
 				final File newJpg =
 						imageRepository
-								.store(rotatedBitmap, tempPhotoFileName);
+								.store(rotatedBitmap, tempWish.getPhotoFileName());
 
 				dialog.setPhoto(context, newJpg);
 				setBackGroundImage(rotatedBitmap);
 				photoThumbnail.setPhoto(context, newJpg);
-				//currentWish.setPhotoFileName(newJpg.getName());
 			}
 
 			private void deletePhoto() {
-				tempPhotoFileName = null;
+				tempWish.setPhotoFileName(null);
 				setDefaultBackGroundImage();
 				photoThumbnail.deletePhoto();
 			}
