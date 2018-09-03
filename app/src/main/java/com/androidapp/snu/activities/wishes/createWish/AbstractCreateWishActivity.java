@@ -56,6 +56,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		tempPhotoFileName = getIntent().getStringExtra(PHOTO_FILE_NAME);
 		currentWish.setPhotoFileName(getIntent().getStringExtra(PHOTO_FILE_NAME));
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_content, null);
 		footerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_create_wish_footer, null);
@@ -89,7 +90,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 
 	@Override
 	public void onBackPressed() {
-		if(tempPhotoFileName != null && !tempPhotoFileName.equals(currentWish.getPhotoFileName())) {
+		if (tempPhotoFileName != null && !tempPhotoFileName.equals(currentWish.getPhotoFileName())) {
 			ImageRepository.withContext(this)
 					.delete(tempPhotoFileName);
 		}
@@ -164,7 +165,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 	}
 
 	private void prepareWishToStrore(final Wish currentWish) {
-		if(tempPhotoFileName == null || !tempPhotoFileName.equals(currentWish.getPhotoFileName())) {
+		if (tempPhotoFileName == null || !tempPhotoFileName.equals(currentWish.getPhotoFileName())) {
 			ImageRepository.withContext(this)
 					.delete(currentWish.getPhotoFileName());
 			currentWish.setPhotoFileName(tempPhotoFileName);
