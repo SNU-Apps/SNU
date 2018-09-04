@@ -35,6 +35,7 @@
             android:id="@+id/present_idea"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:alpha="0.6"
             android:layout_marginRight="10sp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/present_idea_brown_shadow" />
