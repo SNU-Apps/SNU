@@ -17,32 +17,23 @@
 package com.androidapp.snu.activities.wishes;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.AbstractBaseActivity;
+import com.androidapp.snu.components.ad.DynamicAdList;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidDialog;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnailSmall;
 import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.repository.wish.Wish;
 import com.androidapp.snu.repository.wish.WishRepository;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class PresentIdeaActivity extends AbstractBaseActivity {
@@ -88,79 +79,7 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
-		final Context context = this;
-		ProgressBar spinner = new ProgressBar(this);
-		spinner.getIndeterminateDrawable()
-				.setColorFilter(Color.argb(255, 166, 112, 63), android.graphics.PorterDuff.Mode.MULTIPLY);
-
-		TextView infoText = new TextView(this);
-		infoText.setText("SNU versucht, passende Produkte zu finden ...");
-		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
-		infoText.setTypeface(typeface);
-		infoText.setTextSize(24);
-		infoText.setGravity(Gravity.CENTER);
-
-		TextView continueSearch = new TextView(this);
-		continueSearch.setText(Html.fromHtml("<u>weitersuchen</u>"));
-		continueSearch.setTypeface(typeface);
-		continueSearch.setPadding(0, 0, 0, 25);
-		continueSearch.setTextSize(22);
-		continueSearch.setGravity(Gravity.CENTER);
-
-		List<AdView> ads = new ArrayList<>();
-		final int maxAds = 5;
-		for (int i = 0; i < maxAds; i++) {
-			AdView adView = new AdView(this);
-			adView.setAdSize(new AdSize(300, 100));
-			adView.setAlpha(0.7f);
-			adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-
-			AdRequest.Builder builder = new AdRequest.Builder()
-					.addKeyword("car")
-					.addKeyword("black");
-
-			adView.loadAd(builder.build());
-			ads.add(adView);
-		}
-
-		final Handler handler = new Handler();
-		handler.postDelayed(() -> {
-			contentView.removeView(infoText);
-			contentView.removeView(spinner);
-			for (AdView ad : ads) {
-				contentView.addView(ad);
-				TextView space = new TextView(this);
-				space.setText("");
-				contentView.addView(space);
-			}
-			contentView.addView(continueSearch);
-
-			continueSearch.setOnClickListener(v -> {
-				contentView.removeView(continueSearch);
-				for (int i = 0; i < maxAds; i++) {
-					AdView ad = new AdView(context);
-					ad.setAdSize(new AdSize(300, 100));
-					ad.setAlpha(0.7f);
-					ad.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-
-					AdRequest.Builder builder = new AdRequest.Builder()
-							.addKeyword("car")
-							.addKeyword("black");
-
-					ad.loadAd(builder.build());
-					contentView.addView(ad);
-					TextView space = new TextView(context);
-					space.setText("");
-					contentView.addView(space);
-				}
-				contentView.addView(continueSearch);
-			});
-
-		}, 3000);
-
-		contentView.addView(spinner);
-		contentView.addView(infoText);
-
+		contentView.addView(new DynamicAdList(this));
 		return contentView;
 	}
 
