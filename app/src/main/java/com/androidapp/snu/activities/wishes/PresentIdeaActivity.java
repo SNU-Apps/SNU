@@ -17,14 +17,16 @@
 package com.androidapp.snu.activities.wishes;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Space;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
@@ -86,16 +88,27 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
+		final Context context = this;
+		ProgressBar spinner = new ProgressBar(this);
+		spinner.getIndeterminateDrawable()
+				.setColorFilter(Color.argb(255, 166, 112, 63), android.graphics.PorterDuff.Mode.MULTIPLY);
+
 		TextView infoText = new TextView(this);
-		infoText.setText("Anbieter werden gesucht...");
+		infoText.setText("SNU versucht, passende Produkte zu finden ...");
 		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
 		infoText.setTypeface(typeface);
 		infoText.setTextSize(24);
 		infoText.setGravity(Gravity.CENTER);
-		contentView.addView(infoText);
+
+		TextView continueSearch = new TextView(this);
+		continueSearch.setText(Html.fromHtml("<u>weitersuchen</u>"));
+		continueSearch.setTypeface(typeface);
+		continueSearch.setPadding(0, 0, 0, 25);
+		continueSearch.setTextSize(22);
+		continueSearch.setGravity(Gravity.CENTER);
 
 		List<AdView> ads = new ArrayList<>();
-		final int maxAds = 4;
+		final int maxAds = 5;
 		for (int i = 0; i < maxAds; i++) {
 			AdView adView = new AdView(this);
 			adView.setAdSize(new AdSize(300, 100));
@@ -113,13 +126,40 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 		final Handler handler = new Handler();
 		handler.postDelayed(() -> {
 			contentView.removeView(infoText);
+			contentView.removeView(spinner);
 			for (AdView ad : ads) {
 				contentView.addView(ad);
 				TextView space = new TextView(this);
 				space.setText("");
 				contentView.addView(space);
 			}
-		}, 2000);
+			contentView.addView(continueSearch);
+
+			continueSearch.setOnClickListener(v -> {
+				contentView.removeView(continueSearch);
+				for (int i = 0; i < maxAds; i++) {
+					AdView ad = new AdView(context);
+					ad.setAdSize(new AdSize(300, 100));
+					ad.setAlpha(0.7f);
+					ad.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+					AdRequest.Builder builder = new AdRequest.Builder()
+							.addKeyword("car")
+							.addKeyword("black");
+
+					ad.loadAd(builder.build());
+					contentView.addView(ad);
+					TextView space = new TextView(context);
+					space.setText("");
+					contentView.addView(space);
+				}
+				contentView.addView(continueSearch);
+			});
+
+		}, 3000);
+
+		contentView.addView(spinner);
+		contentView.addView(infoText);
 
 		return contentView;
 	}

@@ -4,9 +4,7 @@
     android:id="@+id/component_polaroid_detail_thumbnail-header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#06000000"
-    android:paddingBottom="10dp"
-    android:paddingTop="10dp">
+    android:paddingBottom="10dp">
 
     <com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnailSmall
         android:id="@+id/component_polaroid_image_detail_thumbnail_header"
@@ -23,5 +21,5 @@
         android:maxLines="1"
         android:scrollHorizontally="true"
         android:textColor="#d6d6d6"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 </LinearLayout>

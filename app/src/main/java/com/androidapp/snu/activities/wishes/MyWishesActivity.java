@@ -69,6 +69,7 @@ public class MyWishesActivity extends AbstractBaseActivity {
 		header.setTypeface(typeface);
 		header.setText("Meine Wunschliste");
 		header.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+		header.setPadding(0, 0, 0, 20);
 		header.setTextColor(Color.argb(255, 214, 214, 214));
 		return header;
 	}
