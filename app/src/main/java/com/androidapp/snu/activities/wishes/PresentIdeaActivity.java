@@ -19,6 +19,8 @@ package com.androidapp.snu.activities.wishes;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,6 +38,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class PresentIdeaActivity extends AbstractBaseActivity {
@@ -81,6 +85,15 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
+		TextView infoText = new TextView(this);
+		infoText.setText("Anbieter werden gesucht...");
+		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
+		infoText.setTypeface(typeface);
+		infoText.setTextSize(24);
+		infoText.setGravity(Gravity.CENTER);
+		contentView.addView(infoText);
+
+		List<AdView> ads = new ArrayList<>();
 		final int maxAds = 4;
 		for (int i = 0; i < maxAds; i++) {
 			AdView adView = new AdView(this);
@@ -93,8 +106,17 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 					.addKeyword("black");
 
 			adView.loadAd(builder.build());
-			contentView.addView(adView);
+			ads.add(adView);
 		}
+
+		final Handler handler = new Handler();
+		handler.postDelayed(() -> {
+			contentView.removeView(infoText);
+			for (AdView ad : ads) {
+				contentView.addView(ad);
+			}
+		}, 2000);
+
 		return contentView;
 	}
 
