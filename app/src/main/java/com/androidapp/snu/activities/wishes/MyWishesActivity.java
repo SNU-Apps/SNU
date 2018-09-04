@@ -68,7 +68,7 @@ public class MyWishesActivity extends AbstractBaseActivity {
 		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
 		header.setTypeface(typeface);
 		header.setText("Meine Wunschliste");
-		header.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
+		header.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
 		header.setTextColor(Color.argb(255, 214, 214, 214));
 		return header;
 	}
@@ -85,11 +85,12 @@ public class MyWishesActivity extends AbstractBaseActivity {
 			final File photo = imageRepository.findAsFile(currentWish.getPhotoFileName());
 			wish.setPhoto(this, photo);
 			wish.setDescription(this, currentWish.getDescription());
+			wish.setCurrentWish(currentWish);
 			contentView.addView(wish);
 
 			wish.setOnClickListener(v -> {
 				Intent intent = new Intent(context, CreateWishActivity.class);
-				intent.putExtra(CreateWishActivity.WISH_ID, currentWish.getWishId().toString());
+				intent.putExtra(PresentIdeaActivity.WISH_ID, currentWish.getWishId().toString());
 				startActivity(intent);
 			});
 		}

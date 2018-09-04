@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.home.HomeActivity;
+import com.androidapp.snu.activities.wishes.PresentIdeaActivity;
+import com.androidapp.snu.repository.wish.Wish;
 
 import java.io.File;
 
@@ -16,6 +17,7 @@ public class PhotoPolaroidDetailThumbnail extends ConstraintLayout {
 	private static final String fontPath = "fonts/handwrite.ttf";
 
 	private Context context;
+	private Wish currentWish;
 
 	public PhotoPolaroidDetailThumbnail(Context context) {
 		super(context);
@@ -39,10 +41,14 @@ public class PhotoPolaroidDetailThumbnail extends ConstraintLayout {
 		descriptionView.setText(description);
 	}
 
+	public void setCurrentWish(final Wish wish) {
+		this.currentWish = wish;
+	}
+
 	void initPresentIdeaClickListener() {
 		findViewById(R.id.present_idea).setOnClickListener(v -> {
-			Intent intent = new Intent(context, HomeActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			Intent intent = new Intent(context, PresentIdeaActivity.class);
+			intent.putExtra(PresentIdeaActivity.WISH_ID, currentWish.getWishId().toString());
 			context.startActivity(intent);
 		});
 	}

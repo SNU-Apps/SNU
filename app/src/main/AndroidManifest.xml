@@ -37,6 +37,7 @@
         <activity android:name=".activities.wishes.PhotoWishActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.wishes.createWish.CreateWishActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.wishes.MyWishesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.wishes.PresentIdeaActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.wishes.FriendsWishesActivity" android:screenOrientation="portrait"/>
     </application>
 
