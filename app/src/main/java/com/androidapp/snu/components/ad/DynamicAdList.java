@@ -19,14 +19,19 @@ import java.util.List;
 
 public class DynamicAdList extends LinearLayout {
 	private static final String fontPath = "fonts/handwrite.ttf";
+	private final Context context;
 
 	public DynamicAdList(Context context) {
 		super(context);
+		this.context = context;
 		setOrientation(VERTICAL);
-		init(context);
 	}
 
-	private void init(Context context) {
+	public void requestAds(final int pageCount) {
+		init(pageCount);
+	}
+
+	private void init(int pageCount) {
 		ProgressBar spinner = new ProgressBar(context);
 		spinner.getIndeterminateDrawable()
 				.setColorFilter(Color.argb(255, 166, 112, 63), android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -46,7 +51,7 @@ public class DynamicAdList extends LinearLayout {
 		continueSearch.setGravity(Gravity.CENTER);
 
 		List<AdView> ads = new ArrayList<>();
-		final int maxAds = 5;
+		final int maxAds = pageCount;
 		for (int i = 0; i < maxAds; i++) {
 			AdView adView = new AdView(context);
 			adView.setAdSize(new AdSize(300, 100));
@@ -93,7 +98,6 @@ public class DynamicAdList extends LinearLayout {
 				}
 				this.addView(continueSearch);
 			});
-
 		}, 3000);
 
 		this.addView(spinner);

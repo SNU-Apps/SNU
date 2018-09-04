@@ -79,7 +79,9 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
-		contentView.addView(new DynamicAdList(this));
+		final DynamicAdList adList = new DynamicAdList(this);
+		contentView.addView(adList);
+		adList.requestAds(5);
 		return contentView;
 	}
 

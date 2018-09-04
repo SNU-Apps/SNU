@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
