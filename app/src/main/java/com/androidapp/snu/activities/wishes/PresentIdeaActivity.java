@@ -24,6 +24,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
@@ -114,6 +115,9 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 			contentView.removeView(infoText);
 			for (AdView ad : ads) {
 				contentView.addView(ad);
+				TextView space = new TextView(this);
+				space.setText("");
+				contentView.addView(space);
 			}
 		}, 2000);
 
