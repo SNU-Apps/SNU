@@ -17,14 +17,10 @@
 package com.androidapp.snu.activities.wishes;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,9 +40,11 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 	private static final String fontPath = "fonts/handwrite.ttf";
 
 	private LinearLayout contentView;
+	private LinearLayout headerView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		headerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.component_polaroid_detail_thumbnail_header, null);
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_present_idea_content, null);
 		super.onCreate(savedInstanceState);
 	}
@@ -64,31 +62,18 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 	@Override
 	protected View getHeader() {
 		final Context context = this;
-		final LinearLayout header = new LinearLayout(this);
-		header.setOrientation(LinearLayout.HORIZONTAL);
-		header.setPadding(0, 20, 0, 20);
-
-		final PhotoPolaroidThumbnailSmall thumbnail = new PhotoPolaroidThumbnailSmall(this);
 		final Wish currentWish = getCurrentWish();
 		final File jpg = ImageRepository.withContext(this).findAsFile(currentWish.getPhotoFileName());
-		thumbnail.setPhoto(this, jpg);
+		final PhotoPolaroidThumbnailSmall thumbnail = headerView.findViewById(R.id.component_polaroid_image_detail_thumbnail_header);
+		final TextView description = headerView.findViewById(R.id.component_polaroid_description_detail_thumbnail_header);
+
+		thumbnail.setPhoto(context, jpg);
 		thumbnail.setOnClickListener(v -> new PhotoPolaroidDialog(context, jpg).show());
 
-		TextView description = new TextView(this);
 		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
 		description.setTypeface(typeface);
 		description.setText(getCurrentWish().getDescription());
-		description.setMaxLines(1);
-		description.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-		description.setTextColor(Color.argb(255, 214, 214, 214));
-		description.setPadding(25, 0, 0, 0);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		layoutParams.gravity = Gravity.CENTER_VERTICAL;
-		description.setLayoutParams(layoutParams);
-
-		header.addView(thumbnail);
-		header.addView(description);
-		return header;
+		return headerView;
 	}
 
 	@Override
