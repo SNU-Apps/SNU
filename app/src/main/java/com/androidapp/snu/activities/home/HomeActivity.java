@@ -53,20 +53,6 @@ public class HomeActivity extends Activity {
 
 		mainView.addView(ActivityStartView.createForActivity(new MyWishesActivity(), this));
 		mainView.addView(ActivityStartView.createForActivity(new FriendsWishesActivity(), this));
-
-//		AdView adView = new AdView(this);
-//		//adView.setAdSize(AdSize.BANNER);
-//		adView.setAdSize(new AdSize(300, 100));
-//		adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-//
-//		mainView.addView(adView);
-//
-//		AdRequest.Builder builder = new AdRequest.Builder()
-//				.addKeyword("car")
-//				.addKeyword("black");
-//
-//		adView.loadAd(builder.build());
-
 	}
 
 	private void createFirstRow(LinearLayout mainView) {

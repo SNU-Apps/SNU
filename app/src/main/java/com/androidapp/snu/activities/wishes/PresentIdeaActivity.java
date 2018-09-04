@@ -31,6 +31,9 @@ import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnailSmall;
 import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.repository.wish.Wish;
 import com.androidapp.snu.repository.wish.WishRepository;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 import java.io.File;
 import java.util.UUID;
@@ -78,6 +81,20 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
+		final int maxAds = 4;
+		for (int i = 0; i < maxAds; i++) {
+			AdView adView = new AdView(this);
+			adView.setAdSize(new AdSize(300, 100));
+			adView.setAlpha(0.7f);
+			adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+			AdRequest.Builder builder = new AdRequest.Builder()
+					.addKeyword("car")
+					.addKeyword("black");
+
+			adView.loadAd(builder.build());
+			contentView.addView(adView);
+		}
 		return contentView;
 	}
 
