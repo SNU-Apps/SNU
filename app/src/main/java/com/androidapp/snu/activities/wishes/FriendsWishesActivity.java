@@ -16,21 +16,32 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.AbstractBaseActivity;
+import com.androidapp.snu.components.contacts.Contact;
+import com.androidapp.snu.components.contacts.ContactService;
+import com.androidapp.snu.components.contacts.ContactPermissionService;
 
-public class FriendsWishesActivity extends AbstractBaseActivity {
+import java.util.List;
+
+public class FriendsWishesActivity extends AbstractBaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_2;
 	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
+	private LinearLayout content;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		content = new LinearLayout(this);
 		super.onCreate(savedInstanceState);
+		ContactPermissionService.newInstance().requestPermissionIfRequired(this);
 	}
 
 	@Override
@@ -45,11 +56,7 @@ public class FriendsWishesActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
-		LinearLayout layout = new LinearLayout(this);
-		TextView text = new TextView(this);
-		text.setText("This is my second content :)");
-		layout.addView(text);
-		return layout;
+		return content;
 	}
 
 	@Override
@@ -68,5 +75,36 @@ public class FriendsWishesActivity extends AbstractBaseActivity {
 		});
 
 		return footer;
+	}
+
+	private void loadContacts() {
+		List<Contact> contacts = ContactService.withContext(this).getContacts(this);
+		for (Contact contact : contacts) {
+			TextView contactNr = new TextView(this);
+			contactNr.setText(contact.getMobileNumber());
+			content.addView(contactNr);
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case ContactPermissionService.REQUEST_CONTACTS_READ_PERMISSION: {
+				// If request is cancelled, the result arrays are empty.
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					// permission was granted, yay! Do the
+					// contacts-related task you need to do.
+					loadContacts();
+				} else {
+					// permission denied, boo! Disable the
+					// functionality that depends on this permission.
+				}
+				return;
+			}
+
+			// other 'case' lines to check for other
+			// permissions this app might request.
+		}
 	}
 }
