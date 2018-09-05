@@ -41,7 +41,12 @@ public class FriendsWishesActivity extends AbstractBaseActivity implements Activ
 	protected void onCreate(Bundle savedInstanceState) {
 		content = new LinearLayout(this);
 		super.onCreate(savedInstanceState);
-		ContactPermissionService.newInstance().requestPermissionIfRequired(this);
+		ContactPermissionService contactPermissionService = ContactPermissionService.newInstance();
+		if (contactPermissionService.hasPermission(this)) {
+			loadContacts();
+			return;
+		}
+		contactPermissionService.requestPermissionIfRequired(this);
 	}
 
 	@Override
@@ -60,21 +65,16 @@ public class FriendsWishesActivity extends AbstractBaseActivity implements Activ
 	}
 
 	@Override
-	protected View getFooter() {
-		TextView text = new TextView(this);
-		text.setText("Weiter zur Vorschau");
-		text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline5);
-		LinearLayout footer = new LinearLayout(this);
-		footer.addView(text);
-
-		text.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case ContactPermissionService.REQUEST_CONTACTS_READ_PERMISSION: {
+				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					loadContacts();
+				} else {
+					// permission denied, boo! Display a sad smiley
+				}
 			}
-		});
-
-		return footer;
+		}
 	}
 
 	private void loadContacts() {
@@ -83,28 +83,6 @@ public class FriendsWishesActivity extends AbstractBaseActivity implements Activ
 			TextView contactNr = new TextView(this);
 			contactNr.setText(contact.getName() + " | " + contact.getMobileNumber());
 			content.addView(contactNr);
-		}
-	}
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-		switch (requestCode) {
-			case ContactPermissionService.REQUEST_CONTACTS_READ_PERMISSION: {
-				// If request is cancelled, the result arrays are empty.
-				if (grantResults.length > 0
-						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					// permission was granted, yay! Do the
-					// contacts-related task you need to do.
-					loadContacts();
-				} else {
-					// permission denied, boo! Disable the
-					// functionality that depends on this permission.
-				}
-				return;
-			}
-
-			// other 'case' lines to check for other
-			// permissions this app might request.
 		}
 	}
 }

@@ -34,6 +34,10 @@ public class ContactPermissionService {
 		return new ContactPermissionService();
 	}
 
+	public boolean hasPermission(final Activity activity) {
+		return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+	}
+
 	public void requestPermissionIfRequired(final Activity activity) {
 		if (ContextCompat.checkSelfPermission(activity,
 				Manifest.permission.READ_CONTACTS)
