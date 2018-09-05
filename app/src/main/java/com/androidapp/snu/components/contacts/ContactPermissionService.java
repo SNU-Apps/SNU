@@ -25,6 +25,8 @@ import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.androidapp.snu.R;
+
 public class ContactPermissionService {
 	public static final int REQUEST_CONTACTS_READ_PERMISSION = 1;
 
@@ -41,8 +43,7 @@ public class ContactPermissionService {
 
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 			alertBuilder.setCancelable(true);
-			alertBuilder.setTitle("SNU kennt Deine Freunde noch nicht");
-			alertBuilder.setMessage("Darf SNU ein Blick in Deine Kontakte werfen, um Dir ihre Wünsche anzeigen zu können.");
+			alertBuilder.setView(activity.getLayoutInflater().inflate(R.layout.request_permission_dialog_read_contacts, null));
 			alertBuilder.setPositiveButton("Ja, gerne!", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -53,6 +54,7 @@ public class ContactPermissionService {
 			});
 			alertBuilder.setNegativeButton("Lieber nicht", (alertDialog, which) -> alertDialog.dismiss());
 			AlertDialog alert = alertBuilder.create();
+
 			alert.show();
 			int textColor = Color.argb(255, 204, 153, 102);
 			alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(textColor);
