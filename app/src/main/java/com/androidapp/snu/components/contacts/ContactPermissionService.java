@@ -30,6 +30,10 @@ import com.androidapp.snu.R;
 public class ContactPermissionService {
 	public static final int REQUEST_CONTACTS_READ_PERMISSION = 1;
 
+	public static interface CustomDialogAware {
+		void onContactPermissionDenied();
+	}
+
 	public static ContactPermissionService newInstance() {
 		return new ContactPermissionService();
 	}
@@ -38,7 +42,7 @@ public class ContactPermissionService {
 		return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
 	}
 
-	public void requestPermissionIfRequired(final Activity activity) {
+	public void requestPermissionIfRequired(final Activity activity, final CustomDialogAware customCallback) {
 		if (ContextCompat.checkSelfPermission(activity,
 				Manifest.permission.READ_CONTACTS)
 				!= PackageManager.PERMISSION_GRANTED) {
@@ -56,7 +60,12 @@ public class ContactPermissionService {
 							REQUEST_CONTACTS_READ_PERMISSION);
 				}
 			});
-			alertBuilder.setNegativeButton("Lieber nicht", (alertDialog, which) -> alertDialog.dismiss());
+			alertBuilder.setNegativeButton("Lieber nicht", (alertDialog, which) -> {
+				alertDialog.dismiss();
+				if (customCallback != null) {
+					customCallback.onContactPermissionDenied();
+				}
+			});
 			AlertDialog alert = alertBuilder.create();
 
 			alert.show();
