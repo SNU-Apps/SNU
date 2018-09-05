@@ -6,7 +6,10 @@ import android.content.Context;
 import java.util.List;
 
 public interface ContactService {
-	List<Contact> getContacts(final Activity activity);
+	public interface ContactsLoadedCallback {
+		void onContactsLoaded(List<Contact> contacts);
+	}
+	void getContactsAsync(final Activity activity, final ContactsLoadedCallback callback);
 
 	static ContactService withContext(final Context context) {
 		return new ContactServiceImpl(context);

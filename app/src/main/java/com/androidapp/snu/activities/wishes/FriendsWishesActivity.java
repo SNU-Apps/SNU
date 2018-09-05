@@ -16,6 +16,8 @@
 
 package com.androidapp.snu.activities.wishes;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -23,8 +25,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
@@ -42,6 +46,8 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
 	private LinearLayout content;
+	ProgressBar loadingSpinner;
+	TextView loadingSpinnerText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 		super.onCreate(savedInstanceState);
 		ContactPermissionService contactPermissionService = ContactPermissionService.newInstance();
 		if (contactPermissionService.hasPermission(this)) {
-			loadContacts();
+			loadContactsAsync();
 			return;
 		}
 		contactPermissionService.requestPermissionIfRequired(this, this);
@@ -88,7 +94,7 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 		switch (requestCode) {
 			case ContactPermissionService.REQUEST_CONTACTS_READ_PERMISSION: {
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					loadContacts();
+					loadContactsAsync();
 				} else {
 					onContactPermissionDenied();
 				}
@@ -96,13 +102,43 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 		}
 	}
 
-	private void loadContacts() {
-		List<Contact> contacts = ContactService.withContext(this).getContacts(this);
-		for (Contact contact : contacts) {
-			TextView contactNr = new TextView(this);
-			contactNr.setText(contact.getName() + " | " + contact.getMobileNumber());
-			content.addView(contactNr);
-		}
+	private void loadContactsAsync() {
+		final Context context = this;
+		final Activity activity = this;
+		showLoadingSpinner();
+		ContactService.withContext(context).getContactsAsync(this, new ContactService.ContactsLoadedCallback() {
+			@Override
+			public void onContactsLoaded(List<Contact> contacts) {
+				activity.runOnUiThread(() -> {
+					hideLoadingSpinner();
+					for (Contact contact : contacts) {
+						TextView contactNr = new TextView(context);
+						contactNr.setText(contact.getName() + " | " + contact.getMobileNumber());
+						content.addView(contactNr);
+					}
+				});
+			}
+		});
+	}
+
+	private void showLoadingSpinner() {
+		loadingSpinner = new ProgressBar(this);
+		loadingSpinner.getIndeterminateDrawable()
+				.setColorFilter(Color.argb(255, 166, 112, 63), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+		loadingSpinnerText = new TextView(this);
+		loadingSpinnerText.setText("SNU sucht nach den Wünschen Deiner Freunde ...");
+		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
+		loadingSpinnerText.setTypeface(typeface);
+		loadingSpinnerText.setTextSize(24);
+		loadingSpinnerText.setGravity(Gravity.CENTER);
+		content.addView(loadingSpinner);
+		content.addView(loadingSpinnerText);
+	}
+
+	private void hideLoadingSpinner() {
+		content.removeView(loadingSpinner);
+		content.removeView(loadingSpinnerText);
 	}
 
 	@Override
