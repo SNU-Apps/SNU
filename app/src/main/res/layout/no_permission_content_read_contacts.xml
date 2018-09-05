@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/request_permission_dialog_read_contacts"
-    android:layout_width="wrap_content"
+    android:id="@+id/no_permission_content_read_contacts"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/no_permission_content_read_contacts_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/friends_brown_sad_shadow" />
+
     <TextView
+        android:id="@+id/no_permission_content_read_contacts_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="SNU kennt Deine Freunde noch nicht"
+        android:text="SNU kennt Deine Freunde nicht"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:padding="10dp"
-        android:src="@drawable/friends_brown" />
-
     <TextView
+        android:id="@+id/no_permission_content_read_contacts_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Darf SNU ein Blick in Deine Kontakte werfen, um Dir die Wünsche Deiner Freunde anzeigen zu können?"
+        android:text="Wie kann ich das ändern?"
         android:textColor="#000000"
         android:textSize="16sp" />
 

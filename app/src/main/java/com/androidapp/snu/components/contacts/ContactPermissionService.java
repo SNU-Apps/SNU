@@ -30,7 +30,7 @@ import com.androidapp.snu.R;
 public class ContactPermissionService {
 	public static final int REQUEST_CONTACTS_READ_PERMISSION = 1;
 
-	public static interface CustomDialogAware {
+	public interface CustomDialogAware {
 		void onContactPermissionDenied();
 	}
 
@@ -66,6 +66,8 @@ public class ContactPermissionService {
 					customCallback.onContactPermissionDenied();
 				}
 			});
+
+			alertBuilder.setCancelable(false);
 			AlertDialog alert = alertBuilder.create();
 
 			alert.show();

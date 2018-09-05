@@ -21,9 +21,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -107,20 +107,11 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 
 	@Override
 	public void onContactPermissionDenied() {
-		ImageView sadFriends = new ImageView(this);
-		sadFriends.setImageResource(R.drawable.friends_brown_sad_shadow);
-		sadFriends.setPadding(150, 0, 150, 0);
-		content.addView(sadFriends);
-
-		TextView info = new TextView(this);
-		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
-		info.setTypeface(typeface);
-		info.setText("SNU kennt Deine Freunde leider nicht.");
-		info.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-		info.setTextColor(Color.argb(255, 214, 214, 214));
-		content.addView(info);
-
-		sadFriends.setOnClickListener((view) -> ContactPermissionService.newInstance().requestPermissionIfRequired(this, this));
-		info.setOnClickListener((view) -> ContactPermissionService.newInstance().requestPermissionIfRequired(this, this));
+		LinearLayout noPermissionContent = (LinearLayout) getLayoutInflater().inflate(R.layout.no_permission_content_read_contacts, null);
+		content.addView(noPermissionContent);
+		TextView hint = noPermissionContent.findViewById(R.id.no_permission_content_read_contacts_hint);
+		hint.setText(Html.fromHtml("<u>" + hint.getText() + "</u>"));
+		//sadFriends.setOnClickListener((view) -> ContactPermissionService.newInstance().requestPermissionIfRequired(this, this));
+		//info.setOnClickListener((view) -> ContactPermissionService.newInstance().requestPermissionIfRequired(this, this));
 	}
 }
