@@ -26,8 +26,8 @@ import android.widget.TextView;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.AbstractBaseActivity;
 import com.androidapp.snu.components.contacts.Contact;
-import com.androidapp.snu.components.contacts.ContactService;
 import com.androidapp.snu.components.contacts.ContactPermissionService;
+import com.androidapp.snu.components.contacts.ContactService;
 
 import java.util.List;
 
@@ -81,7 +81,7 @@ public class FriendsWishesActivity extends AbstractBaseActivity implements Activ
 		List<Contact> contacts = ContactService.withContext(this).getContacts(this);
 		for (Contact contact : contacts) {
 			TextView contactNr = new TextView(this);
-			contactNr.setText(contact.getMobileNumber());
+			contactNr.setText(contact.getName() + " | " + contact.getMobileNumber());
 			content.addView(contactNr);
 		}
 	}
