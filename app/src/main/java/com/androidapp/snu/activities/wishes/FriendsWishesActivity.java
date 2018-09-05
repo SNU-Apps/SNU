@@ -111,7 +111,6 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 		content.addView(noPermissionContent);
 		TextView hint = noPermissionContent.findViewById(R.id.no_permission_content_read_contacts_hint);
 		hint.setText(Html.fromHtml("<u>" + hint.getText() + "</u>"));
-		//sadFriends.setOnClickListener((view) -> ContactPermissionService.newInstance().requestPermissionIfRequired(this, this));
-		//info.setOnClickListener((view) -> ContactPermissionService.newInstance().requestPermissionIfRequired(this, this));
+		hint.setOnClickListener(view -> ContactPermissionService.newInstance().showHint(this));
 	}
 }

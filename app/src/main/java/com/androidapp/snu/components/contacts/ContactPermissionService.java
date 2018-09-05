@@ -76,4 +76,23 @@ public class ContactPermissionService {
 			alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(textColor);
 		}
 	}
+
+	public void showHint(final Activity activity) {
+		AlertDialog.Builder hintBuilder = new AlertDialog.Builder(activity);
+		hintBuilder.setCancelable(true);
+		hintBuilder.setView(activity.getLayoutInflater().inflate(R.layout.permission_dialog_read_contacts_hint, null));
+		hintBuilder.setPositiveButton("Verstanden!", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// no op
+			}
+		});
+
+		hintBuilder.setCancelable(false);
+		AlertDialog hint = hintBuilder.create();
+
+		hint.show();
+		int textColor = Color.argb(255, 204, 153, 102);
+		hint.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(textColor);
+	}
 }
