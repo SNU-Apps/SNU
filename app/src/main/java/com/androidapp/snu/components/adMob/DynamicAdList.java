@@ -1,4 +1,4 @@
-package com.androidapp.snu.components.ad;
+package com.androidapp.snu.components.adMob;
 
 import android.content.Context;
 import android.graphics.Color;

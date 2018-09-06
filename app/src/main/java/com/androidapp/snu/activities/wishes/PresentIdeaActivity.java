@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.AbstractBaseActivity;
-import com.androidapp.snu.components.ad.DynamicAdList;
+import com.androidapp.snu.components.adMob.DynamicAdList;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidDialog;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnailSmall;
 import com.androidapp.snu.repository.image.ImageRepository;

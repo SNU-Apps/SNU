@@ -46,8 +46,8 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
 	private LinearLayout content;
-	ProgressBar loadingSpinner;
-	TextView loadingSpinnerText;
+	private ProgressBar loadingSpinner;
+	private TextView loadingSpinnerText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +102,15 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 		}
 	}
 
+	@Override
+	public void onContactPermissionDenied() {
+		LinearLayout noPermissionContent = (LinearLayout) getLayoutInflater().inflate(R.layout.no_permission_content_read_contacts, null);
+		content.addView(noPermissionContent);
+		TextView hint = noPermissionContent.findViewById(R.id.no_permission_content_read_contacts_hint);
+		hint.setText(Html.fromHtml("<u>" + hint.getText() + "</u>"));
+		hint.setOnClickListener(view -> ContactPermissionService.newInstance().showHint(this));
+	}
+
 	private void loadContactsAsync() {
 		final Context context = this;
 		final Activity activity = this;
@@ -122,13 +131,13 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	}
 
 	private void showLoadingSpinner() {
+		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
 		loadingSpinner = new ProgressBar(this);
 		loadingSpinner.getIndeterminateDrawable()
 				.setColorFilter(Color.argb(255, 166, 112, 63), android.graphics.PorterDuff.Mode.MULTIPLY);
 
 		loadingSpinnerText = new TextView(this);
 		loadingSpinnerText.setText("SNU sucht nach den Wünschen Deiner Freunde ...");
-		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
 		loadingSpinnerText.setTypeface(typeface);
 		loadingSpinnerText.setTextSize(24);
 		loadingSpinnerText.setGravity(Gravity.CENTER);
@@ -139,14 +148,5 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	private void hideLoadingSpinner() {
 		content.removeView(loadingSpinner);
 		content.removeView(loadingSpinnerText);
-	}
-
-	@Override
-	public void onContactPermissionDenied() {
-		LinearLayout noPermissionContent = (LinearLayout) getLayoutInflater().inflate(R.layout.no_permission_content_read_contacts, null);
-		content.addView(noPermissionContent);
-		TextView hint = noPermissionContent.findViewById(R.id.no_permission_content_read_contacts_hint);
-		hint.setText(Html.fromHtml("<u>" + hint.getText() + "</u>"));
-		hint.setOnClickListener(view -> ContactPermissionService.newInstance().showHint(this));
 	}
 }
