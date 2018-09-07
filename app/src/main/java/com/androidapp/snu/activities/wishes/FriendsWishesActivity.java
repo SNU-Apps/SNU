@@ -19,12 +19,10 @@ package com.androidapp.snu.activities.wishes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
-import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,15 +42,16 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_2;
 	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
+	private TextView header;
 	private LinearLayout content;
 	private LoadingSpinner loadingSpinner;
-	private TextView loadingSpinnerText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		content = new LinearLayout(this);
-		content.setOrientation(LinearLayout.VERTICAL);
+		header = (TextView) LayoutInflater.from(this).inflate(R.layout.activity_friends_wishes_header, null);
+		content = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_friends_wishes_content, null);
 		super.onCreate(savedInstanceState);
+
 		ContactPermissionService contactPermissionService = ContactPermissionService.newInstance();
 		if (contactPermissionService.hasPermission(this)) {
 			loadContactsAsync();
@@ -78,13 +77,6 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 
 	@Override
 	protected View getHeader() {
-		TextView header = new TextView(this);
-		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
-		header.setTypeface(typeface);
-		header.setText("Wünsche von Freunden");
-		header.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-		header.setPadding(0, 0, 0, 20);
-		header.setTextColor(Color.argb(255, 214, 214, 214));
 		return header;
 	}
 

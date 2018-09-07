@@ -18,10 +18,7 @@ package com.androidapp.snu.activities.wishes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -40,14 +37,15 @@ import java.io.File;
 import java.util.List;
 
 public class MyWishesActivity extends AbstractBaseActivity {
-	private static final String fontPath = "fonts/handwrite.ttf";
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_1;
 	public static final String HEADER_TEXT = "Meine Wunschliste";
 
+	private TextView header;
 	private LinearLayout contentView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		header = (TextView) LayoutInflater.from(this).inflate(R.layout.activity_my_wishes_header, null);
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_my_wishes_content, null);
 		super.onCreate(savedInstanceState);
 	}
@@ -64,13 +62,6 @@ public class MyWishesActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getHeader() {
-		TextView header = new TextView(this);
-		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
-		header.setTypeface(typeface);
-		header.setText("Meine Wunschliste");
-		header.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-		header.setPadding(0, 0, 0, 20);
-		header.setTextColor(Color.argb(255, 214, 214, 214));
 		return header;
 	}
 

@@ -30,14 +30,9 @@ class ActivityStartView extends LinearLayout implements View.OnClickListener {
 	}
 
 	private View getIconWithText(Context context) {
-		final String fontPath = "fonts/handwrite.ttf";
-		Typeface typeface = Typeface.createFromAsset(context.getAssets(), fontPath);
-
 		View view = LayoutInflater.from(context).inflate(R.layout.fragment_activity_home_scene, null);
 		ImageView image = view.findViewById(R.id.activity_start_image_icon);
 		TextView text = view.findViewById(R.id.activity_start_header_text);
-		//text.setTypeface(typeface);
-		//text.setTextSize(18);
 		Picasso.with(context)
 				.load(activity.getIconImageId())
 				.transform(new RoundedCornersTransformation(30, 0))
