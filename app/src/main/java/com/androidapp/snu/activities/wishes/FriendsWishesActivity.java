@@ -111,7 +111,7 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 				content.addView(
 						new ContactView(context)
 								.setName(contact.getName())
-								.setNumber(contact.getMobileNumber())
+								.setDetails("... ist wunschlos Glücklich")
 								.setPhoto(contact.getPhoto()));
 			}
 		}));

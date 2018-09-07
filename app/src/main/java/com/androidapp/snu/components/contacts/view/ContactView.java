@@ -26,9 +26,9 @@ public class ContactView extends ConstraintLayout {
 		return this;
 	}
 
-	public ContactView setNumber(final String number) {
-		TextView numberView = this.findViewById(R.id.component_contact_number);
-		numberView.setText(number);
+	public ContactView setDetails(final String details) {
+		TextView detailsView = this.findViewById(R.id.component_contact_details);
+		detailsView.setText(details);
 		return this;
 	}
 

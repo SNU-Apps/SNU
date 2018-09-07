@@ -51,7 +51,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/component_contact_number"
+                android:id="@+id/component_contact_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
@@ -61,7 +61,7 @@
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:textColor="#000000"
-                android:textSize="12sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 
