@@ -1,8 +1,10 @@
 package com.androidapp.snu.components.contacts.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
@@ -27,6 +29,14 @@ public class ContactView extends ConstraintLayout {
 	public ContactView setNumber(final String number) {
 		TextView numberView = this.findViewById(R.id.component_contact_number);
 		numberView.setText(number);
+		return this;
+	}
+
+	public ContactView setPhoto(final Bitmap bitmap) {
+		if(bitmap != null) {
+			ImageView image = this.findViewById(R.id.component_contact_card_image);
+			image.setImageBitmap(bitmap);
+		}
 		return this;
 	}
 }
