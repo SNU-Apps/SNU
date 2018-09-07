@@ -32,9 +32,8 @@ import com.androidapp.snu.activities.AbstractBaseActivity;
 import com.androidapp.snu.components.contacts.Contact;
 import com.androidapp.snu.components.contacts.ContactPermissionService;
 import com.androidapp.snu.components.contacts.ContactService;
+import com.androidapp.snu.components.contacts.view.ContactView;
 import com.androidapp.snu.components.progress.LoadingSpinner;
-
-import java.util.List;
 
 public class FriendsWishesActivity extends AbstractBaseActivity
 		implements ContactPermissionService.CustomDialogAware, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -106,19 +105,15 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 		final Context context = this;
 		final Activity activity = this;
 		showLoadingSpinner();
-		ContactService.withContext(context).getContactsAsync(this, new ContactService.ContactsLoadedCallback() {
-			@Override
-			public void onContactsLoaded(List<Contact> contacts) {
-				activity.runOnUiThread(() -> {
-					hideLoadingSpinner();
-					for (Contact contact : contacts) {
-						TextView contactNr = new TextView(context);
-						contactNr.setText(contact.getName() + " | " + contact.getMobileNumber());
-						content.addView(contactNr);
-					}
-				});
+		ContactService.withContext(context).getContactsAsync(this, contacts -> activity.runOnUiThread(() -> {
+			hideLoadingSpinner();
+			for (Contact contact : contacts) {
+				content.addView(
+						new ContactView(context)
+								.setName(contact.getName())
+								.setNumber(contact.getMobileNumber()));
 			}
-		});
+		}));
 	}
 
 	private void showLoadingSpinner() {
