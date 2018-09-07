@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ContactService {
 	public interface ContactsLoadedCallback {
-		void onContactsLoaded(List<Contact> contacts);
+		void onContactsLoaded(Set<Contact> contacts);
 	}
 	void getContactsAsync(final Activity activity, final ContactsLoadedCallback callback);
 

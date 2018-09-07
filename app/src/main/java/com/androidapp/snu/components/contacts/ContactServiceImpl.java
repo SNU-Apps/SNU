@@ -9,10 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.v4.util.ArraySet;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class ContactServiceImpl implements ContactService {
 	private final Context context;
@@ -26,7 +27,7 @@ class ContactServiceImpl implements ContactService {
 
 		final Runnable runnable = new Runnable() {
 			public void run() {
-				List<Contact> list = new ArrayList<>();
+				Set<Contact> list = new HashSet<>();
 				ContentResolver contentResolver = context.getContentResolver();
 				Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 				if (cursor != null && cursor.getCount() > 0) {
