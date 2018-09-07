@@ -68,7 +68,7 @@ public class MyWishesActivity extends AbstractBaseActivity {
 	@Override
 	protected View getContent() {
 		final ImageRepository imageRepository = ImageRepository.withContext(this);
-		final WishRepository wishRepository = WishRepository.withContext(this);
+		final WishRepository wishRepository = WishRepository.myWishes(this);
 		final List<Wish> currentWishes = wishRepository.findAll();
 
 		for (Wish currentWish : currentWishes) {

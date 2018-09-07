@@ -16,10 +16,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-class WishRepositoryImpl implements WishRepository {
+abstract class AbstractWishRepositoryImpl implements WishRepository {
 	private final Context context;
 
-	WishRepositoryImpl(final Context context) {
+	AbstractWishRepositoryImpl(final Context context) {
 		this.context = context;
 	}
 
@@ -47,7 +47,7 @@ class WishRepositoryImpl implements WishRepository {
 	public List<Wish> findAll() {
 		List<Wish> wishes;
 		try {
-			File file = new File(context.getExternalFilesDir(null), getNormalizedWishListFileName("myWishList"));
+			File file = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedWishListFileName(getWishListName()));
 			wishes = (List<Wish>) deserialize(file);
 		} catch (IOException | ClassNotFoundException e) {
 			return new ArrayList<>();
@@ -72,8 +72,11 @@ class WishRepositoryImpl implements WishRepository {
 		return remainingWishes;
 	}
 
+	abstract String getWishListName();
+	abstract String getLocalSubFolder();
+
 	private List<Wish> storeWishListToFileInternal(List<Wish> wishes) {
-		File mFile = new File(context.getExternalFilesDir(null), getNormalizedWishListFileName("myWishList"));
+		File mFile = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedWishListFileName(getWishListName()));
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(mFile);

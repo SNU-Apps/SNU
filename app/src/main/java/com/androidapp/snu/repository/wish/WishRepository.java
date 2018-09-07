@@ -11,7 +11,11 @@ public interface WishRepository {
 	List<Wish> findAll();
 	List<Wish> delete(final Wish wish);
 
-	static WishRepository withContext(final Context context) {
-		return new WishRepositoryImpl(context);
+	static WishRepository myWishes(final Context context) {
+		return new MyWishRepositoryImpl(context);
+	}
+
+	static WishRepository friendsWishes(final String normalizedPhoneNumber, final Context context) {
+		return new FriendsWishRepositoryImpl(normalizedPhoneNumber, context);
 	}
 }

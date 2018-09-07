@@ -88,7 +88,7 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 	private Wish getCurrentWish() {
 		final String currentWishIdString = getIntent().getStringExtra(WISH_ID);
 		final UUID currentWishId = currentWishIdString != null ? UUID.fromString(currentWishIdString) : null;
-		final WishRepository wishRepository = WishRepository.withContext(this);
+		final WishRepository wishRepository = WishRepository.myWishes(this);
 		return wishRepository.findById(currentWishId);
 	}
 }

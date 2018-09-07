@@ -105,7 +105,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 		UUID currentWishId = currentWishIdString != null ? UUID.fromString(currentWishIdString) : null;
 		if (currentWishId != null) {
 			// modify mode
-			currentWish = WishRepository.withContext(this).findById(currentWishId);
+			currentWish = WishRepository.myWishes(this).findById(currentWishId);
 			tempWish.setPhotoFileName(currentWish.getPhotoFileName());
 			tempWish.setDescription(currentWish.getDescription());
 		} else {
@@ -163,7 +163,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
 		accept.setOnClickListener(view -> {
 			prepareWishToStrore();
-			WishRepository.withContext(this)
+			WishRepository.myWishes(this)
 					.store(currentWish);
 
 			Intent intent = new Intent(this, MyWishesActivity.class);
