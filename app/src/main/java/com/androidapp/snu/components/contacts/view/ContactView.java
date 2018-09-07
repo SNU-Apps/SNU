@@ -10,11 +10,9 @@ import android.widget.TextView;
 import com.androidapp.snu.R;
 
 public class ContactView extends ConstraintLayout {
-	private Context context;
 
 	public ContactView(Context context) {
 		super(context);
-		this.context = context;
 		ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.component_contact, null);
 		layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		this.addView(layout);
