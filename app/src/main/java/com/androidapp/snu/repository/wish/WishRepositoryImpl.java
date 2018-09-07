@@ -36,7 +36,7 @@ class WishRepositoryImpl implements WishRepository {
 	@Override
 	public Wish findById(UUID id) {
 		for (Wish wish : findAll()) {
-			if(wish.getWishId().equals(id)) {
+			if (wish.getWishId().equals(id)) {
 				return wish;
 			}
 		}
@@ -64,7 +64,7 @@ class WishRepositoryImpl implements WishRepository {
 			Iterator<Wish> wishIterator = remainingWishes.iterator();
 			while (wishIterator.hasNext()) {
 				Wish currentWish = wishIterator.next();
-				if(currentWish.getWishId().equals(wish.getWishId())) {
+				if (currentWish.getWishId().equals(wish.getWishId())) {
 					wishIterator.remove();
 				}
 			}
@@ -72,19 +72,6 @@ class WishRepositoryImpl implements WishRepository {
 		return remainingWishes;
 	}
 
-	private Wish storeWishToFileInternal(Wish wish) {
-		File mFile = new File(context.getExternalFilesDir(null), getNormalizedWishFileName(wish.getWishId().toString()));
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream(mFile);
-			fos.write(serialize(wish));
-			fos.flush();
-			fos.close();
-			return wish;
-		} catch (Exception e) {
-			return null;
-		}
-	}
 	private List<Wish> storeWishListToFileInternal(List<Wish> wishes) {
 		File mFile = new File(context.getExternalFilesDir(null), getNormalizedWishListFileName("myWishList"));
 		FileOutputStream fos;
@@ -97,13 +84,6 @@ class WishRepositoryImpl implements WishRepository {
 		} catch (Exception e) {
 			return null;
 		}
-	}
-
-	private String getNormalizedWishFileName(String fileName) {
-		if (!fileName.endsWith(".wsh")) {
-			return fileName + ".wsh";
-		}
-		return fileName;
 	}
 
 	private String getNormalizedWishListFileName(String fileName) {
