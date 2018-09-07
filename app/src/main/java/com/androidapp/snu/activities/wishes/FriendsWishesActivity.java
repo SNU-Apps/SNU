@@ -25,10 +25,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
@@ -36,6 +34,7 @@ import com.androidapp.snu.activities.AbstractBaseActivity;
 import com.androidapp.snu.components.contacts.Contact;
 import com.androidapp.snu.components.contacts.ContactPermissionService;
 import com.androidapp.snu.components.contacts.ContactService;
+import com.androidapp.snu.components.progress.LoadingSpinner;
 
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	public static final String HEADER_TEXT = "Wünsche von Freunden";
 
 	private LinearLayout content;
-	private ProgressBar loadingSpinner;
+	private LoadingSpinner loadingSpinner;
 	private TextView loadingSpinnerText;
 
 	@Override
@@ -131,22 +130,11 @@ public class FriendsWishesActivity extends AbstractBaseActivity
 	}
 
 	private void showLoadingSpinner() {
-		Typeface typeface = Typeface.createFromAsset(this.getAssets(), fontPath);
-		loadingSpinner = new ProgressBar(this);
-		loadingSpinner.getIndeterminateDrawable()
-				.setColorFilter(Color.argb(255, 166, 112, 63), android.graphics.PorterDuff.Mode.MULTIPLY);
-
-		loadingSpinnerText = new TextView(this);
-		loadingSpinnerText.setText("SNU sucht nach den Wünschen Deiner Freunde ...");
-		loadingSpinnerText.setTypeface(typeface);
-		loadingSpinnerText.setTextSize(24);
-		loadingSpinnerText.setGravity(Gravity.CENTER);
-		content.addView(loadingSpinner);
-		content.addView(loadingSpinnerText);
+		loadingSpinner = new LoadingSpinner("SNU sucht nach den Wünschen Deiner Freunde ...", content, this);
+		loadingSpinner.show();
 	}
 
 	private void hideLoadingSpinner() {
-		content.removeView(loadingSpinner);
-		content.removeView(loadingSpinnerText);
+		loadingSpinner.hide();
 	}
 }
