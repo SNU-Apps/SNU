@@ -31,7 +31,7 @@ import com.androidapp.snu.components.polaroid.PhotoPolaroidDialog;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnailSmall;
 import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.repository.wish.Wish;
-import com.androidapp.snu.repository.wish.WishRepository;
+import com.androidapp.snu.repository.wish.MyWishesRepository;
 
 import java.io.File;
 import java.util.UUID;
@@ -88,7 +88,7 @@ public class PresentIdeaActivity extends AbstractBaseActivity {
 	private Wish getCurrentWish() {
 		final String currentWishIdString = getIntent().getStringExtra(WISH_ID);
 		final UUID currentWishId = currentWishIdString != null ? UUID.fromString(currentWishIdString) : null;
-		final WishRepository wishRepository = WishRepository.myWishes(this);
+		final MyWishesRepository wishRepository = MyWishesRepository.withContext(this);
 		return wishRepository.findById(currentWishId);
 	}
 }

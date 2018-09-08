@@ -16,7 +16,7 @@
 
 package com.androidapp.snu.activities.wishes;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,12 +29,12 @@ import com.androidapp.snu.activities.AbstractBaseActivity;
 import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
 import com.androidapp.snu.components.polaroid.PhotoPolaroidDetailThumbnail;
+import com.androidapp.snu.components.progress.LoadingSpinner;
 import com.androidapp.snu.repository.image.ImageRepository;
+import com.androidapp.snu.repository.wish.MyWishesRepository;
 import com.androidapp.snu.repository.wish.Wish;
-import com.androidapp.snu.repository.wish.WishRepository;
 
 import java.io.File;
-import java.util.List;
 
 public class MyWishesActivity extends AbstractBaseActivity {
 	public static final int HEADER_IMAGE_ID = R.drawable.v3_1;
@@ -48,6 +48,7 @@ public class MyWishesActivity extends AbstractBaseActivity {
 		header = (TextView) LayoutInflater.from(this).inflate(R.layout.activity_my_wishes_header, null);
 		contentView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_my_wishes_content, null);
 		super.onCreate(savedInstanceState);
+		loadWishesAsync();
 	}
 
 	@Override
@@ -67,25 +68,6 @@ public class MyWishesActivity extends AbstractBaseActivity {
 
 	@Override
 	protected View getContent() {
-		final ImageRepository imageRepository = ImageRepository.withContext(this);
-		final WishRepository wishRepository = WishRepository.myWishes(this);
-		final List<Wish> currentWishes = wishRepository.findAll();
-
-		for (Wish currentWish : currentWishes) {
-			final Context context = this;
-			final PhotoPolaroidDetailThumbnail wish = new PhotoPolaroidDetailThumbnail(this);
-			final File photo = imageRepository.findAsFile(currentWish.getPhotoFileName());
-			wish.setPhoto(this, photo);
-			wish.setDescription(this, currentWish.getDescription());
-			wish.setCurrentWish(currentWish);
-			contentView.addView(wish);
-
-			wish.setOnClickListener(v -> {
-				Intent intent = new Intent(context, CreateWishActivity.class);
-				intent.putExtra(PresentIdeaActivity.WISH_ID, currentWish.getWishId().toString());
-				startActivity(intent);
-			});
-		}
 		return contentView;
 	}
 
@@ -94,5 +76,32 @@ public class MyWishesActivity extends AbstractBaseActivity {
 		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
+
+	private void loadWishesAsync() {
+		final LoadingSpinner loadingSpinner = new LoadingSpinner("SNU lädt deine Wünsche ...", contentView, this);
+		final Activity activity = this;
+		loadingSpinner.show();
+
+		MyWishesRepository.withContext(this).findAllAsync(wishes -> {
+			activity.runOnUiThread(() -> {
+				loadingSpinner.hide();
+				final ImageRepository imageRepository = ImageRepository.withContext(this);
+				for (Wish currentWish : wishes) {
+					final PhotoPolaroidDetailThumbnail wish = new PhotoPolaroidDetailThumbnail(this);
+					final File photo = imageRepository.findAsFile(currentWish.getPhotoFileName());
+					wish.setPhoto(this, photo);
+					wish.setDescription(this, currentWish.getDescription());
+					wish.setCurrentWish(currentWish);
+					contentView.addView(wish);
+
+					wish.setOnClickListener(v -> {
+						Intent intent = new Intent(this, CreateWishActivity.class);
+						intent.putExtra(PresentIdeaActivity.WISH_ID, currentWish.getWishId().toString());
+						startActivity(intent);
+					});
+				}
+			});
+		});
 	}
 }

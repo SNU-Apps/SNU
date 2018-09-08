@@ -35,7 +35,7 @@ import com.androidapp.snu.components.polaroid.PhotoPolaroidThumbnail;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 import com.androidapp.snu.repository.image.ImageRepository;
 import com.androidapp.snu.repository.wish.Wish;
-import com.androidapp.snu.repository.wish.WishRepository;
+import com.androidapp.snu.repository.wish.MyWishesRepository;
 
 import java.util.UUID;
 
@@ -105,7 +105,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 		UUID currentWishId = currentWishIdString != null ? UUID.fromString(currentWishIdString) : null;
 		if (currentWishId != null) {
 			// modify mode
-			currentWish = WishRepository.myWishes(this).findById(currentWishId);
+			currentWish = MyWishesRepository.withContext(this).findById(currentWishId);
 			tempWish.setPhotoFileName(currentWish.getPhotoFileName());
 			tempWish.setDescription(currentWish.getDescription());
 		} else {
@@ -163,7 +163,7 @@ public abstract class AbstractCreateWishActivity extends AbstractBaseActivity {
 		ImageView accept = footerView.findViewById(R.id.activity_create_wish_footer);
 		accept.setOnClickListener(view -> {
 			prepareWishToStrore();
-			WishRepository.myWishes(this)
+			MyWishesRepository.withContext(this)
 					.store(currentWish);
 
 			Intent intent = new Intent(this, MyWishesActivity.class);

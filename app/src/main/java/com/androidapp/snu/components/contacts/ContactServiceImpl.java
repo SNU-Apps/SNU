@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.v4.util.ArraySet;
 
 import java.io.InputStream;
 import java.util.HashSet;

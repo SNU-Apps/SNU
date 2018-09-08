@@ -16,10 +16,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-abstract class AbstractWishRepositoryImpl implements WishRepository {
-	private final Context context;
+class MyWishesRepositoryImpl implements MyWishesRepository {
+	final Context context;
 
-	AbstractWishRepositoryImpl(final Context context) {
+	MyWishesRepositoryImpl(final Context context) {
 		this.context = context;
 	}
 
@@ -58,6 +58,19 @@ abstract class AbstractWishRepositoryImpl implements WishRepository {
 	}
 
 	@Override
+	public void findAllAsync(MyWishesRepository.WishesLoadedCallback callback) {
+		final Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				final List<Wish> wishes = findAll();
+				callback.onWishesLoaded(wishes);
+			}
+		};
+		Thread mythread = new Thread(runnable);
+		mythread.start();
+	}
+
+	@Override
 	public List<Wish> delete(Wish wish) {
 		List<Wish> remainingWishes = findAll();
 		if (!remainingWishes.isEmpty()) {
@@ -71,10 +84,6 @@ abstract class AbstractWishRepositoryImpl implements WishRepository {
 		}
 		return remainingWishes;
 	}
-
-	abstract String getWishListName();
-	abstract String getLocalSubFolder();
-
 	private List<Wish> storeWishListToFileInternal(List<Wish> wishes) {
 		File mFile = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedWishListFileName(getWishListName()));
 		FileOutputStream fos;
@@ -107,5 +116,13 @@ abstract class AbstractWishRepositoryImpl implements WishRepository {
 		FileInputStream in = new FileInputStream(data);
 		ObjectInputStream is = new ObjectInputStream(in);
 		return is.readObject();
+	}
+
+	private String getWishListName() {
+		return "myWishList";
+	}
+
+	private String getLocalSubFolder() {
+		return null;
 	}
 }
