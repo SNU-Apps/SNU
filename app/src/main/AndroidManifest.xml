@@ -25,7 +25,7 @@
             android:value="ca-app-pub-3940256099942544~3347511713"/>
 
         <activity
-            android:name=".activities.home.HomeActivity"
+            android:name=".activities.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
@@ -34,6 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.welcome.WelcomeActivitySetupStep1" android:screenOrientation="portrait" />
+        <activity android:name=".activities.home.HomeActivity" android:screenOrientation="portrait" />
         <activity android:name=".components.camera.CameraCaptureActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.wishes.PhotoWishActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.wishes.createWish.CreateWishActivity" android:windowSoftInputMode="adjustPan"/>

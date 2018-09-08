@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -46,6 +45,11 @@ public class HomeActivity extends Activity {
 
 		// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
 		MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
+	}
+
+	@Override
+	public void onBackPressed() {
+		//noop
 	}
 
 	private void initActivities() {
