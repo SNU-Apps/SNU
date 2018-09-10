@@ -23,25 +23,44 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.androidapp.snu.R;
+import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.bigbutton.BigButton;
 import com.androidapp.snu.components.progress.LoadingSpinner;
+import com.androidapp.snu.repository.appCredentials.AppCredentials;
+import com.androidapp.snu.repository.appCredentials.AppCredentialsRepository;
 import com.androidapp.snu.transformation.BlurBuilder;
 
 public class WelcomeActivity extends Activity {
+
+	private LinearLayout content;
+	private LoadingSpinner loadingSpinner;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
 		initStylesAndBackground();
-		initContent();
+		init();
+		checkCredentials();
 	}
 
-	private void initContent() {
-		final LinearLayout content = findViewById(R.id.welcome_view_text_welcome_content);
-		final LoadingSpinner loadingSpinner = new LoadingSpinner(content, this);
+	private void init() {
+		content = findViewById(R.id.welcome_view_text_welcome_content);
+		loadingSpinner = new LoadingSpinner(content, this);
 		loadingSpinner.show();
+	}
 
+	private void checkCredentials() {
+		final AppCredentials appCredentials = AppCredentialsRepository.withContext(this).find();
+		if (appCredentials != null && appCredentials.getDeviceRegistrationId() != null) {
+			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+			return;
+		}
+		initWelcomeContent();
+	}
+
+	private void initWelcomeContent() {
+		loadingSpinner.hide();
 		final BigButton createAccountButton = new BigButton(this).setText("Ich habe noch keinen Account");
 		final BigButton continueWithCoountButton = new BigButton(this).setText("Ich habe schon einen Account");
 
