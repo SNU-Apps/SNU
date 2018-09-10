@@ -62,13 +62,13 @@ public class WelcomeActivity extends Activity {
 	private void initWelcomeContent() {
 		loadingSpinner.hide();
 		final BigButton createAccountButton = new BigButton(this).setText("Ich habe noch keinen Account");
-		final BigButton continueWithCoountButton = new BigButton(this).setText("Ich habe schon einen Account");
+		final BigButton continueWithAccountButton = new BigButton(this).setText("Ich habe schon einen Account");
 
 		createAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
-		continueWithCoountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
+		continueWithAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
 
 		content.addView(createAccountButton);
-		content.addView(continueWithCoountButton);
+		content.addView(continueWithAccountButton);
 	}
 
 	private void initStylesAndBackground() {
