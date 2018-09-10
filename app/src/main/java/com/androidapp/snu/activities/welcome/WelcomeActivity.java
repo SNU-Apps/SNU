@@ -20,11 +20,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.androidapp.snu.R;
+import com.androidapp.snu.components.bigbutton.BigButton;
 import com.androidapp.snu.components.progress.LoadingSpinner;
 import com.androidapp.snu.transformation.BlurBuilder;
 
@@ -39,13 +38,18 @@ public class WelcomeActivity extends Activity {
 	}
 
 	private void initContent() {
-		final LinearLayout mainContent = findViewById(R.id.welcome_view);
-		final TextView start = findViewById(R.id.welcome_view_text_start);
-		start.setText(Html.fromHtml("<u>" + start.getText() + "</u>"));
-		start.setOnClickListener(v -> {
-			Intent intent = new Intent(getApplicationContext(), WelcomeActivitySetupStep1.class);
-			startActivity(intent);
-		});
+		final LinearLayout content = findViewById(R.id.welcome_view_text_welcome_content);
+		final LoadingSpinner loadingSpinner = new LoadingSpinner(content, this);
+		loadingSpinner.show();
+
+		final BigButton createAccountButton = new BigButton(this).setText("Ich habe noch keinen Account");
+		final BigButton continueWithCoountButton = new BigButton(this).setText("Ich habe schon einen Account");
+
+		createAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
+		continueWithCoountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
+
+		content.addView(createAccountButton);
+		content.addView(continueWithCoountButton);
 	}
 
 	private void initStylesAndBackground() {

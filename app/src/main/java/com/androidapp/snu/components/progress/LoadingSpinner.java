@@ -14,6 +14,10 @@ public class LoadingSpinner {
 	private ProgressBar loadingSpinner;
 	private TextView loadingSpinnerText;
 
+	public LoadingSpinner( final ViewGroup targetView, final Context context) {
+		this("", targetView, context);
+	}
+
 	public LoadingSpinner(final String description, final ViewGroup targetView, final Context context) {
 		this.targetView = targetView;
 		loadingSpinner = new ProgressBar(context);

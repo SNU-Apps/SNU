@@ -29,7 +29,7 @@ import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.progress.LoadingSpinner;
 import com.androidapp.snu.transformation.BlurBuilder;
 
-public class WelcomeActivitySetupStep1 extends Activity {
+public class WelcomeActivityCreateAccount extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
