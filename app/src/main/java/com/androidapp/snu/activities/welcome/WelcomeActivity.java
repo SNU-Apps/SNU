@@ -65,7 +65,7 @@ public class WelcomeActivity extends Activity {
 		final BigButton continueWithAccountButton = new BigButton(this).setText("Ich habe schon einen Account");
 
 		createAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
-		continueWithAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
+		//continueWithAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
 
 		content.addView(createAccountButton);
 		content.addView(continueWithAccountButton);

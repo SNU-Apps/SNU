@@ -20,9 +20,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
+import android.os.Handler;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.HomeActivity;
@@ -34,22 +33,17 @@ public class WelcomeActivityCreateAccount extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welcome_setup_step_1);
+		setContentView(R.layout.activity_welcome_create_account);
 		initStylesAndBackground();
-		initContent();
+		init();
 	}
 
-	private void initContent() {
-		final LinearLayout mainContent = findViewById(R.id.welcome_setup_step_1);
-		final TextView next = findViewById(R.id.welcome_setup_step_1_continue);
-		next.setText(Html.fromHtml("<u>" + next.getText() + "</u>"));
-		next.setOnClickListener(v -> {
-			mainContent.removeAllViews();
-			new LoadingSpinner("", mainContent, this).show();
-			Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-		});
+	private void init() {
+		final LinearLayout mainContent = findViewById(R.id.welcome_view_create_account);
+		new LoadingSpinner("SNU erstellt deinen Account ...", mainContent, this).show();
+		new Handler().postDelayed(() -> {
+			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+		}, 3000);
 	}
 
 	private void initStylesAndBackground() {
