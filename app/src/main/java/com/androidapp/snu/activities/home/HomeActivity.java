@@ -30,6 +30,7 @@ import com.androidapp.snu.activities.wishes.FriendsWishesActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
+import com.androidapp.snu.security.SharedPreferencesRepository;
 import com.androidapp.snu.transformation.BlurBuilder;
 import com.google.android.gms.ads.MobileAds;
 
@@ -45,6 +46,10 @@ public class HomeActivity extends Activity {
 
 		// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
 		MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
+
+		findViewById(R.id.main_scene_layout_info_bar_account).setOnClickListener(v -> {
+			SharedPreferencesRepository.withContext(this).clear();
+		});
 	}
 
 	@Override

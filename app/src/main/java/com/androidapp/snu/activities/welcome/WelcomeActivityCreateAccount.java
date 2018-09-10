@@ -26,8 +26,7 @@ import android.widget.LinearLayout;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.progress.LoadingSpinner;
-import com.androidapp.snu.repository.appCredentials.AppCredentials;
-import com.androidapp.snu.repository.appCredentials.AppCredentialsRepository;
+import com.androidapp.snu.security.SharedPreferencesRepository;
 import com.androidapp.snu.transformation.BlurBuilder;
 
 import java.util.UUID;
@@ -46,9 +45,9 @@ public class WelcomeActivityCreateAccount extends Activity {
 		final LinearLayout mainContent = findViewById(R.id.welcome_view_create_account);
 		new LoadingSpinner("SNU erstellt deinen Account ...", mainContent, this).show();
 		new Handler().postDelayed(() -> {
-			final AppCredentials appCredentials = new AppCredentials();
-			appCredentials.setDeviceRegistrationId(UUID.randomUUID());
-			AppCredentialsRepository.withContext(this).store(appCredentials);
+			final UUID deviceRegistrationId = UUID.randomUUID();
+			SharedPreferencesRepository.withContext(this).setDeviceRegistrationId(deviceRegistrationId);
+			//register device with id
 			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 		}, 3000);
 	}

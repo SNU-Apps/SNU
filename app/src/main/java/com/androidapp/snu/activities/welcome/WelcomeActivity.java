@@ -26,9 +26,10 @@ import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.bigbutton.BigButton;
 import com.androidapp.snu.components.progress.LoadingSpinner;
-import com.androidapp.snu.repository.appCredentials.AppCredentials;
-import com.androidapp.snu.repository.appCredentials.AppCredentialsRepository;
+import com.androidapp.snu.security.SharedPreferencesRepository;
 import com.androidapp.snu.transformation.BlurBuilder;
+
+import java.util.UUID;
 
 public class WelcomeActivity extends Activity {
 
@@ -51,8 +52,8 @@ public class WelcomeActivity extends Activity {
 	}
 
 	private void checkCredentials() {
-		final AppCredentials appCredentials = AppCredentialsRepository.withContext(this).find();
-		if (appCredentials != null && appCredentials.getDeviceRegistrationId() != null) {
+		final UUID deviceRegistrationId = SharedPreferencesRepository.withContext(this).getDeviceRegistrationId();
+		if (deviceRegistrationId != null) {
 			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 			return;
 		}
@@ -65,7 +66,7 @@ public class WelcomeActivity extends Activity {
 		final BigButton continueWithAccountButton = new BigButton(this).setText("Ich habe schon einen Account");
 
 		createAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
-		//continueWithAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
+		continueWithAccountButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WelcomeActivityCreateAccount.class)));
 
 		content.addView(createAccountButton);
 		content.addView(continueWithAccountButton);
