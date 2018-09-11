@@ -1,4 +1,4 @@
-package com.androidapp.snu.repository.appCredentials;
+package com.androidapp.snu.repository.account;
 
 import android.content.Context;
 
@@ -10,47 +10,47 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-class AppCredentialsRepositoryImpl implements AppCredentialsRepository {
+class AccountRepositoryImpl implements AccountRepository {
 	final Context context;
 
-	AppCredentialsRepositoryImpl(final Context context) {
+	AccountRepositoryImpl(final Context context) {
 		this.context = context;
 	}
 
 	@Override
-	public AppCredentials store(AppCredentials appCredentials) {
-		return storeCredentials(appCredentials);
+	public Account store(Account account) {
+		return storeCredentials(account);
 	}
 
 	@Override
-	public AppCredentials find() {
-		AppCredentials credentials;
+	public Account get() {
+		Account credentials;
 		try {
-			File file = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedFileNAme(getAppName()));
-			credentials = (AppCredentials) deserialize(file);
+			File file = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedFileName(getFileName()));
+			credentials = (Account) deserialize(file);
 		} catch (IOException | ClassNotFoundException e) {
 			return null;
 		}
 		return credentials;
 	}
 
-	private AppCredentials storeCredentials(final AppCredentials appCredentials) {
-		File mFile = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedFileNAme(getAppName()));
+	private Account storeCredentials(final Account account) {
+		File mFile = new File(context.getExternalFilesDir(getLocalSubFolder()), getNormalizedFileName(getFileName()));
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(mFile);
-			fos.write(serialize(appCredentials));
+			fos.write(serialize(account));
 			fos.flush();
 			fos.close();
-			return appCredentials;
+			return account;
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
-	private String getNormalizedFileNAme(String fileName) {
-		if (!fileName.endsWith(".crd")) {
-			return fileName + ".crd";
+	private String getNormalizedFileName(String fileName) {
+		if (!fileName.endsWith(".acc")) {
+			return fileName + ".acc";
 		}
 		return fileName;
 	}
@@ -68,8 +68,8 @@ class AppCredentialsRepositoryImpl implements AppCredentialsRepository {
 		return is.readObject();
 	}
 
-	private String getAppName() {
-		return "snu";
+	private String getFileName() {
+		return "account";
 	}
 
 	private String getLocalSubFolder() {
