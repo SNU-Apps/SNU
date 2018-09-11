@@ -30,6 +30,7 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/main_scene_layout_info_bar_account_info_icon"
+                android:visibility="gone"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_gravity="left"
