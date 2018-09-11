@@ -12,11 +12,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <!--ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginBottom="25dp"
-            android:src="@drawable/smiley_brown_shadow" />
+            android:src="@drawable/smiley_brown_shadow" /-->
 
         <TextView
             android:id="@+id/welcome_view_text_welcome"
