@@ -1,15 +1,25 @@
 package com.androidapp.snu.repository.account;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class Account implements Serializable {
+	@JsonProperty("accountId")
 	private UUID accountId;
+	@JsonProperty("email")
 	private String email;
+	@JsonProperty("firstName")
 	private String firstName;
+	@JsonProperty("lastName")
 	private String lastName;
-	private Set<UUID> connectedDeviceIds;
+	@JsonProperty("connectedDeviceIds")
+	private Set<UUID> connectedDeviceIds = new HashSet<>();
 
 	public UUID getAccountId() {
 		return accountId;
