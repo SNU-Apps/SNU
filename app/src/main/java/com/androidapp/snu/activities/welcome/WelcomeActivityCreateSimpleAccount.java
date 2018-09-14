@@ -58,10 +58,11 @@ public class WelcomeActivityCreateSimpleAccount extends Activity {
 		final UUID accountId = UUID.randomUUID();
 		final Account account = new Account();
 
-		SharedPreferencesRepository.withContext(this).setDeviceRegistrationId(deviceRegistrationId);
 		account.setAccountId(accountId);
 		account.addDeviceId(deviceRegistrationId);
 		AccountRepository.withContext(this).store(account);
+		//if successfull
+		SharedPreferencesRepository.withContext(this).setDeviceRegistrationId(deviceRegistrationId);
 	}
 
 	private void initStylesAndBackground() {
