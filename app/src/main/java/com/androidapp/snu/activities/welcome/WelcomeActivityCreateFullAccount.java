@@ -44,7 +44,7 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 	}
 
 	private void init() {
-		final LinearLayout mainContent = findViewById(R.id.welcome_view_create_account);
+		final LinearLayout mainContent = findViewById(R.id.welcome_view_create_full_account);
 		new LoadingSpinner("SNU erstellt deinen Account ...", mainContent, this).show();
 		new Handler().postDelayed(() -> {
 			createAccount();
