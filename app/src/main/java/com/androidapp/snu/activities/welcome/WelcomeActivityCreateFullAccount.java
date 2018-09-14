@@ -17,14 +17,11 @@
 package com.androidapp.snu.activities.welcome;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.LinearLayout;
 
 import com.androidapp.snu.R;
-import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.progress.LoadingSpinner;
 import com.androidapp.snu.repository.account.Account;
 import com.androidapp.snu.repository.account.AccountRepository;
@@ -38,18 +35,20 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welcome_create_account);
+		setContentView(R.layout.activity_welcome_create_full_account);
 		initStylesAndBackground();
 		init();
 	}
 
 	private void init() {
-		final LinearLayout mainContent = findViewById(R.id.welcome_view_create_full_account);
-		new LoadingSpinner("SNU erstellt deinen Account ...", mainContent, this).show();
+		final LinearLayout mainView = findViewById(R.id.welcome_layout_main_view_create_full_account);
+		//new LoadingSpinner("SNU erstellt deinen Account ...", mainView, this).show();
+		/*
 		new Handler().postDelayed(() -> {
 			createAccount();
 			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 		}, 3000);
+		*/
 	}
 
 	private void createAccount() {
