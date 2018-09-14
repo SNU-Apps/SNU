@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.bigbutton.BigButton;
+import com.androidapp.snu.components.progress.LoadingSpinner;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 import com.androidapp.snu.repository.account.Account;
 import com.androidapp.snu.repository.account.AccountRepository;
@@ -64,6 +65,9 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 
 		final BigButton createAccountButton = new BigButton(this).setText("Account jetzt anlegen").setIcon(R.drawable.profile_no_bottom_smile_bold_brown);
 		createAccountButton.setOnClickListener(view -> {
+			mainView.removeAllViews();
+			footer.removeAllViews();
+			new LoadingSpinner("SNU erstellt deinen Account ...", mainView, this).show();
 			new Handler().postDelayed(() -> {
 				createAccount();
 				startActivity(new Intent(getApplicationContext(), HomeActivity.class));
