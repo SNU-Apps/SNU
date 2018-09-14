@@ -24,10 +24,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/main_scene_layout_info_bar_account_icon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_gravity="left"
-                android:src="@drawable/profile_brown_no_bottom_225px" />
+                android:layout_gravity="left" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/main_scene_layout_info_bar_account_info_icon"
@@ -35,7 +35,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_gravity="left"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="17dp"
                 app:cardBackgroundColor="#ff7214"
                 app:cardCornerRadius="7dp"
                 app:cardElevation="0dp"

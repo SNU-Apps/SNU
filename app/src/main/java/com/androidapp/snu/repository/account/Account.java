@@ -20,6 +20,8 @@ public class Account implements Serializable {
 	private String lastName;
 	@JsonProperty("connectedDeviceIds")
 	private Set<UUID> connectedDeviceIds = new HashSet<>();
+	@JsonProperty("isConfirmed")
+	private Boolean isConfirmed = false;
 
 	public UUID getAccountId() {
 		return accountId;
@@ -59,5 +61,17 @@ public class Account implements Serializable {
 
 	public void setConnectedDeviceIds(Set<UUID> connectedDeviceIds) {
 		this.connectedDeviceIds = connectedDeviceIds;
+	}
+
+	public Boolean getConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setConfirmed(Boolean confirmed) {
+		isConfirmed = confirmed;
+	}
+
+	public void addDeviceId(final UUID deviceId) {
+		connectedDeviceIds.add(deviceId);
 	}
 }

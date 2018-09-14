@@ -26,12 +26,15 @@ import android.widget.LinearLayout;
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.progress.LoadingSpinner;
+import com.androidapp.snu.repository.JsonBuilder;
+import com.androidapp.snu.repository.account.Account;
+import com.androidapp.snu.repository.account.AccountRepository;
 import com.androidapp.snu.security.SharedPreferencesRepository;
 import com.androidapp.snu.transformation.BlurBuilder;
 
 import java.util.UUID;
 
-public class WelcomeActivityCreateAccount extends Activity {
+public class WelcomeActivityCreateSimpleAccount extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,13 +46,24 @@ public class WelcomeActivityCreateAccount extends Activity {
 
 	private void init() {
 		final LinearLayout mainContent = findViewById(R.id.welcome_view_create_account);
-		new LoadingSpinner("SNU erstellt deinen Account ...", mainContent, this).show();
+		new LoadingSpinner("SNU bereitet alles vor ...", mainContent, this).show();
 		new Handler().postDelayed(() -> {
-			final UUID deviceRegistrationId = UUID.randomUUID();
-			SharedPreferencesRepository.withContext(this).setDeviceRegistrationId(deviceRegistrationId);
-			//register device with id
+			createAccount();
 			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 		}, 3000);
+	}
+
+	private void createAccount() {
+		final UUID deviceRegistrationId = UUID.randomUUID();
+		final UUID accountId = UUID.randomUUID();
+		final Account account = new Account();
+		SharedPreferencesRepository.withContext(this).setDeviceRegistrationId(deviceRegistrationId);
+		account.setAccountId(accountId);
+		account.addDeviceId(deviceRegistrationId);
+		AccountRepository.withContext(this).store(account);
+
+		Account loadedAccount = AccountRepository.withContext(this).get();
+		JsonBuilder.toJsonString(loadedAccount);
 	}
 
 	private void initStylesAndBackground() {

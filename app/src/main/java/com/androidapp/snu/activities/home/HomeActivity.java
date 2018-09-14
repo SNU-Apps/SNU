@@ -19,9 +19,12 @@ package com.androidapp.snu.activities.home;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -30,6 +33,8 @@ import com.androidapp.snu.activities.wishes.FriendsWishesActivity;
 import com.androidapp.snu.activities.wishes.MyWishesActivity;
 import com.androidapp.snu.activities.wishes.PhotoWishActivity;
 import com.androidapp.snu.activities.wishes.createWish.CreateWishActivity;
+import com.androidapp.snu.repository.account.Account;
+import com.androidapp.snu.repository.account.AccountRepository;
 import com.androidapp.snu.security.SharedPreferencesRepository;
 import com.androidapp.snu.transformation.BlurBuilder;
 import com.google.android.gms.ads.MobileAds;
@@ -47,9 +52,19 @@ public class HomeActivity extends Activity {
 		// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
 		MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
 
-		findViewById(R.id.main_scene_layout_info_bar_account).setOnClickListener(v -> {
-			SharedPreferencesRepository.withContext(this).clear();
-		});
+		final Account account = AccountRepository.withContext(this).get();
+		final ImageView accountIcon = findViewById(R.id.main_scene_layout_info_bar_account_icon);
+		if (account != null) {
+			accountIcon.setImageResource(account.getEmail() != null ? R.drawable.profile_no_bottom_smile_bold_brown : R.drawable.profile_no_bottom_no_smile_bold_brown);
+			accountIcon.setOnClickListener(v -> {
+				SharedPreferencesRepository.withContext(this).clear();
+			});
+
+			CardView infoIcon = findViewById(R.id.main_scene_layout_info_bar_account_info_icon);
+			if (account.getEmail() == null || !account.getConfirmed()) {
+				infoIcon.setVisibility(View.VISIBLE);
+			}
+		}
 	}
 
 	@Override
