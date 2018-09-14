@@ -22,13 +22,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
+import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.androidapp.snu.R;
 import com.androidapp.snu.activities.home.HomeActivity;
 import com.androidapp.snu.components.bigbutton.BigButton;
-import com.androidapp.snu.components.progress.LoadingSpinner;
 import com.androidapp.snu.components.utils.KeyboardUtils;
 import com.androidapp.snu.repository.account.Account;
 import com.androidapp.snu.repository.account.AccountRepository;
@@ -58,6 +57,8 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 		KeyboardUtils.addKeyboardToggleListener(this, firstName::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, lastName::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, email::setCursorVisible);
+		KeyboardUtils.addKeyboardToggleListener(this, isVisible ->
+				findViewById(R.id.welcome_layout_main_view_create_full_account_footer).setVisibility(isVisible ? View.GONE : View.VISIBLE));
 
 		mainView.setOnClickListener(view -> KeyboardUtils.forceCloseKeyboard(mainView));
 
