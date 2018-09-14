@@ -57,13 +57,11 @@ public class WelcomeActivityCreateSimpleAccount extends Activity {
 		final UUID deviceRegistrationId = UUID.randomUUID();
 		final UUID accountId = UUID.randomUUID();
 		final Account account = new Account();
+
 		SharedPreferencesRepository.withContext(this).setDeviceRegistrationId(deviceRegistrationId);
 		account.setAccountId(accountId);
 		account.addDeviceId(deviceRegistrationId);
 		AccountRepository.withContext(this).store(account);
-
-		Account loadedAccount = AccountRepository.withContext(this).get();
-		JsonBuilder.toJsonString(loadedAccount);
 	}
 
 	private void initStylesAndBackground() {
