@@ -3,6 +3,7 @@ package com.androidapp.snu.components.bigbutton;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidapp.snu.R;
@@ -19,6 +20,12 @@ public class BigButton extends ConstraintLayout {
 	public BigButton setText(final String text) {
 		TextView textView = this.findViewById(R.id.component_big_button_text);
 		textView.setText(text);
+		return this;
+	}
+
+	public BigButton setIcon(final int ressourceId) {
+		ImageView icon = this.findViewById(R.id.component_big_button_icon);
+		icon.setImageResource(ressourceId);
 		return this;
 	}
 }
