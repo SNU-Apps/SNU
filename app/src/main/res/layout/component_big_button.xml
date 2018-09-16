@@ -32,9 +32,8 @@
                     android:layout_width="25sp"
                     android:layout_height="25sp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/profile_no_bottom_smile_bold_brown" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp" />
 
                 <TextView
                     android:id="@+id/component_big_button_text"
@@ -43,6 +42,7 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/handwrite"
                     android:textColor="#000000"
+                    android:paddingLeft="25dp"
                     android:textSize="20sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>

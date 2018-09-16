@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.androidapp.snu.R;
@@ -43,6 +44,8 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome_create_full_account);
+
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		initStylesAndBackground();
 		init();
 	}
@@ -51,13 +54,13 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 		final LinearLayout mainView = findViewById(R.id.welcome_layout_main_view_create_full_account);
 		final LinearLayout footer = findViewById(R.id.welcome_layout_main_view_create_full_account_footer);
 
-		final TextInputEditText firstName = findViewById(R.id.welcome_layout_view_create_full_account_firstName);
-		final TextInputEditText lastName = findViewById(R.id.welcome_layout_view_create_full_account_lastName);
+		final TextInputEditText firstName = findViewById(R.id.welcome_layout_view_create_full_account_fullName);
 		final TextInputEditText email = findViewById(R.id.welcome_layout_view_create_full_account_email);
+		final TextInputEditText password = findViewById(R.id.welcome_layout_view_create_full_account_password);
 
 		KeyboardUtils.addKeyboardToggleListener(this, firstName::setCursorVisible);
-		KeyboardUtils.addKeyboardToggleListener(this, lastName::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, email::setCursorVisible);
+		KeyboardUtils.addKeyboardToggleListener(this, password::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, isVisible ->
 				findViewById(R.id.welcome_layout_main_view_create_full_account_footer).setVisibility(isVisible ? View.GONE : View.VISIBLE));
 

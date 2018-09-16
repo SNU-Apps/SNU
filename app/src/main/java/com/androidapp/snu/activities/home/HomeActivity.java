@@ -64,6 +64,12 @@ public class HomeActivity extends Activity {
 			if (account.getEmail() == null || !account.getConfirmed()) {
 				infoIcon.setVisibility(View.VISIBLE);
 			}
+		} else {
+			//display login page
+			accountIcon.setImageResource(R.drawable.profile_verified_no_bottom_smile_bold_brown);
+			accountIcon.setOnClickListener(v -> {
+				SharedPreferencesRepository.withContext(this).clear();
+			});
 		}
 	}
 
