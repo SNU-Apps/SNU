@@ -22,8 +22,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.androidapp.snu.R;
@@ -40,6 +43,10 @@ import java.util.UUID;
 
 public class WelcomeActivityCreateFullAccount extends Activity {
 
+	private TextInputEditText name;
+	private TextInputEditText email;
+	private TextInputEditText password;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,11 +61,11 @@ public class WelcomeActivityCreateFullAccount extends Activity {
 		final LinearLayout mainView = findViewById(R.id.welcome_layout_main_view_create_full_account);
 		final LinearLayout footer = findViewById(R.id.welcome_layout_main_view_create_full_account_footer);
 
-		final TextInputEditText firstName = findViewById(R.id.welcome_layout_view_create_full_account_fullName);
-		final TextInputEditText email = findViewById(R.id.welcome_layout_view_create_full_account_email);
-		final TextInputEditText password = findViewById(R.id.welcome_layout_view_create_full_account_password);
+		name = findViewById(R.id.welcome_layout_view_create_full_account_fullName);
+		email = findViewById(R.id.welcome_layout_view_create_full_account_email);
+		password = findViewById(R.id.welcome_layout_view_create_full_account_password);
 
-		KeyboardUtils.addKeyboardToggleListener(this, firstName::setCursorVisible);
+		KeyboardUtils.addKeyboardToggleListener(this, name::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, email::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, password::setCursorVisible);
 		KeyboardUtils.addKeyboardToggleListener(this, isVisible ->
